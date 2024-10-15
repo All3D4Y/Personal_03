@@ -2,11 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using BattlePhase;
 
 [Serializable]
 public class StateMachine
 {
-    public IPhase CurrentState { get; private set; }
+    public IState CurrentState { get; private set; }
 
     public BattleEnterState battleEnterState;
     public BattlePrepState prepState;
@@ -14,13 +15,13 @@ public class StateMachine
     public OnBattleState onBattleState;
     public BattleEndState battleEndState;
 
-    public void Initialize(IPhase start)
+    public void Initialize(IState start)
     {
         CurrentState = start;
         start.Enter();
     }
 
-    public void TransitionTo(IPhase nextState)
+    public void TransitionTo(IState nextState)
     {
         CurrentState.Exit();
         CurrentState = nextState;
@@ -30,7 +31,7 @@ public class StateMachine
     {
         if (CurrentState != null)
         {
-            CurrentState.Execute();
+            CurrentState.Update();
         }
     }
 
