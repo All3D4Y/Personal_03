@@ -2,45 +2,28 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using BattlePhase;
 
-[Serializable]
-public class StateMachine
+
+public abstract class StateMachine
 {
-    public IState CurrentState { get; private set; }
+    protected IState CurrentState { get; set; }
+    
 
-    public BattleEnterState battleEnterState;
-    public BattlePrepState prepState;
-    public ActionState actionState;
-    public OnBattleState onBattleState;
-    public BattleEndState battleEndState;
-
-    public void Initialize(IState start)
+    public virtual void Initialize(IState start)
     {
         CurrentState = start;
         start.Enter();
     }
 
-    public void TransitionTo(IState nextState)
-    {
-        CurrentState.Exit();
-        CurrentState = nextState;
-        nextState.Enter();
-    }
-    public void Update()
+    public virtual void ChangeState(IState nextState)
     {
         if (CurrentState != null)
         {
-            CurrentState.Update();
+            CurrentState.Exit();
         }
-    }
 
-    public StateMachine(PhaseManager phaseManager)
-    {
-        this.battleEnterState = new BattleEnterState(phaseManager);
-        this.prepState = new BattlePrepState(phaseManager);
-        this.actionState = new ActionState(phaseManager);
-        this.onBattleState = new OnBattleState(phaseManager);
-        this.battleEndState = new BattleEndState(phaseManager);
+        CurrentState = nextState;
+        CurrentState.Enter();
     }
+    public abstract void Updated();
 }

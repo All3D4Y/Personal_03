@@ -28,8 +28,10 @@ public abstract class EntityBase : MonoBehaviour
 
     public abstract void Updated();
 
+#if UNITY_EDITOR
     public void PrintText(string text)
     {
         Debug.Log($"<color={entityColor}><b>{entityName}</b></color> : {text}");
     }
+#endif
 }

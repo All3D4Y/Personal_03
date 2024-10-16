@@ -6,12 +6,12 @@ namespace BattlePhase
 {
     public class BattlePrepState : IState
     {
-        PhaseManager phaseManager;
-
-        public BattlePrepState(PhaseManager phaseManager)
-        {
-            this.phaseManager = phaseManager;
-        }
+        //PhaseManager phaseManager;
+        //
+        //public BattlePrepState(PhaseManager phaseManager)
+        //{
+        //    this.phaseManager = phaseManager;
+        //}
 
         public void Enter()
         {
