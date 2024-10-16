@@ -257,6 +257,7 @@ MonoBehaviour:
   - Kuma
   - Porn
   characterPrefab: {fileID: 2516780040764145886, guid: 8f16d13d8e6b3bd44bcf4fcd505fee25, type: 3}
+  entities: []
 --- !u!4 &375039351
 Transform:
   m_ObjectHideFlags: 0
@@ -556,6 +557,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   seed: -1
+  datas:
+  - {fileID: 11400000, guid: 1ba9a47fa91272d45a1b9c8348bcfe67, type: 2}
+  - {fileID: 11400000, guid: 86b16a892739d794c97a38dc6f9d6a59, type: 2}
+  - {fileID: 11400000, guid: 9c21410795575794d987c8ad2b5bdd03, type: 2}
+  - {fileID: 11400000, guid: e9a89833ccc9e97479ffaaba2d57a40f, type: 2}
+  - {fileID: 11400000, guid: 647b538f067032a4c974faf9e6917733, type: 2}
+  - {fileID: 11400000, guid: c5f3edb7217873d4289635921bf7f87d, type: 2}
+  modifier: 0
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
