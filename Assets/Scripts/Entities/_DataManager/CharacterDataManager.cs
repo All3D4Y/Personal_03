@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CharacterDataManager : EntityDataManager
 {
-    CharacterData[] characters;
+    public CharacterData[] characters;
     public override EntityData this[uint index] 
     { 
         get => characters[index];

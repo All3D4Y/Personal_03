@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BenchSlot : BattleSlot
 {
-    public BenchSlot(uint index) : base(index)
+    public BenchSlot(EntityType type, uint index) : base(type, index)
     {
     }
 }

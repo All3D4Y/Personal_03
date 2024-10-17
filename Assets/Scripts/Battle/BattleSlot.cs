@@ -4,28 +4,28 @@ using UnityEngine;
 
 public class BattleSlot
 {
-    EntityData entity = null;
+    EntityData entityData = null;
 
-    /// <summary>
-    /// 1~4 번 자리는 플레이어블 캐릭터, 5~8 번 자리는 몬스터 or 보스
-    /// </summary>
+    public EntityType Type {  get; private set; }
     public uint Index { get;  private set; }
 
-    public bool IsEmpty => entity == null;
+    public bool IsEmpty => entityData == null;
+
 
 
     public EntityData EntityData
     {
-        get => entity;
+        get => entityData;
         private set
         {
-            if (entity != value)
-                entity = value;
+            if (entityData != value)
+                entityData = value;
         }
     }
 
-    public BattleSlot(uint index)
+    public BattleSlot(EntityType type, uint index)
     {
+        Type = type;
         Index = index;
         EntityData = null;
     }

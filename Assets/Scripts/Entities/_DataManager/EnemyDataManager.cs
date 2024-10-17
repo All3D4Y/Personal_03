@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyDataManager : EntityDataManager
 {
-    EnemyDataBase[] enemies;
+    public EnemyDataBase[] enemies;
     public override EntityData this[uint index] 
     {
         get => enemies[index];
