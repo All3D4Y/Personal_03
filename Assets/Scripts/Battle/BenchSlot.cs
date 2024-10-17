@@ -4,9 +4,7 @@ using UnityEngine;
 
 public class BenchSlot : BattleSlot
 {
-    public const uint BenchSlotIndex = 999;    // 사용되지 않을 숫자
-
-    public BenchSlot() : base(BenchSlotIndex)
+    public BenchSlot(uint index) : base(index)
     {
     }
 }
