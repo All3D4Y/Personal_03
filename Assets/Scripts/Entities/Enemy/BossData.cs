@@ -2,15 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum Bosses
-{
-    Laplus = 0,
-    Lui,
-    Koyori,
-    Chloe,
-    Iroha
-}
-
 [CreateAssetMenu(fileName = "New Boss Data", menuName = "Scripable Objects/Boss Data", order = 2)]
 public class BossData : EnemyDataBase
 {

@@ -2,12 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum EntityType
-{
-    Charater = 0,
-    Enemy
-}
-
 public abstract class EntityData : ScriptableObject
 {
     [Header("기본 정보")]

@@ -5,13 +5,12 @@ using UnityEngine.InputSystem;
 
 public class Test02_Battle : TestBase
 {
-    public EntityData[] datas;
+    SlotController controller;
 
-    [Range(0, 10)]
-    public int modifier = 0;
-
-    protected override void OnTest1(InputAction.CallbackContext context)
+    void Start()
     {
-        
+        controller = new SlotController();
     }
+
+
 }   

@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -30,17 +30,19 @@ public class BattleSlot
         EntityData = null;
     }
 
-    public void AssignSlot(EntityData entity, bool isEmpty = true)
+    /// <summary>
+    /// 슬롯에 Entity를 넣는 함수
+    /// </summary>
+    /// <param name="entityData">넣을 Entity의 정보</param>
+    public void AssignSlot(EntityData entityData)
     {
-        if (entity != null)
+        if (entityData != null)
         {
-            EntityData = entity;
-            isEmpty = false;
+            EntityData = entityData;
         }
         else
         {
             EntityData = null;
-            isEmpty = true;
         } 
     }
 }
