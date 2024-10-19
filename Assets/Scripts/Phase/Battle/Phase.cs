@@ -47,7 +47,6 @@ namespace BattlePhase
 
         public override void Updated()
         {
-            throw new System.NotImplementedException();
         }
     }
 }

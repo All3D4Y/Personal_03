@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿#define TestLogEnable
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -46,25 +48,69 @@ public class SlotController
         }
     }
 
+    public void AssignSlot(EntityData data, uint index, bool isStandbySlot = false)
+    {
+        if (data is CharacterData)
+        {
+            if (!isStandbySlot)
+                characterSlot[index].AssignData(data);
+            else
+                characterStandbySlot[index].AssignData(data);
+        }
+        else
+        {
+            if (!isStandbySlot)
+                enemySlot[index].AssignData(data);
+            else
+                enemyStandbySlot[index].AssignData(data);
+        }
+    }
+
+    /// <summary>
+    /// 캐릭터와 적 데이터들을 받아와서 전투슬롯을 채우고 남은 데이터는 대기석에 채우는 함수
+    /// </summary>
+    /// <param name="characterDatas">캐릭터 데이터들</param>
+    /// <param name="enemyDatas">적 데이터들</param>
     public void InitialAssign(CharacterData[] characterDatas, EnemyDataBase[] enemyDatas)
     {
-        Queue<CharacterData> characterQueue = new Queue<CharacterData>();   
+        // 캐릭터 슬롯 채우기
+        Queue<EntityData> entityQueue = new Queue<EntityData>();
         for (int i = 0; i < characterDatas.Length; i++)
         {
-            characterQueue.Enqueue(characterDatas[i]);      // 큐에 캐릭터 데이터들을 다 넣고
+            entityQueue.Enqueue(characterDatas[i] as EntityData);   // 큐에 캐릭터 데이터들을 다 넣고
         }
 
         for (int i = 0; i < characterSlot.Length; i++)
         {
-            CharacterData temp = characterQueue.Dequeue();  // 큐에서 하나를 꺼내서
-            characterSlot[i].AssignSlot(temp);              // 캐릭터 슬롯을 처음부터 채움
+            EntityData temp = entityQueue.Dequeue();                // 큐에서 하나를 꺼내서
+            characterSlot[i].AssignData(temp);                      // 캐릭터 전투 슬롯을 처음부터 끝까지 채움
         }
         int index = 0;
-        while (characterQueue.Count > 0)                    // 큐에 내용물이 남아있는 동안
+        while (entityQueue.Count > 0)                               // 큐에 내용물이 남아있는 동안
         {
-            CharacterData temp = characterQueue.Dequeue();  // 큐에서 하나를 꺼내서
-            characterStandbySlot[index].AssignSlot(temp);   // 캐릭터 대기석 맨 앞을 채우고
-            index++;                                        // 인덱스를 1 카운트 함
+            EntityData temp = entityQueue.Dequeue();                // 큐에서 하나를 꺼내서
+            characterStandbySlot[index].AssignData(temp);           // 캐릭터 대기석 맨 앞을 채우고
+            index++;                                                // 인덱스를 1 카운트 함
+        }
+        entityQueue.Clear();
+
+        // 적 슬롯 채우기
+        for (int i = 0; i < enemyDatas.Length; i++)
+        {
+            entityQueue.Enqueue(enemyDatas[i] as EntityData);       // 큐에 적 데이터들을 다 넣고
+        }
+
+        for (int i = 0; i < enemySlot.Length; i++)
+        {
+            EntityData temp = entityQueue.Dequeue();                // 큐에서 하나를 꺼내서
+            enemySlot[i].AssignData(temp);                          // 적 전투 슬롯을 처음부터 끝까지 채움
+        }
+        index = 0;
+        while (entityQueue.Count > 0)                               // 큐에 내용물이 남아있는 동안
+        {
+            EntityData temp = entityQueue.Dequeue();                // 큐에서 하나를 꺼내서
+            enemyStandbySlot[index].AssignData(temp);               // 적 대기석 맨 앞을 채우고
+            index++;                                                // 인덱스를 1 카운트 함
         }
     }
 
@@ -76,8 +122,8 @@ public class SlotController
     public void SwapSlot(BattleSlot slotA, BattleSlot slotB)
     {
         EntityData tempData = slotA.EntityData;
-        slotA.AssignSlot(slotB.EntityData);
-        slotB.AssignSlot(tempData);
+        slotA.AssignData(slotB.EntityData);
+        slotB.AssignData(tempData);
     }
 
     /// <summary>
@@ -88,12 +134,7 @@ public class SlotController
     {
         List<BattleSlot> entityOnField = new List<BattleSlot>(slots);
         
-        entityOnField.Sort((current, other) =>
-        {
-            if (current.IsEmpty) return 1;      // 비어있는 슬롯은 뒤로 보내기
-            if (other.IsEmpty) return -1;
-            return current.Index.CompareTo(other);
-        });
+        entityOnField.Sort((current, other) => current.IsEmpty.CompareTo(other.IsEmpty));   // 비어있는 슬롯은 뒤로 보내기
         
         // 정렬된 데이터를 기준으로 데이터 따로 저장(직접 sortList를 사용하면 데이터가 섞이게 된다(참조를 저장하고 있기 때문에))
         List<EntityData> sortedData = new List<EntityData>(Default_Slot_Count);
@@ -104,7 +145,7 @@ public class SlotController
         int index = 0;
         foreach (var data in sortedData)
         {
-            slots[index].AssignSlot(data);    // 따로 저장한 내용 순서대로 슬롯에 설정
+            slots[index].AssignData(data);    // 따로 저장한 내용 순서대로 슬롯에 설정
             index++;
         }
     }
@@ -116,4 +157,82 @@ public class SlotController
     {
         SortSlot(slots as BattleSlot[]);
     }
+    /// <summary>
+    /// SlotController 안의 모든 슬롯을 정렬하는 함수
+    /// </summary>
+    public void SortAllSlot()
+    {
+        SortSlot(characterSlot);
+        SortSlot(enemySlot);
+        SortSlot(characterStandbySlot);
+        SortSlot(enemyStandbySlot);
+    }
+
+    /// <summary>
+    /// 하나의 슬롯을 비우는 함수
+    /// </summary>
+    /// <param name="slot">비우려는 슬롯</param>
+    public void ClearSlot(BattleSlot slot)
+    {
+        slot.ClearData();
+    }
+    /// <summary>
+    /// 하나의 슬롯을 비우는 함수
+    /// </summary>
+    /// <param name="slot">비우려는 슬롯</param>
+    public void ClearSlot(StandbySlot slot)
+    {
+        ClearSlot(slot as BattleSlot);
+    }
+    /// <summary>
+    /// SlotController 안의 모든 슬롯을 비우는 함수
+    /// </summary>
+    public void ClearAllSlot()
+    {
+        for (int i = 0; i < Default_Slot_Count; i++)
+        {
+            characterSlot[i].ClearData();
+            enemySlot[i].ClearData();
+            characterStandbySlot[i].ClearData();
+            enemyStandbySlot[i].ClearData();
+        }
+    }
+
+#if UNITY_EDITOR
+    public void TestPrint(int index)
+    {
+        string printLog;
+        switch (index)
+        {
+            case 0:
+                for (int i = 0; i < Default_Slot_Count; i++)
+                {
+                    printLog = characterSlot[i].IsEmpty ? "비어있음" : characterSlot[i].EntityData.name;
+                    Debug.Log($"\n캐릭터 전투 슬롯({i}) : [{printLog}]");
+                }
+                break;
+            case 1:
+                for (int i = 0; i < Default_Slot_Count; i++)
+                {
+                    printLog = enemySlot[i].IsEmpty ? "비어있음" : enemySlot[i].EntityData.name;
+                    Debug.Log($"\n적 전투 슬롯({i}) : [{printLog}]");
+                }
+                break;
+            case 2:
+                for (int i = 0; i < Default_Slot_Count; i++)
+                {
+                    printLog = characterStandbySlot[i].IsEmpty ? "비어있음" : characterStandbySlot[i].EntityData.name;
+                    Debug.Log($"\n캐릭터 대기 슬롯({i}) : [{printLog}]");
+                }
+                break;
+            case 3:
+                for (int i = 0; i < Default_Slot_Count; i++)
+                {
+                    printLog = enemyStandbySlot[i].IsEmpty ? "비어있음" : enemyStandbySlot[i].EntityData.name;
+                    Debug.Log($"\n적 대기 슬롯({i}) : [{printLog}]");
+                }
+                break;
+        }
+    }
+#endif
 }

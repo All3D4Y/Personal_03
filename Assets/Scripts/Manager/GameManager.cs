@@ -7,6 +7,9 @@ public class GameManager : Singleton<GameManager>
     CharacterDataManager characterDataManager;
     EnemyDataManager enemyDataManager;
 
+    public CharacterDataManager CharacterDataManager => characterDataManager;
+    public EnemyDataManager EnemyDataManager => enemyDataManager;
+
     protected override void OnPreInitialize()
     {
         base.OnPreInitialize();

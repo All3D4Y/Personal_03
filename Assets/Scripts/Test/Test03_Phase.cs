@@ -1,9 +1,8 @@
-using BattlePhase;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PhaseManager : MonoBehaviour
+public class Test03_Phase : TestBase
 {
-    Phase phase;
+    
 }

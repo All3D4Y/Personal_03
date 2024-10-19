@@ -34,7 +34,7 @@ public class BattleSlot
     /// 슬롯에 Entity를 넣는 함수
     /// </summary>
     /// <param name="entityData">넣을 Entity의 정보</param>
-    public void AssignSlot(EntityData entityData)
+    public void AssignData(EntityData entityData)
     {
         if (entityData != null)
         {
@@ -44,5 +44,10 @@ public class BattleSlot
         {
             EntityData = null;
         } 
+    }
+
+    public void ClearData()
+    { 
+        EntityData = null; 
     }
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 public abstract class EntityData : ScriptableObject
 {
     [Header("기본 정보")]
+    public string entityName = "이름";
     public GameObject prefab;       // 나중에 삭제
     [Space(20)]
     [SerializeField] protected float attackPower = 10.0f;
