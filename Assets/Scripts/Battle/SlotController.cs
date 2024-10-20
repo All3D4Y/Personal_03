@@ -17,6 +17,9 @@ public class SlotController
     CharacterDataManager characterDataManager;
     EnemyDataManager enemyDataManager;
 
+    public BattleSlot[] CharacterSlot => characterSlot;
+    public BattleSlot[] EnemySlot => enemySlot;
+
     /// <summary>
     /// SlotController 생성자
     /// </summary>
@@ -48,6 +51,12 @@ public class SlotController
         }
     }
 
+    /// <summary>
+    /// 슬롯에 데이터를 할당하는 함수
+    /// </summary>
+    /// <param name="data">넣을 데이터</param>
+    /// <param name="index">넣을 슬롯의 인덱스</param>
+    /// <param name="isStandbySlot">대기석인지 아닌지(true면 대기석, false면 전투석)</param>
     public void AssignSlot(EntityData data, uint index, bool isStandbySlot = false)
     {
         if (data is CharacterData)

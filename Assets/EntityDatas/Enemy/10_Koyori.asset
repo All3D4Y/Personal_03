@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 72dcaad53c6249942a890795de83bca4, type: 3}
-  m_Name: 10_Chloe
+  m_Name: 10_Koyori
   m_EditorClassIdentifier: 
-  entityName: Chloe
+  entityName: "\uC774\uB984"
   prefab: {fileID: 0}
   attackPower: 10
   defensivePower: 5
@@ -21,4 +21,4 @@ MonoBehaviour:
   initialSpeed: 60
   type: 1
   ultimateConsumption: 60
-  holox: 3
+  holox: 0

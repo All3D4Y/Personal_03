@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
+    BattleManager battleManager;
     CharacterDataManager characterDataManager;
     EnemyDataManager enemyDataManager;
 
+    public BattleManager BattleManager => battleManager;
     public CharacterDataManager CharacterDataManager => characterDataManager;
     public EnemyDataManager EnemyDataManager => enemyDataManager;
 
@@ -18,5 +20,7 @@ public class GameManager : Singleton<GameManager>
     }
     protected override void OnInitialize()
     {
+        base.OnInitialize();
+        battleManager = FindAnyObjectByType<BattleManager>();
     }
 }

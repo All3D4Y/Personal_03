@@ -6,12 +6,12 @@ namespace BattlePhase
 {
     public class OnBattleState : IState
     {
-        //PhaseManager phaseManager;
-        //
-        //public OnBattleState(PhaseManager phaseManager)
-        //{
-        //    this.phaseManager = phaseManager;
-        //}
+        BattleManager battleManager;
+
+        public OnBattleState(BattleManager battleManager)
+        {
+            this.battleManager = battleManager;
+        }
 
         public void Enter()
         {
@@ -25,7 +25,7 @@ namespace BattlePhase
             // 대미지 적용 및 한 쪽 진영 전멸 여부에 따라 BattleEnd or BattlePrep 어느 상태로 이동할지 결정
             Debug.Log("OnBattle 상태 종료");
         }
-        public void Update()
+        public void Execute()
         {
             // 전투단계 진행 중 실행할 코드
             // 애니메이션 재생, 대미지 계산

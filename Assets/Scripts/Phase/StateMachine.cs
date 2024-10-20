@@ -24,5 +24,5 @@ public abstract class StateMachine
         CurrentState = nextState;
         CurrentState.Enter();
     }
-    public abstract void Updated();
+    public abstract void Execute();
 }

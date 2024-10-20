@@ -6,12 +6,12 @@ namespace BattlePhase
 {
     public class BattleEndState : IState
     {
-        //PhaseManager phaseManager;
-        //
-        //public BattleEndState(PhaseManager phaseManager)
-        //{
-        //    this.phaseManager = phaseManager;
-        //}
+        BattleManager battleManager;
+        
+        public BattleEndState(BattleManager battleManager)
+        {
+            this.battleManager = battleManager;
+        }
 
         public void Enter()
         {
@@ -27,7 +27,7 @@ namespace BattlePhase
             // 미니맵 씬으로 이동
             Debug.Log("BattleEnd 상태 종료");
         }
-        public void Update()
+        public void Execute()
         {
             // 전투종료 단계 진행 중 실행할 코드
             // 결산 화면 애니메이션 재생

@@ -17,24 +17,25 @@ namespace BattlePhase
     {
         IState[] states;
 
-        //public Phase(PhaseManager phaseManager)
-        //{
-        //    this.battleEnterState = new BattleEnterState(phaseManager);
-        //    this.prepState = new BattlePrepState(phaseManager);
-        //    this.actionState = new ActionState(phaseManager);
-        //    this.onBattleState = new OnBattleState(phaseManager);
-        //    this.battleEndState = new BattleEndState(phaseManager);
-        //}
-        public override void Initialize(IState start)
+        public IState Enter => states[0];
+        public IState Prep => states[1];
+        public IState Action => states[2];
+        public IState Battle => states[3];
+        public IState End => states[4];
+
+        public Phase(BattleManager battleManager)
         {
             states = new IState[(int)PhaseEnums.BattleEnd + 1]; // 중간에 상태 추가할 때를 대비해서 (BattleEnd는 항상 마지막)
 
-            states[0] = new BattleEnterState();
-            states[1] = new BattlePrepState();
-            states[2] = new ActionState();
-            states[3] = new OnBattleState();
-            states[4] = new BattleEndState();
-
+            this.states[0] = new BattleEnterState(battleManager);
+            this.states[1] = new BattlePrepState(battleManager);
+            this.states[2] = new ActionState(battleManager);
+            this.states[3] = new OnBattleState(battleManager);
+            this.states[4] = new BattleEndState(battleManager);
+        }
+        public override void Initialize(IState start)
+        {
+            
             base.Initialize(start);
         }
 
@@ -45,8 +46,12 @@ namespace BattlePhase
         }
 
 
-        public override void Updated()
+        public override void Execute()
         {
+            if (CurrentState != null)
+            {
+                CurrentState.Execute();
+            }
         }
     }
 }

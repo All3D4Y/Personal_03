@@ -1,9 +1,0 @@
-using BattlePhase;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class PhaseManager : MonoBehaviour
-{
-    Phase phase;
-}
