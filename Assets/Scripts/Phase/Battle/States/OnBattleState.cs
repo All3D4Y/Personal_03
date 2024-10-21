@@ -18,6 +18,7 @@ namespace BattlePhase
             // 전투단계 진입 시 실행할 코드
             // 선택한 행동 전달
             Debug.Log("OnBattle 상태 진입");
+            battleManager.Phase.ChangeState(battleManager.Phase.End);
         }
         public void Exit()
         {
@@ -29,7 +30,7 @@ namespace BattlePhase
         {
             // 전투단계 진행 중 실행할 코드
             // 애니메이션 재생, 대미지 계산
-            Debug.Log("OnBattle 상태 진행 중");
+            //Debug.Log("OnBattle 상태 진행 중");
         }
     }
 }

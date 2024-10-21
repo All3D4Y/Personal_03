@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,10 @@ public class Test03_Phase : TestBase
     BattleManager battleManager;
     CharacterData[] characterDatas;
     EnemyDataBase[] enemyDatas;
+
+    public TestSkill testAction;
+
+    public Action<IAction> onAction;
 
     void Start()
     {
@@ -33,17 +38,17 @@ public class Test03_Phase : TestBase
 
     protected override void OnTest2(InputAction.CallbackContext context)
     {
-        
+        battleManager.SetOnTurnSlot(battleManager.TurnCalculator.GetTurnSlot());
     }
 
     protected override void OnTest3(InputAction.CallbackContext context)
     {
-        
+        battleManager.OnMoveRight();
     }
 
     protected override void OnTest4(InputAction.CallbackContext context)
     {
-        
+        battleManager.OnMoveLeft();
     }
 
     protected override void OnTest5(InputAction.CallbackContext context)
@@ -52,5 +57,10 @@ public class Test03_Phase : TestBase
         battleManager.SlotController.TestPrint(1);
         battleManager.SlotController.TestPrint(2);
         battleManager.SlotController.TestPrint(3);
+    }
+
+    protected override void OnTestRClick(InputAction.CallbackContext context)
+    {
+        onAction?.Invoke(testAction);
     }
 }

@@ -21,9 +21,12 @@ namespace BattlePhase
             // 전투 진입 애니메이션 재생 및 UI활성화
             // SceneManager.LoadSceneAsync("TestBattle");
 
-            // StageData 불러오기
-            // 적, 캐릭터 배치
             Debug.Log("BattleEnter 상태 진입");
+            // StageData 불러오기
+            battleManager.LoadStage(0);
+            // 적, 캐릭터 배치
+            // 할 거 다 하고
+            battleManager.Phase.ChangeState(battleManager.Phase.Prep);  // 준비단계로
         }
         public void Exit()
         {

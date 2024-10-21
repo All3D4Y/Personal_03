@@ -31,7 +31,7 @@ namespace BattlePhase
         {
             // 전투종료 단계 진행 중 실행할 코드
             // 결산 화면 애니메이션 재생
-            Debug.Log("BattleEnd 상태 진행 중");
+            //Debug.Log("BattleEnd 상태 진행 중");
         }
     }
 }
