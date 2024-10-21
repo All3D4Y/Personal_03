@@ -4,5 +4,17 @@ using UnityEngine;
 
 public class OnFieldCharacter : MonoBehaviour
 {
-    public CharacterData[] OnFieldCharacters;
+    public CharacterData[] OnFieldCharacters {  get; private set; }
+
+    CharacterDataManager manager;
+
+    public void InsertCharacter()
+    {
+        
+    }
+
+    public void ExtractCharacter()
+    {
+
+    }
 }

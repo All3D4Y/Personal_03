@@ -10,7 +10,6 @@ public class Test03_Phase : TestBase
     CharacterData[] characterDatas;
     EnemyDataBase[] enemyDatas;
 
-    public TestSkill testAction;
 
     public Action<IAction> onAction;
 
@@ -61,6 +60,6 @@ public class Test03_Phase : TestBase
 
     protected override void OnTestRClick(InputAction.CallbackContext context)
     {
-        onAction?.Invoke(testAction);
+        
     }
 }

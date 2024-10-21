@@ -9,6 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9854d9ade83bfe244b27862720adf347, type: 3}
-  m_Name: TestSkill
+  m_Script: {fileID: 11500000, guid: 6ee21b9da43468f418d0449a580b0f91, type: 3}
+  m_Name: Flare_01
   m_EditorClassIdentifier: 
+  icon: {fileID: 0}
+  effectCount: 1
+  effectRange: 1
+  skillName: MeleeAttack
+  skillDescription: "\uC8FD\uBE75"
+  damageRatio: 1.1
+  criticalRate: 0.25
+  criticalBonus: 0.5

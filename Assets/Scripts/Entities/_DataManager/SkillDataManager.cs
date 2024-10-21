@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class SkillDataManager : MonoBehaviour
 {
-    public TestSkill[] testSkills;
+    public ItemSkillData[] skillDatas;
 
-    public TestSkill this[uint index]
+    public ItemSkillData this[uint index]
     {
-        get => testSkills[index];
-        set => testSkills[index] = value;
+        get => skillDatas[index];
+        set => skillDatas[index] = value;
     }
 }

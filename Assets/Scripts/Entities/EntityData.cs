@@ -8,12 +8,14 @@ public abstract class EntityData : ScriptableObject
     public string entityName = "이름";
     public GameObject prefab;       // 나중에 삭제
     [Space(20)]
-    [SerializeField] protected float attackPower = 10.0f;
-    [SerializeField] protected float defensivePower = 5.0f;
-    [SerializeField] protected float hp = 200.0f;
+    public float attackPower = 10.0f;
+    public float defensivePower = 5.0f;
+    public float hp = 200.0f;
     [Space(20)]
-    [SerializeField] protected float speed = 40.0f;
-    [SerializeField] protected float initialSpeed = 60.0f;
+    public float speed = 40.0f;
+    public float initialSpeed = 60.0f;
+
+    public SkillData[] skillDatas;
 
     // Properties
     public float ATK

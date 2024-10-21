@@ -18,4 +18,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1ba9a47fa91272d45a1b9c8348bcfe67, type: 2}
   - {fileID: 11400000, guid: c5f3edb7217873d4289635921bf7f87d, type: 2}
   - {fileID: 11400000, guid: 1ba9a47fa91272d45a1b9c8348bcfe67, type: 2}
-  enemyLevel: 0
+  - {fileID: 11400000, guid: a68afc33c021922498118aadb6d44316, type: 2}
+  enemyLevel: 1

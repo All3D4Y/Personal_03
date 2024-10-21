@@ -125,7 +125,9 @@ public class BattleManager : MonoBehaviour
         CharacterData[] characterDatas = null;
         EnemyDataBase[] enemyDatas = null;
 
-        enemyDatas = GameManager.Instance.StageDataManager[stageIndex].enemyDatas;
+        stageData = GameManager.Instance.StageDataManager[stageIndex];
+
+        enemyDatas = stageData.enemyDatas;
         characterDatas = onFieldCharacter.OnFieldCharacters;
 
         SlotController.InitialAssign(characterDatas, enemyDatas);

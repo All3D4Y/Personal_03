@@ -6,7 +6,7 @@ using UnityEngine;
 public class CharacterData : EntityData
 {
     public Characters shiraken = Characters.Flare;
-    [SerializeField] float ultimateConsumption = 60.0f;
+    public float ultimateConsumption = 60.0f;
 
 
     public float UltConsuption

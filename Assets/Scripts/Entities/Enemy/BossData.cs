@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Boss Data", menuName = "Scripable Objects/Boss Data", order = 2)]
 public class BossData : EnemyDataBase
 {
-    [SerializeField] protected float ultimateConsumption = 60.0f;
+    public float ultimateConsumption = 60.0f;
     [Space(20)]
     public Bosses holox = Bosses.Laplus;
 
