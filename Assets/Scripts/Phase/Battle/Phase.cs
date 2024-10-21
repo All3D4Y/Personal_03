@@ -42,7 +42,6 @@ namespace BattlePhase
         public override void ChangeState(IState nextState)
         {
             base.ChangeState(nextState);
-            Debug.Log("BattlePhase 상태전환");
         }
 
 

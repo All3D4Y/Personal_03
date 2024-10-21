@@ -161,13 +161,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 137823172}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c50615a74c4905b4593afd17c0ca8ca6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   seed: -1
-  testAction: {fileID: 11400000, guid: df5d74da9b4be3248909e5f2fc42ffe9, type: 2}
 --- !u!1 &363622388
 GameObject:
   m_ObjectHideFlags: 0
@@ -225,12 +224,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f9125cc1254f2841bd71b22c8e824a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnFieldCharacters:
-  - {fileID: 11400000, guid: e9a89833ccc9e97479ffaaba2d57a40f, type: 2}
-  - {fileID: 11400000, guid: 86b16a892739d794c97a38dc6f9d6a59, type: 2}
-  - {fileID: 11400000, guid: 4ed12de99bff0ec459b931193a610fc0, type: 2}
-  - {fileID: 11400000, guid: 8dbeaa6973e87ca4f99d7f020353a267, type: 2}
-  - {fileID: 11400000, guid: be276c223d7675c428cae869ff6c37b4, type: 2}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -530,9 +523,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a516ebb55cea4d745b2f92bd8e791294, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testSkills:
-  - {fileID: 11400000, guid: df5d74da9b4be3248909e5f2fc42ffe9, type: 2}
-  - {fileID: 11400000, guid: df5d74da9b4be3248909e5f2fc42ffe9, type: 2}
+  skillDatas: []
 --- !u!114 &1145579019
 MonoBehaviour:
   m_ObjectHideFlags: 0

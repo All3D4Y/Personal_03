@@ -6,8 +6,6 @@ public class OnFieldCharacter : MonoBehaviour
 {
     public CharacterData[] OnFieldCharacters {  get; private set; }
 
-    CharacterDataManager manager;
-
     public void InsertCharacter()
     {
         
@@ -15,6 +13,20 @@ public class OnFieldCharacter : MonoBehaviour
 
     public void ExtractCharacter()
     {
+    }
 
+    public void ResetCharacter()
+    {
+        OnFieldCharacters = null;
+    }
+    
+    public void TestInsert()
+    {
+        OnFieldCharacters = new CharacterData[5];
+
+        for (int i = 0; i < OnFieldCharacters.Length; i++)
+        {
+            OnFieldCharacters[i] = GameManager.Instance.CharacterDataManager[(uint)i] as CharacterData;
+        }
     }
 }

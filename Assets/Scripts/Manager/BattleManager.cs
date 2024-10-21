@@ -48,7 +48,7 @@ public class BattleManager : MonoBehaviour
     public void SetOnTurnSlot(BattleSlot slot)
     {
         OnTurnSlot = slot;
-        Debug.Log(OnTurnSlot.EntityData.name);
+        Debug.Log($"턴 설정: {OnTurnSlot.EntityData.name}");
     }
 
     // use item, skill, swap slot
@@ -110,6 +110,7 @@ public class BattleManager : MonoBehaviour
     public void UseItem()
     {
         Debug.Log("아이템 사용");
+        Phase.ChangeState(Phase.Battle);
     }
 
     public void UseSkill(IAction action)
@@ -125,10 +126,11 @@ public class BattleManager : MonoBehaviour
         CharacterData[] characterDatas = null;
         EnemyDataBase[] enemyDatas = null;
 
-        stageData = GameManager.Instance.StageDataManager[stageIndex];
-
-        enemyDatas = stageData.enemyDatas;
+        onFieldCharacter.TestInsert();
         characterDatas = onFieldCharacter.OnFieldCharacters;
+
+        stageData = GameManager.Instance.StageDataManager[stageIndex];
+        enemyDatas = stageData.enemyDatas;
 
         SlotController.InitialAssign(characterDatas, enemyDatas);
     }

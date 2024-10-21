@@ -18,7 +18,6 @@ namespace BattlePhase
             // 전투단계 진입 시 실행할 코드
             // 선택한 행동 전달
             Debug.Log("OnBattle 상태 진입");
-            battleManager.Phase.ChangeState(battleManager.Phase.End);
         }
         public void Exit()
         {
