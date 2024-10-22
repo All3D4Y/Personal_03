@@ -12,13 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72dcaad53c6249942a890795de83bca4, type: 3}
   m_Name: 10_Koyori
   m_EditorClassIdentifier: 
-  entityName: "\uC774\uB984"
+  entityName: Koyori
   prefab: {fileID: 0}
   attackPower: 10
   defensivePower: 5
   hp: 200
   speed: 40
   initialSpeed: 60
+  skillDatas: []
   type: 1
   ultimateConsumption: 60
   holox: 0

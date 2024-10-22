@@ -20,9 +20,20 @@ namespace BattlePhase
             // 턴 계산
             Debug.Log("BattlePrep 상태 진입");
             BattleSlot onTurn = null;
-            onTurn = battleManager.TurnCalculator.GetTurnSlot();
+            EntityType tempType;
+            uint tempIndex;
+            tempType = battleManager.TurnCalculator.GetTurnSlotIndex().Item1;
+            tempIndex = battleManager.TurnCalculator.GetTurnSlotIndex().Item2;
+
+            if (tempType == EntityType.Charater)
+            {
+                onTurn = battleManager.SlotController.CharacterSlot[tempIndex];
+            }
+            else
+            {
+                onTurn = battleManager.SlotController.EnemySlot[tempIndex];
+            }
             battleManager.SetOnTurnSlot(onTurn);
-            battleManager.Phase.ChangeState(battleManager.Phase.Action);    // 액션단계로
         }
         public void Exit() 
         {
@@ -33,6 +44,10 @@ namespace BattlePhase
         {
             // 전투 준비단계 진행 중 실행할 코드
             //Debug.Log("BattlePrep 상태 진행 중");
+            if (battleManager.OnTurnSlot != null)
+            {
+                battleManager.Phase.ChangeState(battleManager.Phase.Action);    // 액션단계로
+            }
         }
     }
 }

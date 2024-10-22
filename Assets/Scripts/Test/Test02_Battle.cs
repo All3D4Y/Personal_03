@@ -31,10 +31,7 @@ public class Test02_Battle : TestBase
 
     protected override void OnTest1(InputAction.CallbackContext context)
     {
-        controller.TestPrint(0);
-        controller.TestPrint(1);
-        controller.TestPrint(2);
-        controller.TestPrint(3);
+        controller.TestPrint();
     }
 
     protected override void OnTest2(InputAction.CallbackContext context)

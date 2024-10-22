@@ -13,6 +13,8 @@ public class BattleManager : MonoBehaviour
 
     OnFieldCharacter onFieldCharacter;
 
+    BattleInput battleInput;
+
     StageData stageData = null;
 
 
@@ -21,7 +23,10 @@ public class BattleManager : MonoBehaviour
 
     public TurnCalculator TurnCalculator => turnCalculator;
 
+    public BattleInput BattleInput => battleInput;
+
     public BattleSlot OnTurnSlot { get; set; }
+
 
     void Awake()
     {
@@ -29,6 +34,7 @@ public class BattleManager : MonoBehaviour
         slotController = new SlotController();
         turnCalculator = new TurnCalculator(this.slotController);
         onFieldCharacter = GetComponent<OnFieldCharacter>();
+        battleInput = GetComponent<BattleInput>();
     }
 
     void Start()
@@ -54,59 +60,31 @@ public class BattleManager : MonoBehaviour
     // use item, skill, swap slot
 
     /// <summary>
-    /// 행동 중인 슬롯의 위치를 오른쪽으로 이동하는 함수
+    /// 행동 중인 슬롯의 위치를 이동시키는 함수
     /// </summary>
-    public void OnMoveRight()
+    /// <param name="change">인덱스값에 더해질 파라미터</param>
+    public void OnMoveSlot(int change)
     {
         if (OnTurnSlot != null)
         {
             if (OnTurnSlot.Type == EntityType.Charater)
             {
-                if (OnTurnSlot.Index > 0)
+                if (OnTurnSlot.Index > 0 && OnTurnSlot.Index < 3)
                 {
-                    slotController.SwapSlot(OnTurnSlot, slotController.CharacterSlot[OnTurnSlot.Index - 1]);
-                    SetOnTurnSlot(slotController.CharacterSlot[OnTurnSlot.Index - 1]);
-                    Debug.Log("오른쪽으로 이동");
+                    slotController.SwapSlot(OnTurnSlot, slotController.CharacterSlot[OnTurnSlot.Index + change]);
+                    SetOnTurnSlot(slotController.CharacterSlot[OnTurnSlot.Index + change]);
                 }
             }
             else
             {
-                if (OnTurnSlot.Index > 0)
+                if (OnTurnSlot.Index > 0 && OnTurnSlot.Index < 3)
                 {
-                    slotController.SwapSlot(OnTurnSlot, slotController.EnemySlot[OnTurnSlot.Index - 1]);
-                    SetOnTurnSlot(slotController.EnemySlot[OnTurnSlot.Index - 1]);
-                    Debug.Log("왼쪽으로 이동");
+                    slotController.SwapSlot(OnTurnSlot, slotController.EnemySlot[OnTurnSlot.Index + change]);
+                    SetOnTurnSlot(slotController.EnemySlot[OnTurnSlot.Index + change]);
                 }
             }
         }
     }
-
-    /// <summary>
-    /// 행동 중인 슬롯의 위치를 왼쪽으로 이동하는 함수
-    /// </summary>
-    public void OnMoveLeft()
-    {
-        if (OnTurnSlot != null)
-        {
-            if (OnTurnSlot.Type == EntityType.Charater)
-            {
-                if (OnTurnSlot.Index < 3)
-                {
-                    slotController.SwapSlot(OnTurnSlot, slotController.CharacterSlot[OnTurnSlot.Index + 1]);
-                    SetOnTurnSlot(slotController.CharacterSlot[OnTurnSlot.Index + 1]);
-                }
-            }
-            else
-            {
-                if (OnTurnSlot.Index < 3)
-                {
-                    slotController.SwapSlot(OnTurnSlot, slotController.EnemySlot[OnTurnSlot.Index + 1]);
-                    SetOnTurnSlot(slotController.EnemySlot[OnTurnSlot.Index + 1]);
-                }
-            }
-        }
-    }
-
     public void UseItem()
     {
         Debug.Log("아이템 사용");

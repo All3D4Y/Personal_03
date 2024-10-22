@@ -33,7 +33,7 @@ public class TurnCalculator
         }
     }
 
-    BattleSlot NextTurnSlotIndex(BattleSlot[] characters, BattleSlot[] enemies)
+    (EntityType, uint) NextTurnSlotIndex(BattleSlot[] characters, BattleSlot[] enemies)
     {
         List<BattleSlot> entities = new List<BattleSlot>();
 
@@ -48,10 +48,10 @@ public class TurnCalculator
 
         entities.Sort((current, other) => current.EntityData.Speed.CompareTo(other.EntityData.Speed));
 
-        return entities[0];
+        return (entities[0].Type ,entities[0].Index);
     }
 
-    public BattleSlot GetTurnSlot()
+    public (EntityType, uint) GetTurnSlotIndex()
     {
         return NextTurnSlotIndex(characterSlot, enemySlot);
     }

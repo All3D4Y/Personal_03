@@ -25,8 +25,7 @@ namespace BattlePhase
             // StageData 불러오기
             battleManager.LoadStage(0);
             // 적, 캐릭터 배치
-            // 할 거 다 하고
-            battleManager.Phase.ChangeState(battleManager.Phase.Prep);  // 준비단계로
+            // 할 거 다 하고  
         }
         public void Exit()
         {
@@ -37,6 +36,10 @@ namespace BattlePhase
         {
             // 전투 진입단계 진행 중 실행할 코드
             //Debug.Log("BattleEnter 상태 진행 중");
+            if (battleManager.SlotController.CharacterSlot != null && battleManager.SlotController.EnemySlot != null)
+            {
+                battleManager.Phase.ChangeState(battleManager.Phase.Prep);  // 준비단계로
+            }
         }
     }
 }

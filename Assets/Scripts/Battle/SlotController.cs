@@ -133,6 +133,8 @@ public class SlotController
         EntityData tempData = slotA.EntityData;
         slotA.AssignData(slotB.EntityData);
         slotB.AssignData(tempData);
+
+        TestPrint();
     }
 
     /// <summary>
@@ -208,40 +210,45 @@ public class SlotController
     }
 
 #if UNITY_EDITOR
-    public void TestPrint(int index)
+    public void TestPrint()
     {
-        string printLog;
-        switch (index)
-        {
-            case 0:
-                for (int i = 0; i < Default_Slot_Count; i++)
-                {
-                    printLog = characterSlot[i].IsEmpty ? "비어있음" : characterSlot[i].EntityData.name;
-                    Debug.Log($"\n캐릭터 전투 슬롯({i}) : [{printLog}]");
-                }
-                break;
-            case 1:
-                for (int i = 0; i < Default_Slot_Count; i++)
-                {
-                    printLog = enemySlot[i].IsEmpty ? "비어있음" : enemySlot[i].EntityData.name;
-                    Debug.Log($"\n적 전투 슬롯({i}) : [{printLog}]");
-                }
-                break;
-            case 2:
-                for (int i = 0; i < Default_Slot_Count; i++)
-                {
-                    printLog = characterStandbySlot[i].IsEmpty ? "비어있음" : characterStandbySlot[i].EntityData.name;
-                    Debug.Log($"\n캐릭터 대기 슬롯({i}) : [{printLog}]");
-                }
-                break;
-            case 3:
-                for (int i = 0; i < Default_Slot_Count; i++)
-                {
-                    printLog = enemyStandbySlot[i].IsEmpty ? "비어있음" : enemyStandbySlot[i].EntityData.name;
-                    Debug.Log($"\n적 대기 슬롯({i}) : [{printLog}]");
-                }
-                break;
-        }
+        Debug.Log($"[{characterSlot[3].EntityData.entityName}] [{characterSlot[2].EntityData.entityName}] " +
+            $"[{characterSlot[1].EntityData.entityName}] [{characterSlot[0].EntityData.entityName}] " +
+            $"\n[{enemySlot[0].EntityData.entityName}] [{enemySlot[1].EntityData.entityName}] " +
+            $"[{enemySlot[2].EntityData.entityName}] [{enemySlot[3].EntityData.entityName}]");
+        
+        //string printLog;
+        //switch (index)
+        //{
+        //    case 0:
+        //        for (int i = 0; i < Default_Slot_Count; i++)
+        //        {
+        //            printLog = characterSlot[i].IsEmpty ? "비어있음" : characterSlot[i].EntityData.name;
+        //            Debug.Log($"\n캐릭터 전투 슬롯({i}) : [{printLog}]");
+        //        }
+        //        break;
+        //    case 1:
+        //        for (int i = 0; i < Default_Slot_Count; i++)
+        //        {
+        //            printLog = enemySlot[i].IsEmpty ? "비어있음" : enemySlot[i].EntityData.name;
+        //            Debug.Log($"\n적 전투 슬롯({i}) : [{printLog}]");
+        //        }
+        //        break;
+        //    case 2:
+        //        for (int i = 0; i < Default_Slot_Count; i++)
+        //        {
+        //            printLog = characterStandbySlot[i].IsEmpty ? "비어있음" : characterStandbySlot[i].EntityData.name;
+        //            Debug.Log($"\n캐릭터 대기 슬롯({i}) : [{printLog}]");
+        //        }
+        //        break;
+        //    case 3:
+        //        for (int i = 0; i < Default_Slot_Count; i++)
+        //        {
+        //            printLog = enemyStandbySlot[i].IsEmpty ? "비어있음" : enemyStandbySlot[i].EntityData.name;
+        //            Debug.Log($"\n적 대기 슬롯({i}) : [{printLog}]");
+        //        }
+        //        break;
+        //}
     }
 #endif
 }
