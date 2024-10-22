@@ -4,11 +4,11 @@ using UnityEngine;
 
 namespace BattlePhase
 {
-    public class OnBattleState : IState
+    public class BattleExecuteState : IState
     {
         BattleManager battleManager;
 
-        public OnBattleState(BattleManager battleManager)
+        public BattleExecuteState(BattleManager battleManager)
         {
             this.battleManager = battleManager;
         }

@@ -18,5 +18,6 @@ MonoBehaviour:
   defensivePower: 5
   hp: 200
   speed: 40
-  initialSpeed: 60
+  initialSpeed: 0
+  skillDatas: []
   type: 0

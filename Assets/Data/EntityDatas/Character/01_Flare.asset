@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityName: Flare
   prefab: {fileID: 0}
-  attackPower: 10
+  attackPower: 15
   defensivePower: 5
-  hp: 200
-  speed: 40
-  initialSpeed: 60
+  hp: 100
+  speed: 180
+  initialSpeed: 0
   skillDatas:
   - {fileID: 11400000, guid: c03ad42238cb6c64b902800e49b9eafa, type: 2}
   shiraken: 0

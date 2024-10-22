@@ -17,7 +17,8 @@ MonoBehaviour:
   attackPower: 10
   defensivePower: 5
   hp: 200
-  speed: 40
-  initialSpeed: 60
+  speed: 50
+  initialSpeed: 0
+  skillDatas: []
   shiraken: 2
   ultimateConsumption: 60

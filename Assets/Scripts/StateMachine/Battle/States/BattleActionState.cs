@@ -4,11 +4,11 @@ using UnityEngine;
 
 namespace BattlePhase
 {
-    public class ActionState : IState
+    public class BattleActionState : IState
     {
         BattleManager battleManager;
 
-        public ActionState(BattleManager battleManager)
+        public BattleActionState(BattleManager battleManager)
         {
             this.battleManager = battleManager;
         }
@@ -33,6 +33,7 @@ namespace BattlePhase
         {
             // 행동단계 진행 중 실행할 코드
             // 자리 이동, 캐릭터변경, 스킬, 아이템 선택
+            // UI 구현 하면서 마무리 해야할 듯 일단은 테스트 코드로 스킬, 아이템 사용
 
             //Debug.Log("Action 상태 진행 중");
         }

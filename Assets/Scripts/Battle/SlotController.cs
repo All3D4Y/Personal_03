@@ -17,6 +17,7 @@ public class SlotController
     CharacterDataManager characterDataManager;
     EnemyDataManager enemyDataManager;
 
+    // Properties
     public BattleSlot[] CharacterSlot => characterSlot;
     public BattleSlot[] EnemySlot => enemySlot;
 

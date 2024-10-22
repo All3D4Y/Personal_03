@@ -20,19 +20,7 @@ namespace BattlePhase
             // 턴 계산
             Debug.Log("BattlePrep 상태 진입");
             BattleSlot onTurn = null;
-            EntityType tempType;
-            uint tempIndex;
-            tempType = battleManager.TurnCalculator.GetTurnSlotIndex().Item1;
-            tempIndex = battleManager.TurnCalculator.GetTurnSlotIndex().Item2;
-
-            if (tempType == EntityType.Charater)
-            {
-                onTurn = battleManager.SlotController.CharacterSlot[tempIndex];
-            }
-            else
-            {
-                onTurn = battleManager.SlotController.EnemySlot[tempIndex];
-            }
+            onTurn = battleManager.TurnCalculator.NextTurnSlot();
             battleManager.SetOnTurnSlot(onTurn);
         }
         public void Exit() 

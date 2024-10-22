@@ -42,11 +42,7 @@ public abstract class EntityData : ScriptableObject
         set => speed = value;
     }
 
-    public float InitialSpeed
-    {
-        get => initialSpeed;
-        set => initialSpeed = value;
-    }
+    public float InitialSpeed => initialSpeed;
 
 
     public abstract void Animation();

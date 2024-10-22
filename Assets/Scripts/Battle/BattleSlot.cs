@@ -6,8 +6,20 @@ public class BattleSlot
 {
     EntityData entityData = null;
 
+    uint index = 9999;
+
     public EntityType Type {  get; private set; }
-    public uint Index { get;  private set; }
+    public uint Index 
+    {
+        get => index;
+        set
+        {
+            if (index == 9999)  // 맨 처음 1번만 설정 가능
+            {
+                index = (uint)Mathf.Clamp(value, 0, 3);
+            }
+        }
+    }
 
     public bool IsEmpty => entityData == null;
 
@@ -23,6 +35,11 @@ public class BattleSlot
         }
     }
 
+    /// <summary>
+    /// BattleSlot 생성자
+    /// </summary>
+    /// <param name="type">타입</param>
+    /// <param name="index">인덱스</param>
     public BattleSlot(EntityType type, uint index)
     {
         Type = type;

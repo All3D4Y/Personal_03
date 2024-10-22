@@ -29,8 +29,8 @@ namespace BattlePhase
 
             this.states[0] = new BattleEnterState(battleManager);
             this.states[1] = new BattlePrepState(battleManager);
-            this.states[2] = new ActionState(battleManager);
-            this.states[3] = new OnBattleState(battleManager);
+            this.states[2] = new BattleActionState(battleManager);
+            this.states[3] = new BattleExecuteState(battleManager);
             this.states[4] = new BattleEndState(battleManager);
         }
         public override void Initialize(IState start)

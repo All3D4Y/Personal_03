@@ -12,8 +12,6 @@ public class Test03_Phase : TestBase
     EnemyDataBase[] enemyDatas;
 
 
-    public Action<IAction> onAction;
-
     void Start()
     {
         battleManager = GameManager.Instance.BattleManager;
@@ -32,5 +30,10 @@ public class Test03_Phase : TestBase
     protected override void OnTest3(InputAction.CallbackContext context)
     {
         battleManager.OnMoveSlot(-1);
+    }
+
+    protected override void OnTest4(InputAction.CallbackContext context)
+    {
+        battleManager.UseSkillOrItem(battleManager.OnTurnSlot.EntityData.skillDatas[0]);
     }
 }

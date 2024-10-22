@@ -16,16 +16,33 @@ public class ItemSkillData : ScriptableObject, IAction
 
     protected bool isActive = false;
 
-    public virtual void ActionExecute(BattleSlot user)
+    public virtual void ActionExecute(BattleSlot user, BattleSlot[] targets)
     {
     }
     
-    public (uint, uint) SetTarget(BattleSlot user)
+    /// <summary>
+    /// 스킬이나 아이템의 효과를 받을 상대를 정하는 함수
+    /// </summary>
+    /// <param name="user">사용자</param>
+    /// <returns>효과를 받을 슬롯들</returns>
+    public BattleSlot[] SetTarget(BattleSlot user)
     {
         BattleSlot[] targets = new BattleSlot[EffectCount];
 
-        uint tagetIndex_0 = EffectRange - (user.Index + 1);
-
-        return (tagetIndex_0, EffectCount);
+        if (user.Type == EntityType.Charater)
+        {
+            for (uint i = 0; i < targets.Length; i++)
+            {
+                targets[i] = GameManager.Instance.BattleManager.SlotController.EnemySlot[(EffectRange - (user.Index + 1) + i)];
+            }
+        }
+        else
+        {
+            for (uint i = 0; i < targets.Length; i++)
+            {
+                targets[i] = GameManager.Instance.BattleManager.SlotController.CharacterSlot[(EffectRange - (user.Index + 1) + i)];
+            }
+        }
+        return targets;
     }
 }

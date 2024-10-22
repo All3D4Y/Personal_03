@@ -17,7 +17,7 @@ public class BattleManager : MonoBehaviour
 
     StageData stageData = null;
 
-
+    // Properties
     public Phase Phase => phase;
     public SlotController SlotController => slotController;
 
@@ -25,7 +25,7 @@ public class BattleManager : MonoBehaviour
 
     public BattleInput BattleInput => battleInput;
 
-    public BattleSlot OnTurnSlot { get; set; }
+    public BattleSlot OnTurnSlot { get; private set; }
 
 
     void Awake()
@@ -57,6 +57,24 @@ public class BattleManager : MonoBehaviour
         Debug.Log($"턴 설정: {OnTurnSlot.EntityData.name}");
     }
 
+    /// <summary>
+    /// 차례인 슬롯을 비우는 함수
+    /// </summary>
+    public void ClearTurnSlot()
+    {
+        OnTurnSlot = null;
+    }
+
+    /// <summary>
+    /// 대기석의 캐릭터와 차례인 캐릭터를 교체하는 함수
+    /// </summary>
+    /// <param name="target"></param>
+    public void SwapCharacter(StandbySlot target)
+    {
+        SlotController.SwapSlot(OnTurnSlot, target);
+        SetOnTurnSlot(target);
+    }
+
     // use item, skill, swap slot
 
     /// <summary>
@@ -69,34 +87,52 @@ public class BattleManager : MonoBehaviour
         {
             if (OnTurnSlot.Type == EntityType.Charater)
             {
-                if (OnTurnSlot.Index > 0 && OnTurnSlot.Index < 3)
+                if ((OnTurnSlot.Index > 0 && change == -1) || (OnTurnSlot.Index < 3 && change == 1))
                 {
-                    slotController.SwapSlot(OnTurnSlot, slotController.CharacterSlot[OnTurnSlot.Index + change]);
-                    SetOnTurnSlot(slotController.CharacterSlot[OnTurnSlot.Index + change]);
+                    SlotController.SwapSlot(OnTurnSlot, SlotController.CharacterSlot[OnTurnSlot.Index + change]);
+                    SetOnTurnSlot(SlotController.CharacterSlot[OnTurnSlot.Index + change]);
                 }
             }
             else
             {
-                if (OnTurnSlot.Index > 0 && OnTurnSlot.Index < 3)
+                if ((OnTurnSlot.Index > 0 && change == -1) || (OnTurnSlot.Index < 3 && change == 1))
                 {
-                    slotController.SwapSlot(OnTurnSlot, slotController.EnemySlot[OnTurnSlot.Index + change]);
-                    SetOnTurnSlot(slotController.EnemySlot[OnTurnSlot.Index + change]);
+                    SlotController.SwapSlot(OnTurnSlot, SlotController.EnemySlot[OnTurnSlot.Index + change]);
+                    SetOnTurnSlot(SlotController.EnemySlot[OnTurnSlot.Index + change]);
                 }
             }
         }
     }
-    public void UseItem()
+    
+    /// <summary>
+    /// 스킬이나 아이템을 사용하는 함수
+    /// </summary>
+    /// <param name="action">선택한 행동</param>
+    public void UseSkillOrItem(IAction action)
     {
-        Debug.Log("아이템 사용");
+        if (action is SkillData)
+        {
+            // 스킬사용
+            Debug.Log("스킬 사용");
+            action.ActionExecute(OnTurnSlot, action.SetTarget(OnTurnSlot));
+        }
+        else
+        {
+            // 아이템 사용
+            Debug.Log("아이템 사용");
+        }
         Phase.ChangeState(Phase.Battle);
     }
 
-    public void UseSkill(IAction action)
+    public void GetDamage(BattleSlot[] targets, float damage)
     {
-        Debug.Log("스킬 사용");
-        Phase.ChangeState(Phase.Battle);
+
     }
 
+    /// <summary>
+    /// 스테이지 정보를 로드하는 함수
+    /// </summary>
+    /// <param name="stageIndex">스테이지의 인덱스</param>
     public void LoadStage(uint stageIndex)
     {
         Debug.Log("스테이지 정보 로드");
@@ -105,11 +141,25 @@ public class BattleManager : MonoBehaviour
         EnemyDataBase[] enemyDatas = null;
 
         onFieldCharacter.TestInsert();
+        Debug.LogWarning("테스트코드 사용 중임, 변경 필수");
         characterDatas = onFieldCharacter.OnFieldCharacters;
 
         stageData = GameManager.Instance.StageDataManager[stageIndex];
         enemyDatas = stageData.enemyDatas;
 
         SlotController.InitialAssign(characterDatas, enemyDatas);
+    }
+
+    public void LoadInitSpeed()
+    {
+        if (!SlotController.CharacterSlot[0].IsEmpty)   // 이 함수가 호출될 때 캐릭터슬롯 맨 앞자리에 아무도 없으면 데이터 로드가 안된거임
+        {
+            for (uint i = 0; i < SlotController.CharacterSlot.Length; i++)
+            {
+                // entity들의 Speed += InitialSpeed
+                SlotController.CharacterSlot[i].EntityData.Speed += SlotController.CharacterSlot[i].EntityData.InitialSpeed;
+                SlotController.EnemySlot[i].EntityData.Speed += SlotController.EnemySlot[i].EntityData.InitialSpeed;
+            }
+        }
     }
 }
