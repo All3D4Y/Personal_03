@@ -10,9 +10,13 @@ public class ItemSkillData : ScriptableObject, IAction
 
     public uint effectRange = 1;
 
+    public AffectType affectType;
+
     public uint EffectCount => effectCount;
 
     public uint EffectRange => effectRange;
+
+    public AffectType AffectType => affectType;
 
     protected bool isActive = false;
 
@@ -25,22 +29,42 @@ public class ItemSkillData : ScriptableObject, IAction
     /// </summary>
     /// <param name="user">사용자</param>
     /// <returns>효과를 받을 슬롯들</returns>
-    public BattleSlot[] SetTarget(BattleSlot user)
+    public BattleSlot[] SetTarget(BattleSlot user, AffectType type)
     {
         BattleSlot[] targets = new BattleSlot[EffectCount];
 
-        if (user.Type == EntityType.Charater)
+        if (user.Type == EntityType.Charater)   
         {
-            for (uint i = 0; i < targets.Length; i++)
+            if (type == AffectType.Attack || type == AffectType.Debuff)
             {
-                targets[i] = GameManager.Instance.BattleManager.SlotController.EnemySlot[(EffectRange - (user.Index + 1) + i)];
+                for (uint i = 0; i < targets.Length; i++)
+                {
+                    targets[i] = GameManager.Instance.BattleManager.SlotController.EnemySlot[(EffectRange - (user.Index + 1) + i)];
+                }
+            }
+            else
+            {
+                for (uint i = 0; i < targets.Length; i++)
+                {
+                    targets[i] = GameManager.Instance.BattleManager.SlotController.CharacterSlot[i];
+                }
             }
         }
         else
         {
-            for (uint i = 0; i < targets.Length; i++)
+            if (type == AffectType.Attack || type == AffectType.Debuff)
             {
-                targets[i] = GameManager.Instance.BattleManager.SlotController.CharacterSlot[(EffectRange - (user.Index + 1) + i)];
+                for (uint i = 0; i < targets.Length; i++)
+                {
+                    targets[i] = GameManager.Instance.BattleManager.SlotController.CharacterSlot[(EffectRange - (user.Index + 1) + i)];
+                }
+            }
+            else
+            {
+                for (uint i = 0; i < targets.Length; i++)
+                {
+                    targets[i] = GameManager.Instance.BattleManager.SlotController.EnemySlot[i];
+                }
             }
         }
         return targets;

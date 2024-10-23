@@ -1,6 +1,11 @@
 ﻿public interface IAction
 {
     /// <summary>
+    /// 효과의 종류
+    /// </summary>
+    public AffectType AffectType { get; }
+
+    /// <summary>
     /// 효과를 주는 슬롯의 개수
     /// </summary>
     uint EffectCount { get;}
@@ -18,5 +23,5 @@
     /// </summary>
     /// <param name="user">스킬이나 아이템의 사용자</param>
     /// <returns>item1: 타겟의 첫번 째 인덱스, item2: 타겟의 개수</returns>
-    public BattleSlot[] SetTarget(BattleSlot user);
+    public BattleSlot[] SetTarget(BattleSlot user, AffectType type);
 }

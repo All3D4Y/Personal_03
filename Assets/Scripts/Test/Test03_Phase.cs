@@ -34,6 +34,6 @@ public class Test03_Phase : TestBase
 
     protected override void OnTest4(InputAction.CallbackContext context)
     {
-        battleManager.UseSkillOrItem(battleManager.OnTurnSlot.EntityData.skillDatas[0]);
+        battleManager.UseSkillOrItem(battleManager.OnTurnSlot.EntityData.skillDatas[1]);
     }
 }

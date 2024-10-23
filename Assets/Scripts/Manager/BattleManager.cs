@@ -114,7 +114,7 @@ public class BattleManager : MonoBehaviour
         {
             // 스킬사용
             Debug.Log("스킬 사용");
-            action.ActionExecute(OnTurnSlot, action.SetTarget(OnTurnSlot));
+            action.ActionExecute(OnTurnSlot, action.SetTarget(OnTurnSlot, action.AffectType));
         }
         else
         {

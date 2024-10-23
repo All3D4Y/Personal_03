@@ -14,5 +14,13 @@ public enum AffectType
     Heal,
     Attack,
     AccelerateUltimateSkill,
-    BuffAndDebuff
+    Buff,
+    Debuff
+}
+
+public enum BuffDebuffType
+{
+    Attack = 0,
+    Defense,
+    Speed
 }
