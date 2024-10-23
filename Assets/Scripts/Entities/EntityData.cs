@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,6 +18,8 @@ public abstract class EntityData : ScriptableObject
 
     public SkillData[] skillDatas;
 
+    public event Action onDie;
+
     // Properties
     public float ATK
     {
@@ -33,7 +36,15 @@ public abstract class EntityData : ScriptableObject
     public float HP
     {
         get => hp;
-        set => hp = value;
+        set
+        {
+            hp = value;
+            if (hp < 0)
+            {
+                Die();
+                onDie?.Invoke();
+            }
+        }
     }
 
     public float Speed
@@ -48,4 +59,9 @@ public abstract class EntityData : ScriptableObject
     public abstract void Animation();
 
     public abstract void Skill();
+
+    public void Die()
+    {
+        // 죽음
+    }
 }

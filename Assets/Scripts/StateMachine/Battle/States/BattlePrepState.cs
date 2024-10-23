@@ -19,8 +19,7 @@ namespace BattlePhase
             // 전투 준비단계 진입 시 실행할 코드
             // 턴 계산
             Debug.Log("BattlePrep 상태 진입");
-            BattleSlot onTurn = null;
-            onTurn = battleManager.TurnCalculator.NextTurnSlot();
+            BattleSlot onTurn = battleManager.TurnCalculator.NextTurnSlot();
             battleManager.SetOnTurnSlot(onTurn);
         }
         public void Exit() 

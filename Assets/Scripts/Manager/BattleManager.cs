@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class BattleManager : MonoBehaviour
 {
+    bool test = false;
+    public bool Test { get => test; private set => test = value; }
+
     Phase phase;
 
     SlotController slotController;
@@ -32,7 +35,7 @@ public class BattleManager : MonoBehaviour
     {
         phase = new Phase(this);
         slotController = new SlotController();
-        turnCalculator = new TurnCalculator(this.slotController);
+        turnCalculator = new TurnCalculator(this);
         onFieldCharacter = GetComponent<OnFieldCharacter>();
         battleInput = GetComponent<BattleInput>();
     }
@@ -113,20 +116,44 @@ public class BattleManager : MonoBehaviour
         if (action is SkillData)
         {
             // 스킬사용
-            Debug.Log("스킬 사용");
-            action.ActionExecute(OnTurnSlot, action.SetTarget(OnTurnSlot, action.AffectType));
+            if (!OnTurnSlot.IsEmpty)
+            {
+                Debug.Log("스킬 사용");
+                action.ActionExecute(OnTurnSlot, action.SetTarget(OnTurnSlot, action.AffectType));
+            }
         }
         else
         {
-            // 아이템 사용
-            Debug.Log("아이템 사용");
+            if (!OnTurnSlot.IsEmpty)
+            {
+                // 아이템 사용
+                Debug.Log("아이템 사용");
+            }
         }
-        Phase.ChangeState(Phase.Battle);
+            Phase.ChangeState(Phase.Battle);
     }
 
-    public void GetDamage(BattleSlot[] targets, float damage)
+    public void TurnCount()
     {
+        // 버프 유지 카운트 --
+        IBuffDebuff[] buffs = BuffDebuffContainer.BuffDebuffs.ToArray();
+        foreach (var buff in buffs)
+        {
+            buff.Duration--;
+        }
+    }
 
+    public void BattleOver(bool isWin = true)
+    {
+        if (isWin)
+        {
+            // 이겼을 때
+            Phase.ChangeState(Phase.End);
+        }
+        else
+        {
+            // 졌을 때
+        }
     }
 
     /// <summary>
@@ -162,4 +189,14 @@ public class BattleManager : MonoBehaviour
             }
         }
     }
+
+#if UNITY_EDITOR
+    public void TestTrigger()
+    {
+        if (!Test)
+            Test = true;
+        else
+            Test = false;
+    }
+#endif
 }

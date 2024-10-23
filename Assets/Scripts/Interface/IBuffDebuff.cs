@@ -4,7 +4,7 @@
 
     float BuffRatio { get; }
 
-    int Duration { get; }
+    int Duration { get; set; }
 
     void BuffDebuff(BuffDebuffType type, BattleSlot[] targets);
 

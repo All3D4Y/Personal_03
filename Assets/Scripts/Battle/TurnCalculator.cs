@@ -10,13 +10,10 @@ public class TurnCalculator
     CharacterData[] characterDatas;
     EnemyDataBase[] enemyDatas;
 
-    public TurnCalculator(SlotController controller)
+    public TurnCalculator(BattleManager battleManager)
     {
-        characterSlots = controller.CharacterSlot;
-        enemySlots = controller.EnemySlot;
-
-        characterDatas = new CharacterData[characterSlots.Length];
-        enemyDatas = new EnemyDataBase[enemySlots.Length];
+        characterSlots = battleManager.SlotController.CharacterSlot;
+        enemySlots = battleManager.SlotController.EnemySlot;
 
         RefreshSlotData();
     }
@@ -26,6 +23,9 @@ public class TurnCalculator
     /// </summary>
     public void RefreshSlotData()
     {
+        characterDatas = new CharacterData[characterSlots.Length];
+        enemyDatas = new EnemyDataBase[enemySlots.Length];
+
         for (int i = 0; i < characterSlots.Length; i++)
         {
             characterDatas[i] = characterSlots[i].EntityData as CharacterData;
@@ -36,49 +36,30 @@ public class TurnCalculator
         }
     }
 
-    /// <summary>
-    /// 캐릭터 슬롯들과 적 슬롯들 중 차례가 될 슬롯의 타입과 인덱스를 리턴하는 함수
-    /// </summary>
-    /// <param name="characters">캐릭터 슬롯들</param>
-    /// <param name="enemies">적 슬롯들</param>
-    /// <returns></returns>
-    (EntityType, uint) NextTurnSlotIndex(BattleSlot[] characters, BattleSlot[] enemies)
-    {
-        List<BattleSlot> entities = new List<BattleSlot>();
-
-        for (int i = 0; i < characters.Length; i++)
-        {
-            entities.Add(characters[i]);
-        }
-        for (int i = 0; i < enemies.Length; i++)
-        {
-            entities.Add(enemies[i]);
-        }
-
-        entities.Sort((current, other) => other.EntityData.Speed.CompareTo(current.EntityData.Speed));
-
-        return (entities[0].Type, entities[0].Index);
-    }
-
-    public (EntityType, uint) GetTurnSlotIndex()
-    {
-        return NextTurnSlotIndex(characterSlots, enemySlots);
-    }
-
     public BattleSlot NextTurnSlot()
     {
-        List<BattleSlot> entities = new List<BattleSlot>();
+        List<BattleSlot> entities = new List<BattleSlot>();         // BattleSlot의 리스트를 만들고
+
+        RefreshSlotData();
 
         for (int i = 0; i < characterSlots.Length; i++)
         {
-            entities.Add(characterSlots[i]);
+            if (!characterSlots[i].IsEmpty)
+            {
+                entities.Add(characterSlots[i]);
+            }
         }
         for (int i = 0; i < enemySlots.Length; i++)
         {
-            entities.Add(enemySlots[i]);
+            if (!enemySlots[i].IsEmpty)
+            {
+                entities.Add(enemySlots[i]);
+            }
         }
 
-        entities.Sort((current, other) => other.EntityData.Speed.CompareTo(current.EntityData.Speed));
+        entities.Sort((current, other) => current.EntityData.Speed.CompareTo(other.EntityData.Speed));
+
+        entities.Reverse();
 
         return entities[0];
     }

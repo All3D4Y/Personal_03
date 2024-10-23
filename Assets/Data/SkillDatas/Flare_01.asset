@@ -15,6 +15,7 @@ MonoBehaviour:
   icon: {fileID: 0}
   effectCount: 1
   effectRange: 1
+  affectType: 2
   skillName: MeleeAttack
   skillDescription: "\uC8FD\uBE75"
   damageRatio: 1.1

@@ -7,14 +7,11 @@ public class GameManager : Singleton<GameManager>
     BattleManager battleManager;
     CharacterDataManager characterDataManager;
     EnemyDataManager enemyDataManager;
-    SkillDataManager skillDataManager;
     StageDataManager stageDataManager;
 
     public BattleManager BattleManager => battleManager;
     public CharacterDataManager CharacterDataManager => characterDataManager;
     public EnemyDataManager EnemyDataManager => enemyDataManager;
-
-    public SkillDataManager SkillDataManager => skillDataManager;
 
     public StageDataManager StageDataManager => stageDataManager;
 
@@ -23,7 +20,6 @@ public class GameManager : Singleton<GameManager>
         base.OnPreInitialize();
         characterDataManager = GetComponent<CharacterDataManager>();
         enemyDataManager = GetComponent<EnemyDataManager>();
-        skillDataManager = GetComponent<SkillDataManager>();
         stageDataManager = GetComponent<StageDataManager>();
     }
     protected override void OnInitialize()

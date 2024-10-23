@@ -177,8 +177,8 @@ GameObject:
   m_Component:
   - component: {fileID: 363622390}
   - component: {fileID: 363622389}
-  - component: {fileID: 363622391}
   - component: {fileID: 363622392}
+  - component: {fileID: 363622391}
   m_Layer: 0
   m_Name: BattleManager
   m_TagString: Untagged
@@ -514,9 +514,6 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6351625830342910108, guid: 50297ce73b8acf549a5c8d511f2b7040, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1145579018}
-    - targetCorrespondingSourceObject: {fileID: 6351625830342910108, guid: 50297ce73b8acf549a5c8d511f2b7040, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 1145579019}
   m_SourcePrefab: {fileID: 100100000, guid: 50297ce73b8acf549a5c8d511f2b7040, type: 3}
 --- !u!1 &1145579013 stripped
@@ -524,19 +521,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6351625830342910108, guid: 50297ce73b8acf549a5c8d511f2b7040, type: 3}
   m_PrefabInstance: {fileID: 910446222}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1145579018
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1145579013}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a516ebb55cea4d745b2f92bd8e791294, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  skillDatas: []
 --- !u!114 &1145579019
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -31,7 +31,13 @@ public class BattleSlot
         private set
         {
             if (entityData != value)
+            {
+                if (value == null)
+                {
+                    entityData.onDie -= ClearData;
+                }
                 entityData = value;
+            }
         }
     }
 
@@ -56,6 +62,7 @@ public class BattleSlot
         if (entityData != null)
         {
             EntityData = entityData;
+            entityData.onDie += ClearData;  // 할당된 entity가 죽었을 때 자동으로 데이터 삭제
         }
         else
         {

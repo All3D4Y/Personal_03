@@ -19,21 +19,25 @@ public class Test03_Phase : TestBase
 
     protected override void OnTest1(InputAction.CallbackContext context)
     {
-        battleManager.SlotController.TestPrint();
+        battleManager.UseSkillOrItem(battleManager.OnTurnSlot.EntityData.skillDatas[0]);
     }
 
     protected override void OnTest2(InputAction.CallbackContext context)
     {
-        battleManager.OnMoveSlot(1);
+        battleManager.UseSkillOrItem(battleManager.OnTurnSlot.EntityData.skillDatas[1]);
     }
 
     protected override void OnTest3(InputAction.CallbackContext context)
     {
-        battleManager.OnMoveSlot(-1);
     }
 
     protected override void OnTest4(InputAction.CallbackContext context)
     {
-        battleManager.UseSkillOrItem(battleManager.OnTurnSlot.EntityData.skillDatas[1]);
+        battleManager.SlotController.TestPrint();
+    }
+
+    protected override void OnTest5(InputAction.CallbackContext context)
+    {
+        battleManager.TestTrigger();
     }
 }

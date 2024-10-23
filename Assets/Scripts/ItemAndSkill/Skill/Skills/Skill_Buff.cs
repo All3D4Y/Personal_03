@@ -15,40 +15,55 @@ public class Skill_Buff : SkillData, IBuffDebuff
 
     public float BuffRatio => ratio;
 
-    public int Duration => duration;
+    public int Duration
+    {
+        get => duration;
+        set
+        {
+            duration = value;
+            if (duration < 0)
+            {
+                Undo();
+            }
+        }
+    }
 
     float tempValue;
 
     public override void ActionExecute(BattleSlot user, BattleSlot[] targets)
     {
-        BuffDebuffInvoker.DoBuffDebuff(this);
+        BuffDebuff(BuffDebuffType, targets);
+        BuffDebuffContainer.SaveBuff(this);
     }
 
     public void BuffDebuff(BuffDebuffType type, BattleSlot[] targets)
     {
-        switch (type)
+        if (Duration > 0)
         {
-            case BuffDebuffType.Attack:
-                foreach (var target in targets)
-                {
-                    tempValue = target.EntityData.ATK;
-                    target.EntityData.ATK *= 1 + ratio;
-                }
-                break;
-            case BuffDebuffType.Defense:
-                foreach (var target in targets)
-                {
-                    tempValue = target.EntityData.DEF;
-                    target.EntityData.DEF *= 1 + ratio;
-                }
-                break;
-            case BuffDebuffType.Speed:
-                foreach (var target in targets)
-                {
-                    tempValue = target.EntityData.Speed;
-                    target.EntityData.Speed *= 1 + ratio;
-                }
-                break;
+            switch (type)
+            {
+                case BuffDebuffType.Attack:
+                    foreach (var target in targets)
+                    {
+                        tempValue = target.EntityData.ATK;
+                        target.EntityData.ATK *= 1 + ratio;
+                    }
+                    break;
+                case BuffDebuffType.Defense:
+                    foreach (var target in targets)
+                    {
+                        tempValue = target.EntityData.DEF;
+                        target.EntityData.DEF *= 1 + ratio;
+                    }
+                    break;
+                case BuffDebuffType.Speed:
+                    foreach (var target in targets)
+                    {
+                        tempValue = target.EntityData.Speed;
+                        target.EntityData.Speed *= 1 + ratio;
+                    }
+                    break;
+            }
         }
     }
 

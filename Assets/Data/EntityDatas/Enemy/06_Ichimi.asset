@@ -16,7 +16,7 @@ MonoBehaviour:
   prefab: {fileID: 0}
   attackPower: 10
   defensivePower: 5
-  hp: 200
+  hp: -40.205376
   speed: 40
   initialSpeed: 0
   skillDatas: []

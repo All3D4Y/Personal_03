@@ -15,9 +15,9 @@ MonoBehaviour:
   icon: {fileID: 0}
   effectCount: 1
   effectRange: 1
-  affectType: 0
-  skillName: "\uC2A4\uD0AC \uC774\uB984"
-  skillDescription: "\uC2A4\uD0AC \uC124\uBA85"
+  affectType: 4
+  skillName: buff
+  skillDescription: "\uD798\uB0B4"
   buffDebufftype: 0
-  ratio: 0
-  duration: 0
+  ratio: 0.2
+  duration: -7

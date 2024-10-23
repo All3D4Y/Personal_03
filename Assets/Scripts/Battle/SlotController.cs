@@ -210,6 +210,31 @@ public class SlotController
         }
     }
 
+    /// <summary>
+    /// 전멸한 진영이 있는 지 확인하는 함수
+    /// </summary>
+    /// <returns>한 진영이라도 전멸했으면 true</returns>
+    public bool IsEliminated()
+    {
+        bool characterEliminated = true;
+        foreach (var slot in characterSlot)
+        {
+            if (!slot.IsEmpty)                  // 캐릭터가 하나라도 살아있으면
+            {
+                characterEliminated = false;    // 전멸 X
+            }
+        }
+        bool enemyEliminated = true;
+        foreach (var slot in enemySlot)
+        {
+            if (!slot.IsEmpty)                  // 적이 하나라도 살아있으면
+            {
+                enemyEliminated = false;        // 전멸 X
+            }
+        }
+        return characterEliminated || enemyEliminated;  // 두 진영 중 하나라도 전멸 했으면 true
+    }
+
 #if UNITY_EDITOR
     public void TestPrint()
     {
