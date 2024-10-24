@@ -7,26 +7,11 @@ public class Test02_Battle : TestBase
 {
     SlotController controller;
 
-    CharacterData[] characterDatas;
-    EnemyDataBase[] enemyDatas;
+    Ally[] characterDatas;
+    Enemy[] enemyDatas;
 
     void Start()
     {
-        controller = new SlotController();
-
-        characterDatas = new CharacterData[5];
-        for (int i = 0; i < characterDatas.Length; i++)
-        {
-            characterDatas[i] = GameManager.Instance.CharacterDataManager[(uint)i]as CharacterData;
-        }
-
-        enemyDatas = new EnemyDataBase[6];
-        for (int i = 0; i < enemyDatas.Length; i++)
-        {
-            enemyDatas[i] = GameManager.Instance.EnemyDataManager[(uint)i] as EnemyDataBase;
-        }
-
-
     }
 
     protected override void OnTest1(InputAction.CallbackContext context)

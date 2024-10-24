@@ -8,8 +8,8 @@ using UnityEngine.InputSystem.XR;
 public class Test03_Phase : TestBase
 {
     BattleManager battleManager;
-    CharacterData[] characterDatas;
-    EnemyDataBase[] enemyDatas;
+    Ally[] characterDatas;
+    Enemy[] enemyDatas;
 
 
     void Start()
@@ -19,12 +19,12 @@ public class Test03_Phase : TestBase
 
     protected override void OnTest1(InputAction.CallbackContext context)
     {
-        battleManager.UseSkillOrItem(battleManager.OnTurnSlot.EntityData.skillDatas[0]);
+        battleManager.UseSkillOrItem(battleManager.OnTurnSlot.ActorData.skillDatas[0]);
     }
 
     protected override void OnTest2(InputAction.CallbackContext context)
     {
-        battleManager.UseSkillOrItem(battleManager.OnTurnSlot.EntityData.skillDatas[1]);
+        battleManager.UseSkillOrItem(battleManager.OnTurnSlot.ActorData.skillDatas[1]);
     }
 
     protected override void OnTest3(InputAction.CallbackContext context)

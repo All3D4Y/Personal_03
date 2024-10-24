@@ -4,15 +4,12 @@ using UnityEngine;
 
 public class TurnCalculator
 {
-    BattleSlot[] characterSlots;
+    BattleSlot[] allySlots;
     BattleSlot[] enemySlots;
-
-    CharacterData[] characterDatas;
-    EnemyDataBase[] enemyDatas;
 
     public TurnCalculator(BattleManager battleManager)
     {
-        characterSlots = battleManager.SlotController.CharacterSlot;
+        allySlots = battleManager.SlotController.AllySlot;
         enemySlots = battleManager.SlotController.EnemySlot;
 
         RefreshSlotData();
@@ -23,17 +20,17 @@ public class TurnCalculator
     /// </summary>
     public void RefreshSlotData()
     {
-        characterDatas = new CharacterData[characterSlots.Length];
-        enemyDatas = new EnemyDataBase[enemySlots.Length];
-
-        for (int i = 0; i < characterSlots.Length; i++)
-        {
-            characterDatas[i] = characterSlots[i].EntityData as CharacterData;
-        }
-        for (int i = 0; i < enemySlots.Length; i++)
-        {
-            enemyDatas[i] = enemySlots[i].EntityData as EnemyDataBase;
-        }
+        //allyDatas = new Ally[characterSlots.Length];
+        //enemyDatas = new EnemyDataBase[enemySlots.Length];
+        //
+        //for (int i = 0; i < characterSlots.Length; i++)
+        //{
+        //    allyDatas[i] = characterSlots[i].EntityData as CharacterData;
+        //}
+        //for (int i = 0; i < enemySlots.Length; i++)
+        //{
+        //    enemyDatas[i] = enemySlots[i].EntityData as EnemyDataBase;
+        //}
     }
 
     public BattleSlot NextTurnSlot()
@@ -42,11 +39,11 @@ public class TurnCalculator
 
         RefreshSlotData();
 
-        for (int i = 0; i < characterSlots.Length; i++)
+        for (int i = 0; i < allySlots.Length; i++)
         {
-            if (!characterSlots[i].IsEmpty)
+            if (!allySlots[i].IsEmpty)
             {
-                entities.Add(characterSlots[i]);
+                entities.Add(allySlots[i]);
             }
         }
         for (int i = 0; i < enemySlots.Length; i++)
@@ -57,7 +54,7 @@ public class TurnCalculator
             }
         }
 
-        entities.Sort((current, other) => current.EntityData.Speed.CompareTo(other.EntityData.Speed));
+        entities.Sort((current, other) => current.ActorData.Speed.CompareTo(other.ActorData.Speed));
 
         entities.Reverse();
 

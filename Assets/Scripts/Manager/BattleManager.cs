@@ -5,23 +5,20 @@ using UnityEngine;
 
 public class BattleManager : MonoBehaviour
 {
-    bool test = false;
-    public bool Test { get => test; private set => test = value; }
+    public bool Test { get; private set; }
 
-    Phase phase;
+    PhaseStateMachine phase;
 
     SlotController slotController;
 
     TurnCalculator turnCalculator;
-
-    OnFieldCharacter onFieldCharacter;
 
     BattleInput battleInput;
 
     StageData stageData = null;
 
     // Properties
-    public Phase Phase => phase;
+    public PhaseStateMachine Phase => phase;
     public SlotController SlotController => slotController;
 
     public TurnCalculator TurnCalculator => turnCalculator;
@@ -33,10 +30,9 @@ public class BattleManager : MonoBehaviour
 
     void Awake()
     {
-        phase = new Phase(this);
+        phase = new PhaseStateMachine(this);
         slotController = new SlotController();
         turnCalculator = new TurnCalculator(this);
-        onFieldCharacter = GetComponent<OnFieldCharacter>();
         battleInput = GetComponent<BattleInput>();
     }
 
@@ -54,10 +50,10 @@ public class BattleManager : MonoBehaviour
     /// 행동할 차례인 슬롯을 설정하는 함수
     /// </summary>
     /// <param name="slot">행동할 차례인 슬롯</param>
-    public void SetOnTurnSlot(BattleSlot slot)
+    public void SetTurnSlot(BattleSlot slot)
     {
         OnTurnSlot = slot;
-        Debug.Log($"턴 설정: {OnTurnSlot.EntityData.name}");
+        Debug.Log($"턴 설정: {OnTurnSlot.ActorData.name}");
     }
 
     /// <summary>
@@ -75,10 +71,8 @@ public class BattleManager : MonoBehaviour
     public void SwapCharacter(StandbySlot target)
     {
         SlotController.SwapSlot(OnTurnSlot, target);
-        SetOnTurnSlot(target);
+        SetTurnSlot(target);
     }
-
-    // use item, skill, swap slot
 
     /// <summary>
     /// 행동 중인 슬롯의 위치를 이동시키는 함수
@@ -88,12 +82,12 @@ public class BattleManager : MonoBehaviour
     {
         if (OnTurnSlot != null)
         {
-            if (OnTurnSlot.Type == EntityType.Charater)
+            if (OnTurnSlot.Side == ActorSide.Ally)
             {
                 if ((OnTurnSlot.Index > 0 && change == -1) || (OnTurnSlot.Index < 3 && change == 1))
                 {
-                    SlotController.SwapSlot(OnTurnSlot, SlotController.CharacterSlot[OnTurnSlot.Index + change]);
-                    SetOnTurnSlot(SlotController.CharacterSlot[OnTurnSlot.Index + change]);
+                    SlotController.SwapSlot(OnTurnSlot, SlotController.AllySlot[OnTurnSlot.Index + change]);
+                    SetTurnSlot(SlotController.AllySlot[OnTurnSlot.Index + change]);
                 }
             }
             else
@@ -101,7 +95,7 @@ public class BattleManager : MonoBehaviour
                 if ((OnTurnSlot.Index > 0 && change == -1) || (OnTurnSlot.Index < 3 && change == 1))
                 {
                     SlotController.SwapSlot(OnTurnSlot, SlotController.EnemySlot[OnTurnSlot.Index + change]);
-                    SetOnTurnSlot(SlotController.EnemySlot[OnTurnSlot.Index + change]);
+                    SetTurnSlot(SlotController.EnemySlot[OnTurnSlot.Index + change]);
                 }
             }
         }
@@ -148,7 +142,6 @@ public class BattleManager : MonoBehaviour
         if (isWin)
         {
             // 이겼을 때
-            Phase.ChangeState(Phase.End);
         }
         else
         {
@@ -156,39 +149,6 @@ public class BattleManager : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// 스테이지 정보를 로드하는 함수
-    /// </summary>
-    /// <param name="stageIndex">스테이지의 인덱스</param>
-    public void LoadStage(uint stageIndex)
-    {
-        Debug.Log("스테이지 정보 로드");
-
-        CharacterData[] characterDatas = null;
-        EnemyDataBase[] enemyDatas = null;
-
-        onFieldCharacter.TestInsert();
-        Debug.LogWarning("테스트코드 사용 중임, 변경 필수");
-        characterDatas = onFieldCharacter.OnFieldCharacters;
-
-        stageData = GameManager.Instance.StageDataManager[stageIndex];
-        enemyDatas = stageData.enemyDatas;
-
-        SlotController.InitialAssign(characterDatas, enemyDatas);
-    }
-
-    public void LoadInitSpeed()
-    {
-        if (!SlotController.CharacterSlot[0].IsEmpty)   // 이 함수가 호출될 때 캐릭터슬롯 맨 앞자리에 아무도 없으면 데이터 로드가 안된거임
-        {
-            for (uint i = 0; i < SlotController.CharacterSlot.Length; i++)
-            {
-                // entity들의 Speed += InitialSpeed
-                SlotController.CharacterSlot[i].EntityData.Speed += SlotController.CharacterSlot[i].EntityData.InitialSpeed;
-                SlotController.EnemySlot[i].EntityData.Speed += SlotController.EnemySlot[i].EntityData.InitialSpeed;
-            }
-        }
-    }
 
 #if UNITY_EDITOR
     public void TestTrigger()

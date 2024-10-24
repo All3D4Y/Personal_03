@@ -5,26 +5,28 @@ using UnityEngine;
 public class GameManager : Singleton<GameManager>
 {
     BattleManager battleManager;
-    CharacterDataManager characterDataManager;
-    EnemyDataManager enemyDataManager;
+    SlotController slotController;
     StageDataManager stageDataManager;
+    SlotVisualizer slotVisualizer;
+
 
     public BattleManager BattleManager => battleManager;
-    public CharacterDataManager CharacterDataManager => characterDataManager;
-    public EnemyDataManager EnemyDataManager => enemyDataManager;
+
+    public SlotController SlotController => slotController;
 
     public StageDataManager StageDataManager => stageDataManager;
+
+    public SlotVisualizer SlotVisualizer => slotVisualizer;
 
     protected override void OnPreInitialize()
     {
         base.OnPreInitialize();
-        characterDataManager = GetComponent<CharacterDataManager>();
-        enemyDataManager = GetComponent<EnemyDataManager>();
         stageDataManager = GetComponent<StageDataManager>();
     }
     protected override void OnInitialize()
     {
         base.OnInitialize();
         battleManager = FindAnyObjectByType<BattleManager>();
+        slotVisualizer = FindAnyObjectByType<SlotVisualizer>();
     }
 }

@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyDataManager : EntityDataManager
+public class EnemyDataManager : ActorDataManager
 {
-    public EnemyDataBase[] enemies;
-    public override EntityData this[uint index] 
-    {
-        get => enemies[index];
-        set => enemies[index] = value as EnemyDataBase;
+    public Enemy[] enemies;
+
+    public override Actor this[uint index] 
+    { 
+        get => enemies[index]; 
+        set => enemies[index] = value as Enemy; 
     }
 }

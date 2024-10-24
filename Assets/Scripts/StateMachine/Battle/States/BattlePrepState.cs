@@ -20,7 +20,7 @@ namespace BattlePhase
             // 턴 계산
             Debug.Log("BattlePrep 상태 진입");
             BattleSlot onTurn = battleManager.TurnCalculator.NextTurnSlot();
-            battleManager.SetOnTurnSlot(onTurn);
+            battleManager.SetTurnSlot(onTurn);
         }
         public void Exit() 
         {

@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0422805ae2de3d445a956739ab2aca8c, type: 3}
+  m_Name: OnFieldAllies
+  m_EditorClassIdentifier: 
+  allies:
+  - {fileID: 2869701238737048126, guid: 8b7874512f2582242af38c66d53a71b9, type: 3}
+  - {fileID: 9078389677478841669, guid: d2cd856c338ac134d8bd2372798c89db, type: 3}
+  - {fileID: 8833791365148875531, guid: 63a827dd64aaf0e45851b355b622453c, type: 3}
+  - {fileID: 3345079490572855305, guid: 2cc5e758be15e1e41a191bbadc523e42, type: 3}
+  - {fileID: 2869701238737048126, guid: 8b7874512f2582242af38c66d53a71b9, type: 3}

@@ -33,7 +33,7 @@ public class ItemSkillData : ScriptableObject, IAction
     {
         BattleSlot[] targets = new BattleSlot[EffectCount];
 
-        if (user.Type == EntityType.Charater)   
+        if (user.Side == ActorSide.Ally)   
         {
             if (type == AffectType.Attack || type == AffectType.Debuff)
             {
@@ -46,7 +46,7 @@ public class ItemSkillData : ScriptableObject, IAction
             {
                 for (uint i = 0; i < targets.Length; i++)
                 {
-                    targets[i] = GameManager.Instance.BattleManager.SlotController.CharacterSlot[i];
+                    targets[i] = GameManager.Instance.BattleManager.SlotController.AllySlot[i];
                 }
             }
         }
@@ -56,7 +56,7 @@ public class ItemSkillData : ScriptableObject, IAction
             {
                 for (uint i = 0; i < targets.Length; i++)
                 {
-                    targets[i] = GameManager.Instance.BattleManager.SlotController.CharacterSlot[(EffectRange - (user.Index + 1) + i)];
+                    targets[i] = GameManager.Instance.BattleManager.SlotController.AllySlot[(EffectRange - (user.Index + 1) + i)];
                 }
             }
             else

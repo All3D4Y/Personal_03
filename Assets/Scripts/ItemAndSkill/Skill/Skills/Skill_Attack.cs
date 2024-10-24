@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-[CreateAssetMenu(fileName = "New SKill_Attack Data", menuName = "Scripable Objects/SKill_Attack Data", order = 4)]
+[CreateAssetMenu(fileName = "New SKill_Attack Data", menuName = "Scripable Objects/SKill_Attack Data", order = 2)]
 public class Skill_Attack : SkillData, IAttack
 {
     public float damageRatio = 1.1f;
@@ -21,10 +21,10 @@ public class Skill_Attack : SkillData, IAttack
 
     public override void ActionExecute(BattleSlot user, BattleSlot[] targets)
     {
-        float damage = DoDamage(user.EntityData.ATK);
+        float damage = DoDamage(user.ActorData.ATK);
         foreach (var target in targets)
         {
-            target.EntityData.HP -= GetDamage(damage, target.EntityData.DEF);
+            target.ActorData.HP -= GetDamage(damage, target.ActorData.DEF);
         }
     }
     
