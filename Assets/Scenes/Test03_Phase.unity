@@ -198,6 +198,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   seed: -1
+  slotVisualizer: {fileID: 1807817638}
+  a: {fileID: 0}
+  b: {fileID: 0}
 --- !u!1 &226646377
 GameObject:
   m_ObjectHideFlags: 0
@@ -271,7 +274,6 @@ GameObject:
   - component: {fileID: 363622390}
   - component: {fileID: 363622389}
   - component: {fileID: 363622392}
-  - component: {fileID: 363622391}
   m_Layer: 0
   m_Name: BattleManager
   m_TagString: Untagged
@@ -306,19 +308,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &363622391
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 363622388}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f9125cc1254f2841bd71b22c8e824a1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <Allies>k__BackingField: []
 --- !u!114 &363622392
 MonoBehaviour:
   m_ObjectHideFlags: 0

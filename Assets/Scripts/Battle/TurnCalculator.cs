@@ -11,8 +11,6 @@ public class TurnCalculator
     {
         allySlots = battleManager.SlotController.AllySlot;
         enemySlots = battleManager.SlotController.EnemySlot;
-
-        RefreshSlotData();
     }
 
     /// <summary>
@@ -20,17 +18,8 @@ public class TurnCalculator
     /// </summary>
     public void RefreshSlotData()
     {
-        //allyDatas = new Ally[characterSlots.Length];
-        //enemyDatas = new EnemyDataBase[enemySlots.Length];
-        //
-        //for (int i = 0; i < characterSlots.Length; i++)
-        //{
-        //    allyDatas[i] = characterSlots[i].EntityData as CharacterData;
-        //}
-        //for (int i = 0; i < enemySlots.Length; i++)
-        //{
-        //    enemyDatas[i] = enemySlots[i].EntityData as EnemyDataBase;
-        //}
+        allySlots = GameManager.Instance.BattleManager.SlotController.AllySlot;
+        enemySlots = GameManager.Instance.BattleManager.SlotController.EnemySlot;
     }
 
     public BattleSlot NextTurnSlot()
@@ -54,9 +43,7 @@ public class TurnCalculator
             }
         }
 
-        entities.Sort((current, other) => current.ActorData.Speed.CompareTo(other.ActorData.Speed));
-
-        entities.Reverse();
+        entities.Sort((current, other) => other.ActorData.Speed.CompareTo(current.ActorData.Speed));
 
         return entities[0];
     }

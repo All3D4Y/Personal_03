@@ -1,4 +1,5 @@
 ﻿using BattlePhase;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,6 +17,8 @@ public class BattleManager : MonoBehaviour
     BattleInput battleInput;
 
     StageData stageData = null;
+
+    public Action<ActorSide, uint> onTurnSet;
 
     // Properties
     public PhaseStateMachine Phase => phase;
@@ -53,6 +56,7 @@ public class BattleManager : MonoBehaviour
     public void SetTurnSlot(BattleSlot slot)
     {
         OnTurnSlot = slot;
+        onTurnSet?.Invoke(slot.Side, slot.Index);
         Debug.Log($"턴 설정: {OnTurnSlot.ActorData.name}");
     }
 
@@ -61,6 +65,7 @@ public class BattleManager : MonoBehaviour
     /// </summary>
     public void ClearTurnSlot()
     {
+        onTurnSet = null;
         OnTurnSlot = null;
     }
 
@@ -77,25 +82,25 @@ public class BattleManager : MonoBehaviour
     /// <summary>
     /// 행동 중인 슬롯의 위치를 이동시키는 함수
     /// </summary>
-    /// <param name="change">인덱스값에 더해질 파라미터</param>
-    public void OnMoveSlot(int change)
+    /// <param name="input">인덱스값에 더해질 파라미터</param>
+    public void OnMoveSlot(int input)
     {
         if (OnTurnSlot != null)
         {
             if (OnTurnSlot.Side == ActorSide.Ally)
             {
-                if ((OnTurnSlot.Index > 0 && change == -1) || (OnTurnSlot.Index < 3 && change == 1))
+                if ((OnTurnSlot.Index > 0 && input == -1) || (OnTurnSlot.Index < 3 && input == 1))
                 {
-                    SlotController.SwapSlot(OnTurnSlot, SlotController.AllySlot[OnTurnSlot.Index + change]);
-                    SetTurnSlot(SlotController.AllySlot[OnTurnSlot.Index + change]);
+                    SlotController.SwapSlot(OnTurnSlot, SlotController.AllySlot[OnTurnSlot.Index + input]);
+                    SetTurnSlot(SlotController.AllySlot[OnTurnSlot.Index + input]);
                 }
             }
             else
             {
-                if ((OnTurnSlot.Index > 0 && change == -1) || (OnTurnSlot.Index < 3 && change == 1))
+                if ((OnTurnSlot.Index > 0 && input == -1) || (OnTurnSlot.Index < 3 && input == 1))
                 {
-                    SlotController.SwapSlot(OnTurnSlot, SlotController.EnemySlot[OnTurnSlot.Index + change]);
-                    SetTurnSlot(SlotController.EnemySlot[OnTurnSlot.Index + change]);
+                    SlotController.SwapSlot(OnTurnSlot, SlotController.EnemySlot[OnTurnSlot.Index + input]);
+                    SetTurnSlot(SlotController.EnemySlot[OnTurnSlot.Index + input]);
                 }
             }
         }

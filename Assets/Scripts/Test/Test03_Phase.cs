@@ -10,6 +10,9 @@ public class Test03_Phase : TestBase
     BattleManager battleManager;
     Ally[] characterDatas;
     Enemy[] enemyDatas;
+    public SlotVisualizer slotVisualizer;
+    public Transform a;
+    public Transform b;
 
 
     void Start()
@@ -29,6 +32,7 @@ public class Test03_Phase : TestBase
 
     protected override void OnTest3(InputAction.CallbackContext context)
     {
+        //slotVisualizer.TestSwap();
     }
 
     protected override void OnTest4(InputAction.CallbackContext context)
