@@ -5,19 +5,75 @@ using UnityEngine;
 
 public class Factory : Singleton<Factory>
 {
-    //BulletPool bullet;
+    ActorPool ally_00;
+    ActorPool ally_01;
+    ActorPool ally_02;
+    ActorPool ally_03;
+
+    ActorPool enemy_00;
+    ActorPool enemy_01;
+
     protected override void OnInitialize()
     {
         // 풀 초기화
-        //bullet = GetComponentInChildren<BulletPool>();
-        //if (bullet != null)
-        //    bullet.Initialize();
+        Transform child;
+
+        child = transform.GetChild(0);
+        ally_00 = child.GetComponent<ActorPool>();
+        if (ally_00 != null)
+            ally_00.Initialize();
+
+        child = transform.GetChild(1);
+        ally_01 = child.GetComponent<ActorPool>();
+        if (ally_01 != null)
+            ally_01.Initialize();
+
+        child = transform.GetChild(2);
+        ally_02 = child.GetComponent<ActorPool>();
+        if (ally_02 != null)
+            ally_02.Initialize();
+
+        child = transform.GetChild(3);
+        ally_03 = child.GetComponent<ActorPool>();
+        if (ally_03 != null)
+            ally_03.Initialize();
+
+        child = transform.GetChild(4);
+        enemy_00 = child.GetComponent<ActorPool>();
+        if (enemy_00 != null)
+            enemy_00.Initialize();
+
+        child = transform.GetChild(5);
+        enemy_01 = child.GetComponent<ActorPool>();
+        if (enemy_01 != null)
+            enemy_01.Initialize();
     }
 
-    // 풀에서 오브젝트 가져오는 함수들 ------------------------------------------------------------------
-    //public Bullet GetBullet(Vector3? position, float angle = 0.0f)
-    //{
-    //    //Vector3.forward * angle
-    //    return bullet.GetObject(position, new Vector3(0, 0, angle));
-    //}
+    public Actor GetActor(int index)
+    {
+        ActorPool temp = null;
+
+        switch (index)
+        {
+            case 0:
+                temp = ally_00;
+                break;
+            case 1:
+                temp = ally_01;
+                break;
+            case 2:
+                temp = ally_02;
+                break;
+            case 3:
+                temp = ally_03;
+                break;
+            case 4:
+                temp = enemy_00;
+                break;
+            case 5:
+                temp = enemy_01;
+                break;
+        }
+        return temp.GetObject();
+    }
 }

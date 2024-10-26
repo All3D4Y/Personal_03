@@ -6,6 +6,7 @@ using UnityEngine;
 public class Actor : RecycleObject
 {
     [Header("기본 정보")]
+    [SerializeField] protected ActorCode code;
     [SerializeField] protected ActorSide side;
     [SerializeField] protected ActorType actorType;
     [SerializeField] protected string actorName = "이름";
@@ -35,6 +36,7 @@ public class Actor : RecycleObject
     protected float currentIncreasingSpeed;
 
     // Properties
+    public ActorCode Code => code;
     public ActorSide Side => side;
     public ActorType Type => actorType;
 
@@ -77,8 +79,8 @@ public class Actor : RecycleObject
     /// </summary>
     public float ATK
     {
-        get => attackPower;
-        set => attackPower = value;
+        get => currentATK;
+        set => currentATK = value;
     }
 
     /// <summary>
@@ -86,8 +88,8 @@ public class Actor : RecycleObject
     /// </summary>
     public float DEF
     {
-        get => defensivePower;
-        set => defensivePower = value;
+        get => currentDEF;
+        set => currentDEF = value;
     }
 
     /// <summary>

@@ -25,7 +25,6 @@ namespace BattlePhase
             // StageData 불러오기
             GameManager.Instance.StageDataManager.LoadStage(0); //test
             // visualize
-            GameManager.Instance.SlotVisualizer.Initialize();
             // 적, 캐릭터 배치
             // 할 거 다 하고  
         }

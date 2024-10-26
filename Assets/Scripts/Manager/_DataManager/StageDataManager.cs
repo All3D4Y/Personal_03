@@ -8,9 +8,20 @@ public class StageDataManager : MonoBehaviour
 
     public OnFieldAllies onFieldAllies;
 
+    uint currentStageIndex = 0;
+
+    public List<Ally> CurrentStageAllyList { get; set; }
+    public List<Enemy> CurrentStageEnemyList { get; set; }
+
     public Ally[] Allies 
     {
         get => onFieldAllies.allies;
+    }
+
+    public uint CurrentStageIndex
+    {
+        get => currentStageIndex;
+        set => currentStageIndex = value;
     }
 
     public StageData this[uint index]
@@ -26,15 +37,29 @@ public class StageDataManager : MonoBehaviour
     public void LoadStage(uint stageIndex)
     {
         Debug.Log("스테이지 정보 로드");
-    
-        Ally[] allyDatas = null;
-        Enemy[] enemyDatas = null;
 
-        allyDatas = onFieldAllies.allies;
-    
-        StageData stageData = stageDatas[stageIndex];
-        enemyDatas = stageData.enemyDatas;
-    
-        GameManager.Instance.BattleManager.SlotController.InitialAssign(allyDatas, enemyDatas);
+        CurrentStageIndex = stageIndex;
+
+        GameManager.Instance.SlotVisualizer.Initialize();
+    }
+    public int[] GetStageAllyIndex()
+    {
+        int[] result = new int[Allies.Length];
+        for (int i = 0; i < result.Length; i++)
+        {
+            result[i] = (int)Allies[i].Code;
+        }
+        return result;
+    }
+
+    public int[] GetStageEnemyIndex(uint stageIndex)
+    {
+        int[] result = new int[stageDatas[stageIndex].enemyDatas.Length];
+
+        for(int i = 0; i < result.Length; i++)
+        {
+            result[i] = (int)stageDatas[stageIndex].enemyDatas[i].Code;
+        }
+        return result;
     }
 }

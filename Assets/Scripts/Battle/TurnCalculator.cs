@@ -7,8 +7,12 @@ public class TurnCalculator
     BattleSlot[] allySlots;
     BattleSlot[] enemySlots;
 
+    BattleManager battleManager;
+
     public TurnCalculator(BattleManager battleManager)
     {
+        this.battleManager = battleManager;
+
         allySlots = battleManager.SlotController.AllySlot;
         enemySlots = battleManager.SlotController.EnemySlot;
     }
@@ -18,8 +22,8 @@ public class TurnCalculator
     /// </summary>
     public void RefreshSlotData()
     {
-        allySlots = GameManager.Instance.BattleManager.SlotController.AllySlot;
-        enemySlots = GameManager.Instance.BattleManager.SlotController.EnemySlot;
+        allySlots = battleManager.SlotController.AllySlot;
+        enemySlots = battleManager.SlotController.EnemySlot;
     }
 
     public BattleSlot NextTurnSlot()

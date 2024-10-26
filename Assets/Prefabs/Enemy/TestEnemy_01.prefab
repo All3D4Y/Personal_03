@@ -65,6 +65,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e67de8013f283894ca8863a867a69d5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  code: 5
   side: 1
   actorType: 0
   actorName: "\uD574\uACE8"

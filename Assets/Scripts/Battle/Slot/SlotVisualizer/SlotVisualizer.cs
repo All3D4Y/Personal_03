@@ -7,61 +7,91 @@ public class SlotVisualizer : MonoBehaviour
     SlotController slotController;
 
     Transform[] allyPos;
+    Transform[] allyStandbyPos;
     Transform[] enemyPos;
+    Transform[] enemyStandbyPos;
 
     GameObject[] allies;
     GameObject[] enemies;
 
     GameObject onTurn = null;
+
+
     public void Initialize()
     {
-        slotController = GameManager.Instance.BattleManager.SlotController;
-
-        GameManager.Instance.BattleManager.BattleInput.onScroll += OnMoveSlot;
-
-        allyPos = new Transform[4];
-        enemyPos = new Transform[4];
-
-        for (int i = 0; i < 4; i++)
+        if (allyPos == null)
         {
-            allyPos[i] = transform.GetChild(0).GetChild(i);
-            enemyPos[i] = transform.GetChild(1).GetChild(i);
+            slotController = GameManager.Instance.SlotController;
+
+            allyPos = new Transform[4];
+            allyStandbyPos = new Transform[4];
+            enemyPos = new Transform[4];
+            enemyStandbyPos = new Transform[4];
+
+            for (int i = 0; i < 4; i++)
+            {
+                allyPos[i] = transform.GetChild(0).GetChild(i);
+                enemyPos[i] = transform.GetChild(1).GetChild(i);
+                allyStandbyPos[i] = transform.GetChild(2).GetChild(i);
+                enemyStandbyPos[i] = transform.GetChild(3).GetChild(i);
+            }
+
+            // 턴 정해지면 전달하기
+            GameManager.Instance.BattleManager.onTurnSet += (side, index) =>
+            {
+                if (side == ActorSide.Ally)
+                {
+                    onTurn = allyPos[index].GetChild(0).gameObject;
+                }
+                else
+                {
+                    onTurn = enemyPos[index].GetChild(0).gameObject;
+                }
+            };
+            GameManager.Instance.BattleManager.BattleInput.onScroll += OnMoveSlot;
+
+            SetActiveStageData();
         }
+    }
+    public void SetActiveStageData()
+    {
+        StageDataManager sdm = GameManager.Instance.StageDataManager;
 
-        allies = new GameObject[slotController.AllySlot.Length];
-        enemies = new GameObject[slotController.EnemySlot.Length];
+        int[] index_Ally = sdm.GetStageAllyIndex();
+        int[] index_Enemy = sdm.GetStageEnemyIndex(sdm.CurrentStageIndex);
 
-        for (int i = 0; i < slotController.AllySlot.Length; i++)
+        allies = new GameObject[index_Ally.Length];
+        enemies = new GameObject[index_Enemy.Length];
+
+        for (int i = 0; i < allies.Length; i++)
         {
-            allies[i] = GetActor(slotController.AllySlot[i].ActorData);
-        }
-
-        for (int i = 0; i < slotController.EnemySlot.Length; i++)
-        {
-            enemies[i] = GetActor(slotController.EnemySlot[i].ActorData);
-        }
-
-        for(int i = 0; i< allies.Length; i++)
-        {
-            GetIn(allies[i], allyPos[i]);
+            Actor temp = Factory.Instance.GetActor(index_Ally[i]);  // 팩토리에서 가져와서
+            if (i < 4)                                              // 0~3 까지는
+            {
+                GetIn(temp.gameObject, allyPos[i]);                 // 슬롯 위치에 보여지게 넣고
+                GameManager.Instance.SlotController.AllySlot[i].AssignData(temp);   // 데이터에 넣기
+            }
+            else
+            {
+                GetIn(temp.gameObject, allyStandbyPos[i - 4]);          // 넘어간 것들은 대기석에 넣기
+                GameManager.Instance.SlotController.AllyStandbySlot[i - 4].AssignData(temp);
+            }
         }
 
         for (int i = 0; i < enemies.Length; i++)
         {
-            GetIn(enemies[i], enemyPos[i]);
-        }
-
-        GameManager.Instance.BattleManager.onTurnSet += (side, index) =>
-        {
-            if (side == ActorSide.Ally)
+            Actor temp = Factory.Instance.GetActor(index_Enemy[i]); // 팩토리에서 가져와서
+            if (i < 4)                                              // 0~3 까지는
             {
-                onTurn = allyPos[index].GetChild(0).gameObject;
+                GetIn(temp.gameObject, enemyPos[i]);                // 슬롯 위치에 보여지게 넣고
+                GameManager.Instance.SlotController.EnemySlot[i].AssignData(temp);
             }
             else
             {
-                onTurn = enemyPos[index].GetChild(0).gameObject;
+                GetIn(temp.gameObject, enemyStandbyPos[i - 4]);         // 넘어간 것들은 대기석에 넣기
+                GameManager.Instance.SlotController.EnemyStandbySlot[i - 4].AssignData(temp);
             }
-        };
+        }
     }
 
     void GetIn(GameObject actor, Transform pos)
@@ -70,10 +100,6 @@ public class SlotVisualizer : MonoBehaviour
         actor.transform.localPosition = Vector3.zero;
     }
 
-    GameObject GetActor(Actor actor)
-    {
-        return Instantiate(actor.gameObject);
-    }
 
     void OnMoveSlot(int input)
     {

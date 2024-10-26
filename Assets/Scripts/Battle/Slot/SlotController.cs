@@ -19,7 +19,9 @@ public class SlotController
 
     // Properties
     public BattleSlot[] AllySlot => allySlot;
+    public StandbySlot[] AllyStandbySlot => allyStandbySlot;
     public BattleSlot[] EnemySlot => enemySlot;
+    public StandbySlot[] EnemyStandbySlot => enemyStandbySlot;
 
     /// <summary>
     /// SlotController 생성자

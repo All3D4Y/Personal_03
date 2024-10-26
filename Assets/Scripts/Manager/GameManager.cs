@@ -12,7 +12,7 @@ public class GameManager : Singleton<GameManager>
 
     public BattleManager BattleManager => battleManager;
 
-    public SlotController SlotController => slotController;
+    public SlotController SlotController => battleManager.SlotController;
 
     public StageDataManager StageDataManager => stageDataManager;
 

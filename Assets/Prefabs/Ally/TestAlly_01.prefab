@@ -2915,6 +2915,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35abaeae47e2565428dec5eda44eab50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  code: 1
   side: 0
   actorType: 2
   actorName: "\uBC95\uC0AC"
