@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae1c5b475e39c474881f503306063e8a, type: 3}
   m_Name: Test_02
   m_EditorClassIdentifier: 
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: a2563f2b8dbc4044b9a50537d3a29962, type: 3}
   effectCount: 1
   effectRange: 1
   affectType: 4
+  mpCost: 10
   skillName: "\uBC84\uD504"
   skillDescription: "\uB9E8 \uC55E\uC790\uB9AC \uC544\uAD70 \uACF5\uACA9\uB825 20%
     \uBC84\uD504"

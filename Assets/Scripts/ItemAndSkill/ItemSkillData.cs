@@ -4,19 +4,23 @@ using UnityEngine;
 
 public class ItemSkillData : ScriptableObject, IAction
 {
-    public Sprite icon;
+    [SerializeField] protected Sprite icon;
 
-    public uint effectCount = 1;
+    [SerializeField] protected uint effectCount = 1;
 
-    public uint effectRange = 1;
+    [SerializeField] protected uint effectRange = 1;
 
-    public AffectType affectType;
+    [SerializeField] protected AffectType affectType;
+
+    [SerializeField] protected float mpCost;
 
     public uint EffectCount => effectCount;
 
     public uint EffectRange => effectRange;
 
     public AffectType AffectType => affectType;
+
+    public float MPCost => mpCost;
 
     protected bool isActive = false;
 

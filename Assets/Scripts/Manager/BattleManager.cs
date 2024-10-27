@@ -16,8 +16,6 @@ public class BattleManager : MonoBehaviour
 
     BattleInput battleInput;
 
-    StageData stageData = null;
-
     public Action<ActorSide, uint> onTurnSet;
 
     // Properties

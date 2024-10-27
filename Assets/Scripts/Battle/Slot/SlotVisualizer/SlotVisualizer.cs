@@ -110,6 +110,7 @@ public class SlotVisualizer : MonoBehaviour
             {
                 allyPos[temp + input].GetChild(0).SetParent(onTurn.transform.parent);
                 onTurn.transform.parent.GetChild(1).localPosition = Vector3.zero;
+
                 onTurn.transform.SetParent(allyPos[temp + input]);
                 allyPos[temp + input].GetChild(0).localPosition = Vector3.zero;
             }
@@ -117,6 +118,7 @@ public class SlotVisualizer : MonoBehaviour
             {
                 enemyPos[temp + input].GetChild(0).SetParent(onTurn.transform.parent);
                 onTurn.transform.parent.GetChild(1).localPosition = Vector3.zero;
+
                 onTurn.transform.SetParent(allyPos[temp + input]);
                 enemyPos[temp + input].GetChild(0).localPosition = Vector3.zero;
             }
