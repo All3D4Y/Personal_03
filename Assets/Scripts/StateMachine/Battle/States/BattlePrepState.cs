@@ -21,6 +21,9 @@ namespace BattlePhase
             Debug.Log("BattlePrep 상태 진입");
             BattleSlot onTurn = battleManager.TurnCalculator.NextTurnSlot();
             battleManager.SetTurnSlot(onTurn);
+
+            GameManager.Instance.SkillUI.Initialize();
+            GameManager.Instance.BattleUI.OnSkillGroup();
         }
         public void Exit() 
         {

@@ -24,6 +24,8 @@ namespace BattlePhase
              Debug.Log("BattleEnter 상태 진입");
             // StageData 불러오기
             GameManager.Instance.StageDataManager.LoadStage(0); //test
+
+            GameManager.Instance.BattleUI.Initialize();
             // visualize
             // 적, 캐릭터 배치
             // 할 거 다 하고  

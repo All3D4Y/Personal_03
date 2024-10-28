@@ -14,6 +14,8 @@ public class ItemSkillData : ScriptableObject, IAction
 
     [SerializeField] protected float mpCost;
 
+    public Sprite Icon => icon;
+
     public uint EffectCount => effectCount;
 
     public uint EffectRange => effectRange;

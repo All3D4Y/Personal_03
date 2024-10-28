@@ -8,7 +8,8 @@ public class GameManager : Singleton<GameManager>
     SlotController slotController;
     StageDataManager stageDataManager;
     SlotVisualizer slotVisualizer;
-
+    BattleUI battleUI;
+    SkillGroupUI skillUI;
 
     public BattleManager BattleManager => battleManager;
 
@@ -17,6 +18,10 @@ public class GameManager : Singleton<GameManager>
     public StageDataManager StageDataManager => stageDataManager;
 
     public SlotVisualizer SlotVisualizer => slotVisualizer;
+
+    public BattleUI BattleUI => battleUI;
+
+    public SkillGroupUI SkillUI => skillUI;
 
     protected override void OnPreInitialize()
     {
@@ -28,5 +33,7 @@ public class GameManager : Singleton<GameManager>
         base.OnInitialize();
         battleManager = FindAnyObjectByType<BattleManager>();
         slotVisualizer = FindAnyObjectByType<SlotVisualizer>();
+        battleUI = FindAnyObjectByType<BattleUI>();
+        skillUI = FindAnyObjectByType<SkillGroupUI>();
     }
 }

@@ -51,4 +51,9 @@ public class TurnCalculator
 
         return entities[0];
     }
+
+    public void AddSpeed()
+    {
+
+    }
 }

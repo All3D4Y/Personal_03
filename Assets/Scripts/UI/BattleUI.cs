@@ -36,7 +36,7 @@ public class BattleUI : MonoBehaviour
         battleUI.interactable = true;
         battleUI.blocksRaycasts = true;
 
-        OnSkillGroup();
+        IsNotActionState();
     }
 
     public void OnChangeGroup()
@@ -53,7 +53,7 @@ public class BattleUI : MonoBehaviour
         skillGroup.blocksRaycasts = false;
         itemGroup.blocksRaycasts = false;
     }
-    
+
     public void OnSkillGroup()
     {
         changeGroup.alpha = 0;
@@ -82,5 +82,20 @@ public class BattleUI : MonoBehaviour
         changeGroup.blocksRaycasts = false;
         skillGroup.blocksRaycasts = false;
         itemGroup.blocksRaycasts = true;
+    }
+
+    public void IsNotActionState()
+    {
+        changeGroup.alpha = 0;
+        skillGroup.alpha = 0;
+        itemGroup.alpha = 0;
+
+        changeGroup.interactable = false;
+        skillGroup.interactable = false;
+        itemGroup.interactable = false;
+
+        changeGroup.blocksRaycasts = false;
+        skillGroup.blocksRaycasts = false;
+        itemGroup.blocksRaycasts = false;
     }
 }
