@@ -16,6 +16,8 @@ public class SlotVisualizer : MonoBehaviour
 
     GameObject onTurn = null;
 
+    public GameObject OnTurn => onTurn;
+
 
     public void Initialize()
     {

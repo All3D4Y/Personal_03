@@ -8,11 +8,20 @@ public class BattleInput : MonoBehaviour
 {
     InputActions inputActions;
 
+    public float coolTime = 0.1f;
+    float elapsedTime = 0.0f;
+
     public Action<int> onScroll;
 
     void Awake()
     {
         inputActions = new InputActions();
+        elapsedTime = coolTime;
+    }
+
+    void Update()
+    {
+        elapsedTime -= Time.deltaTime;
     }
 
     void OnEnable()
@@ -30,13 +39,19 @@ public class BattleInput : MonoBehaviour
     private void OnScroll(InputAction.CallbackContext context)
     {
         float input = context.ReadValue<float>();
-        if (input > 0.0f)
+
+        if (elapsedTime < 0)
         {
-            onScroll?.Invoke(1);
-        }
-        else if (input < 0.0f)
-        {
-            onScroll?.Invoke(-1);
+            if (input > 0.0f)
+            {
+                onScroll?.Invoke(1);
+                elapsedTime = coolTime;
+            }
+            else if (input < 0.0f)
+            {
+                onScroll?.Invoke(-1);
+                elapsedTime = coolTime;
+            }
         }
     }
 }

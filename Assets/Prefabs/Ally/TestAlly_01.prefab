@@ -2924,7 +2924,7 @@ MonoBehaviour:
   defensivePower: 5
   maxHp: 60
   maxMp: 100
-  initialSpeed: 30
+  initialSpeed: 300
   increasingSpeed: 30
   skillDatas:
   - {fileID: 11400000, guid: 2843097df5e91164bb8e2a020c2c908e, type: 2}

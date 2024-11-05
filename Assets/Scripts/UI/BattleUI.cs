@@ -8,6 +8,8 @@ public class BattleUI : MonoBehaviour
     Button changeBTN;
     Button skillBTN;
     Button itemBTN;
+    Button rightBTN;
+    Button leftBTN;
 
     CanvasGroup battleUI;
     CanvasGroup changeGroup;
@@ -24,10 +26,14 @@ public class BattleUI : MonoBehaviour
         changeGroup = transform.GetChild(3).GetComponent<CanvasGroup>();
         skillGroup = transform.GetChild(4).GetComponent<CanvasGroup>();
         itemGroup = transform.GetChild(5).GetComponent<CanvasGroup>();
+        rightBTN = transform.GetChild(6).GetComponent<Button>();
+        leftBTN = transform.GetChild(7).GetComponent<Button>();
 
         changeBTN.onClick.AddListener(OnChangeGroup);
         skillBTN.onClick.AddListener(OnSkillGroup);
         itemBTN.onClick.AddListener(OnItemGroup);
+        rightBTN.onClick.AddListener(OnRightClick);
+        leftBTN.onClick.AddListener(OnLeftClick);
     }
 
     public void Initialize()
@@ -97,5 +103,14 @@ public class BattleUI : MonoBehaviour
         changeGroup.blocksRaycasts = false;
         skillGroup.blocksRaycasts = false;
         itemGroup.blocksRaycasts = false;
+    }
+
+    public void OnRightClick()
+    {
+        GameManager.Instance.BattleManager.BattleInput.onScroll?.Invoke(-1);
+    }
+    public void OnLeftClick()
+    {
+        GameManager.Instance.BattleManager.BattleInput.onScroll?.Invoke(1);
     }
 }

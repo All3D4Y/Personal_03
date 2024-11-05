@@ -21,13 +21,12 @@ namespace BattlePhase
             Debug.Log("BattlePrep 상태 진입");
             BattleSlot onTurn = battleManager.TurnCalculator.NextTurnSlot();
             battleManager.SetTurnSlot(onTurn);
-
-            GameManager.Instance.SkillUI.Initialize();
-            GameManager.Instance.BattleUI.OnSkillGroup();
         }
         public void Exit() 
         {
             // 전투 준비단계 종료 시 실행할 코드
+            GameManager.Instance.SkillUI.Initialize();
+            GameManager.Instance.BattleUI.OnSkillGroup();
             Debug.Log("BattlePrep 상태 종료");
         }
         public void Execute() 
