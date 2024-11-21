@@ -26,6 +26,7 @@ namespace BattlePhase
             GameManager.Instance.StageDataManager.LoadStage(0); //test
 
             GameManager.Instance.BattleUI.Initialize();
+            GameManager.Instance.GuideLine.Initialize();
             // visualize
             // 적, 캐릭터 배치
             // 할 거 다 하고  

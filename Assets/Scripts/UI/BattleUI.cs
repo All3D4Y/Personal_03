@@ -20,14 +20,14 @@ public class BattleUI : MonoBehaviour
     {
         battleUI = GetComponent<CanvasGroup>();
 
-        changeBTN = transform.GetChild(0).GetComponent<Button>();
-        skillBTN = transform.GetChild(1).GetComponent<Button>();
-        itemBTN = transform.GetChild(2).GetComponent<Button>();
-        changeGroup = transform.GetChild(3).GetComponent<CanvasGroup>();
-        skillGroup = transform.GetChild(4).GetComponent<CanvasGroup>();
-        itemGroup = transform.GetChild(5).GetComponent<CanvasGroup>();
-        rightBTN = transform.GetChild(6).GetComponent<Button>();
-        leftBTN = transform.GetChild(7).GetComponent<Button>();
+        changeBTN = transform.GetChild(1).GetComponent<Button>();
+        skillBTN = transform.GetChild(2).GetComponent<Button>();
+        itemBTN = transform.GetChild(3).GetComponent<Button>();
+        changeGroup = transform.GetChild(4).GetComponent<CanvasGroup>();
+        skillGroup = transform.GetChild(5).GetComponent<CanvasGroup>();
+        itemGroup = transform.GetChild(6).GetComponent<CanvasGroup>();
+        rightBTN = transform.GetChild(7).GetComponent<Button>();
+        leftBTN = transform.GetChild(8).GetComponent<Button>();
 
         changeBTN.onClick.AddListener(OnChangeGroup);
         skillBTN.onClick.AddListener(OnSkillGroup);

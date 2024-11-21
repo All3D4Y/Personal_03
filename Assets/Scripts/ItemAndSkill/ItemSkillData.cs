@@ -43,14 +43,21 @@ public class ItemSkillData : ScriptableObject, IAction
         {
             if (type == AffectType.Attack || type == AffectType.Debuff)
             {
-                for (uint i = 0; i < targets.Length; i++)
+                for (int i = 0; i < targets.Length; i++)
                 {
-                    targets[i] = GameManager.Instance.BattleManager.SlotController.EnemySlot[(EffectRange - (user.Index + 1) + i)];
+                    if (EffectRange - (user.Index + 1) >= 0)
+                    {
+                        targets[i] = GameManager.Instance.BattleManager.SlotController.EnemySlot[(EffectRange - (user.Index + 1) + i)];
+                    }
+                    else
+                    {
+                        targets[i] = null;
+                    }
                 }
             }
             else
             {
-                for (uint i = 0; i < targets.Length; i++)
+                for (int i = 0; i < targets.Length; i++)
                 {
                     targets[i] = GameManager.Instance.BattleManager.SlotController.AllySlot[i];
                 }
@@ -60,14 +67,14 @@ public class ItemSkillData : ScriptableObject, IAction
         {
             if (type == AffectType.Attack || type == AffectType.Debuff)
             {
-                for (uint i = 0; i < targets.Length; i++)
+                for (int i = 0; i < targets.Length; i++)
                 {
                     targets[i] = GameManager.Instance.BattleManager.SlotController.AllySlot[(EffectRange - (user.Index + 1) + i)];
                 }
             }
             else
             {
-                for (uint i = 0; i < targets.Length; i++)
+                for (int i = 0; i < targets.Length; i++)
                 {
                     targets[i] = GameManager.Instance.BattleManager.SlotController.EnemySlot[i];
                 }

@@ -18,6 +18,8 @@ public class BattleManager : MonoBehaviour
 
     public Action<ActorSide, uint> onTurnSet;
 
+    public Action onSlotMoved;
+
     // Properties
     public PhaseStateMachine Phase => phase;
     public SlotController SlotController => slotController;
@@ -90,6 +92,7 @@ public class BattleManager : MonoBehaviour
                 if ((OnTurnSlot.Index > 0 && input == -1) || (OnTurnSlot.Index < 3 && input == 1))
                 {
                     SlotController.SwapSlot(OnTurnSlot, SlotController.AllySlot[OnTurnSlot.Index + input]);
+                    onSlotMoved?.Invoke();
                     SetTurnSlot(SlotController.AllySlot[OnTurnSlot.Index + input]);
                 }
             }
@@ -98,8 +101,30 @@ public class BattleManager : MonoBehaviour
                 if ((OnTurnSlot.Index > 0 && input == -1) || (OnTurnSlot.Index < 3 && input == 1))
                 {
                     SlotController.SwapSlot(OnTurnSlot, SlotController.EnemySlot[OnTurnSlot.Index + input]);
+                    onSlotMoved?.Invoke();
                     SetTurnSlot(SlotController.EnemySlot[OnTurnSlot.Index + input]);
                 }
+            }
+            OnGuideAlpha();
+        }
+    }
+
+    public void OnGuideAlpha()
+    {
+        if (!OnTurnSlot.IsEmpty && OnTurnSlot.ActorData is Ally)
+        {
+            for (int i = 0; i < OnTurnSlot.ActorData.skillDatas.Length; i++)
+            {
+                BattleSlot[] temp = OnTurnSlot.ActorData.skillDatas[i].SetTarget(OnTurnSlot, OnTurnSlot.ActorData.skillDatas[i].AffectType);
+                int count = 0;
+                foreach (BattleSlot slot in temp)
+                {
+                    if (slot.IsEmpty)
+                    {
+                        count++;
+                    }
+                }
+                GameManager.Instance.GuideLine.GuideAlpha(count != 0);
             }
         }
     }

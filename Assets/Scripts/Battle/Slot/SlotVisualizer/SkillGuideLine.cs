@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class SkillGuideLine : MonoBehaviour
@@ -11,10 +12,8 @@ public class SkillGuideLine : MonoBehaviour
 
     Color unvalidColor = new Color(1, 1, 1, 0.3f);
 
-    Vector3 guide0 = new Vector3(-0.95f, -0.35f, 0);
-    Vector3 guide1 = new Vector3(0.05f, -0.35f, 0);
-    Vector3 guide2 = new Vector3(1.05f, -0.35f, 0);
-    Vector3 guide3 = new Vector3(2.05f, -0.35f, 0);
+    Vector3 guideDefault = new Vector3(-0.95f, -0.35f, 0);
+
 
     public void Initialize()
     {
@@ -28,12 +27,14 @@ public class SkillGuideLine : MonoBehaviour
     
     public void OnPrepareEnd()
     {
-
+        GuideOnOff(true);
+        SetInitialGuidePosition();
     }
 
     public void OnExecuteEnd()
     {
-
+        GuideReset();
+        GuideOnOff(false);
     }
 
     public void SetSkill()
@@ -73,13 +74,27 @@ public class SkillGuideLine : MonoBehaviour
         }
     }
 
-    public void GuideMove(int x)
-    {
-        
-    }
-
     public void GuideReset()
     {
+        transform.SetParent(GameManager.Instance.SlotVisualizer.transform);
+        for (int i = 0; i < guideLines.Length; i++)
+        {
+            guideLines[i].transform.position = guideDefault;
+            guideLines[i].gameObject.SetActive(false);
+        }
 
+        skills = null;
+    }
+
+    public void SetInitialGuidePosition()
+    {
+        float turnX = GameManager.Instance.SlotVisualizer.OnTurn.transform.position.x;
+        
+        for (int i = 0; i < skills.Length; i++)
+        {
+            guideLines[i].transform.Translate(new Vector2(skills[i].EffectRange - 2 + turnX, 0));
+        }
+
+        transform.SetParent(GameManager.Instance.SlotVisualizer.OnTurn.transform);
     }
 }

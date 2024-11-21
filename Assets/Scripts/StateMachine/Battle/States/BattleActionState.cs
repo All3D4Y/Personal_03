@@ -22,6 +22,7 @@ namespace BattlePhase
             if (battleManager.OnTurnSlot.Side == ActorSide.Ally)
             {
                 battleManager.BattleInput.onScroll += battleManager.OnMoveSlot;
+
             }
         }
         public void Exit()
