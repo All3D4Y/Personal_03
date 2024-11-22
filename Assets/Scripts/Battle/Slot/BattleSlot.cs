@@ -6,6 +6,8 @@ public class BattleSlot
 {
     Actor actorData = null;
 
+    DamagePasser passer = null;
+
     uint index = 9999;
 
     /// <summary>
@@ -46,6 +48,12 @@ public class BattleSlot
                 actorData = value;
             }
         }
+    }
+
+    public DamagePasser Passer
+    {
+        get => passer;
+        set => passer = value;
     }
 
     /// <summary>

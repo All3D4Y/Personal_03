@@ -10,9 +10,9 @@ public class SkillGuideLine : MonoBehaviour
     SpriteRenderer[] guideLines;
 
 
-    Color unvalidColor = new Color(1, 1, 1, 0.3f);
+    Color unvalidColor = new Color(1, 1, 1, 0.15f);
 
-    Vector3 guideDefault = new Vector3(-0.95f, -0.35f, 0);
+    Vector3 guideDefaultPos = new Vector3(-0.95f, -0.35f, 0);
 
 
     public void Initialize()
@@ -27,14 +27,12 @@ public class SkillGuideLine : MonoBehaviour
     
     public void OnPrepareEnd()
     {
-        GuideOnOff(true);
-        SetInitialGuidePosition();
+        OnActivateGuide();
     }
 
     public void OnExecuteEnd()
     {
-        GuideReset();
-        GuideOnOff(false);
+        OnDeactivateGuide();
     }
 
     public void SetSkill()
@@ -56,19 +54,33 @@ public class SkillGuideLine : MonoBehaviour
         }
     }
 
-    public void GuideAlpha(bool isValid)
+    public void GuideAlpha()
     {
-        if (skills != null)
+        BattleSlot onTurn = GameManager.Instance.BattleManager.OnTurnSlot;
+        if (!onTurn.IsEmpty && onTurn.ActorData is Ally)
         {
-            foreach (var skill in skills)
+            for (int i = 0; i < onTurn.ActorData.skillDatas.Length; i++)
             {
-                if (isValid)
+                BattleSlot[] temp = onTurn.ActorData.skillDatas[i].SetTarget(onTurn, onTurn.ActorData.skillDatas[i].AffectType);
+                int count = 0;
+                foreach (BattleSlot slot in temp)
                 {
-                    guideLines[(skill.EffectCount - 1)].color = Color.white;
+                    if (slot != null)
+                    {
+                        count++;
+                    }
                 }
-                else
+                
+                if (skills != null)
                 {
-                    guideLines[(skill.EffectCount - 1)].color = unvalidColor;
+                    if (count != 0)
+                    {
+                        guideLines[(skills[i].EffectCount - 1)].color = Color.white;
+                    }
+                    else
+                    {
+                        guideLines[(skills[i].EffectCount - 1)].color = unvalidColor;
+                    }
                 }
             }
         }
@@ -76,25 +88,44 @@ public class SkillGuideLine : MonoBehaviour
 
     public void GuideReset()
     {
-        transform.SetParent(GameManager.Instance.SlotVisualizer.transform);
-        for (int i = 0; i < guideLines.Length; i++)
+        if (skills != null)
         {
-            guideLines[i].transform.position = guideDefault;
-            guideLines[i].gameObject.SetActive(false);
+            transform.SetParent(GameManager.Instance.SlotVisualizer.transform);
+            for (int i = 0; i < guideLines.Length; i++)
+            {
+                guideLines[i].transform.localPosition = guideDefaultPos;
+                guideLines[i].gameObject.SetActive(false);
+            }
+            skills = null; 
         }
-
-        skills = null;
     }
 
     public void SetInitialGuidePosition()
     {
-        float turnX = GameManager.Instance.SlotVisualizer.OnTurn.transform.position.x;
-        
-        for (int i = 0; i < skills.Length; i++)
+        if (skills != null)
         {
-            guideLines[i].transform.Translate(new Vector2(skills[i].EffectRange - 2 + turnX, 0));
-        }
+            float turnX = GameManager.Instance.SlotVisualizer.OnTurn.transform.position.x;
 
-        transform.SetParent(GameManager.Instance.SlotVisualizer.OnTurn.transform);
+            for (int i = 0; i < skills.Length; i++)
+            {
+                guideLines[i].transform.Translate(new Vector2(skills[i].EffectRange - 2 + turnX, 0));
+            }
+
+            transform.SetParent(GameManager.Instance.SlotVisualizer.OnTurn.transform); 
+        }
+    }
+
+    public void OnActivateGuide()
+    {
+        SetSkill();
+        GuideOnOff(true);
+        SetInitialGuidePosition();
+        GuideAlpha();
+    }
+
+    public void OnDeactivateGuide()
+    {
+        GuideReset();
+        GuideOnOff(false);
     }
 }

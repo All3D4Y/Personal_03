@@ -39,22 +39,18 @@ public class SlotVisualizer : MonoBehaviour
             }
 
             // 턴 정해지면 전달하기
-            GameManager.Instance.BattleManager.onTurnSet += (side, index) =>
-            {
-                if (side == ActorSide.Ally)
-                {
-                    onTurn = allyPos[index].GetChild(0).gameObject;
-                }
-                else
-                {
-                    onTurn = enemyPos[index].GetChild(0).gameObject;
-                }
-            };
+            GameManager.Instance.BattleManager.onTurnSet += SetTurnObject;
             GameManager.Instance.BattleManager.BattleInput.onScroll += OnMoveSlot;
 
             SetActiveStageData();
         }
     }
+
+    void SetTurnObject(BattleSlot slot)
+    {
+        onTurn = slot.ActorData.gameObject;
+    }
+
     public void SetActiveStageData()
     {
         StageDataManager sdm = GameManager.Instance.StageDataManager;
@@ -125,5 +121,14 @@ public class SlotVisualizer : MonoBehaviour
                 enemyPos[temp + input].GetChild(0).localPosition = Vector3.zero;
             }
         }
+    }
+
+    public void SwapSlot(BattleSlot onTurn, BattleSlot standbySlot)
+    {
+        Transform temp = onTurn.ActorData.transform.parent;
+        onTurn.ActorData.transform.SetParent(standbySlot.ActorData.transform.parent);
+        onTurn.ActorData.transform.localPosition = Vector3.zero;
+        standbySlot.ActorData.transform.SetParent(temp);
+        standbySlot.ActorData.transform.localPosition = Vector3.zero;
     }
 }

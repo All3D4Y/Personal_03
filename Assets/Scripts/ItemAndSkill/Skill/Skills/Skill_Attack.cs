@@ -19,12 +19,16 @@ public class Skill_Attack : SkillData, IAttack
 
     public float CriticalBonus => criticalBonus;
 
+
     public override void ActionExecute(BattleSlot user, BattleSlot[] targets)
     {
         float damage = DoDamage(user.ActorData.ATK);
         foreach (var target in targets)
         {
-            target.ActorData.HP -= GetDamage(damage, target.ActorData.DEF);
+            if (target != null)
+            {
+                target.Passer = new DamagePasser(GetDamage(damage, target.ActorData.DEF));
+            }
         }
     }
     

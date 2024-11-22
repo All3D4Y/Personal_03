@@ -22,8 +22,6 @@ public class GameManager : Singleton<GameManager>
 
     public BattleUI BattleUI => battleUI;
 
-    public SkillGroupUI SkillUI => skillUI;
-
     public SkillGuideLine GuideLine => guideLine;
 
     protected override void OnPreInitialize()
@@ -37,7 +35,6 @@ public class GameManager : Singleton<GameManager>
         battleManager = FindAnyObjectByType<BattleManager>();
         slotVisualizer = FindAnyObjectByType<SlotVisualizer>();
         battleUI = FindAnyObjectByType<BattleUI>();
-        skillUI = FindAnyObjectByType<SkillGroupUI>();
         guideLine = FindAnyObjectByType<SkillGuideLine>();
     }
 }

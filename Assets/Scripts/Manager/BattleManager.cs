@@ -8,6 +8,8 @@ public class BattleManager : MonoBehaviour
 {
     public bool Test { get; private set; }
 
+    BattleSlot[] targets = null;
+
     PhaseStateMachine phase;
 
     SlotController slotController;
@@ -16,7 +18,7 @@ public class BattleManager : MonoBehaviour
 
     BattleInput battleInput;
 
-    public Action<ActorSide, uint> onTurnSet;
+    public Action<BattleSlot> onTurnSet;
 
     public Action onSlotMoved;
 
@@ -56,7 +58,7 @@ public class BattleManager : MonoBehaviour
     public void SetTurnSlot(BattleSlot slot)
     {
         OnTurnSlot = slot;
-        onTurnSet?.Invoke(slot.Side, slot.Index);
+        onTurnSet?.Invoke(slot);
         Debug.Log($"턴 설정: {OnTurnSlot.ActorData.name}");
     }
 
@@ -76,7 +78,6 @@ public class BattleManager : MonoBehaviour
     public void SwapCharacter(StandbySlot target)
     {
         SlotController.SwapSlot(OnTurnSlot, target);
-        SetTurnSlot(target);
     }
 
     /// <summary>
@@ -105,27 +106,7 @@ public class BattleManager : MonoBehaviour
                     SetTurnSlot(SlotController.EnemySlot[OnTurnSlot.Index + input]);
                 }
             }
-            OnGuideAlpha();
-        }
-    }
-
-    public void OnGuideAlpha()
-    {
-        if (!OnTurnSlot.IsEmpty && OnTurnSlot.ActorData is Ally)
-        {
-            for (int i = 0; i < OnTurnSlot.ActorData.skillDatas.Length; i++)
-            {
-                BattleSlot[] temp = OnTurnSlot.ActorData.skillDatas[i].SetTarget(OnTurnSlot, OnTurnSlot.ActorData.skillDatas[i].AffectType);
-                int count = 0;
-                foreach (BattleSlot slot in temp)
-                {
-                    if (slot.IsEmpty)
-                    {
-                        count++;
-                    }
-                }
-                GameManager.Instance.GuideLine.GuideAlpha(count != 0);
-            }
+            GameManager.Instance.GuideLine.GuideAlpha();
         }
     }
     
@@ -141,7 +122,8 @@ public class BattleManager : MonoBehaviour
             if (!OnTurnSlot.IsEmpty)
             {
                 Debug.Log("스킬 사용");
-                action.ActionExecute(OnTurnSlot, action.SetTarget(OnTurnSlot, action.AffectType));
+                targets = action.SetTarget(OnTurnSlot, action.AffectType);
+                action.ActionExecute(OnTurnSlot, targets);
             }
         }
         else
@@ -153,6 +135,18 @@ public class BattleManager : MonoBehaviour
             }
         }
             Phase.ChangeState(Phase.Battle);
+    }
+
+    public void DamageCalculate()
+    {
+        if ( targets != null)
+        {
+            foreach (BattleSlot target in targets)
+            {
+                target.ActorData.HP -= target.Passer.Damage;
+                target.Passer = null;
+            }
+        }
     }
 
     public void TurnCount()

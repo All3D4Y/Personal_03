@@ -25,8 +25,6 @@ public class SkillGroupUI : MonoBehaviour
                 skillUIs[i].Initialize();
                 skillUIs[i].SetSkill(onTurnAlly, i);
                 skillUIs[i].gameObject.SetActive(!skillUIs[i].IsEmpty);
-                //skillUIs[i].OnOffGuide(true);
-                //GameManager.Instance.BattleManager.BattleInput.onScroll += skillUIs[i].OnMoveGuide;
             }
         }
     }
@@ -37,8 +35,6 @@ public class SkillGroupUI : MonoBehaviour
         {
             for (int i = 0; i < onTurnAlly.skillDatas.Length; i++)
             {
-                //GameManager.Instance.BattleManager.BattleInput.onScroll -= skillUIs[i].OnMoveGuide;
-                //skillUIs[i].OnOffGuide(false);
                 skillUIs[i].Clear();
                 skillUIs[i].gameObject.SetActive(false);
             }

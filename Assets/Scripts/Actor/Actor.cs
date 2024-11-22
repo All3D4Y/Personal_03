@@ -27,6 +27,8 @@ public class Actor : RecycleObject
 
     
     public event Action onDie;
+    public event Action<float> onHPChanged;
+    public event Action<float> onMPChanged;
 
     protected float currentHp;
     protected float currentMp;
@@ -36,9 +38,14 @@ public class Actor : RecycleObject
     protected float currentIncreasingSpeed;
 
     // Properties
+
+    public string ActorName => actorName;
     public ActorCode Code => code;
     public ActorSide Side => side;
     public ActorType Type => actorType;
+
+    public float MaxHP => maxHp;
+    public float MaxMP => maxMp;
 
     /// <summary>
     /// 체력
@@ -49,10 +56,12 @@ public class Actor : RecycleObject
         set
         {
             currentHp = value;
+            onHPChanged?.Invoke(currentHp / maxHp);
             if (currentHp < 0)
             {
                 Die();
                 onDie?.Invoke();
+                Debug.Log($"{this.gameObject.name}is dead!");
             }
         }
     }

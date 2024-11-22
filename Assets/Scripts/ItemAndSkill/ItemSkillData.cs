@@ -45,9 +45,9 @@ public class ItemSkillData : ScriptableObject, IAction
             {
                 for (int i = 0; i < targets.Length; i++)
                 {
-                    if (EffectRange - (user.Index + 1) >= 0)
+                    if (EffectRange + i > user.Index)
                     {
-                        targets[i] = GameManager.Instance.BattleManager.SlotController.EnemySlot[(EffectRange - (user.Index + 1) + i)];
+                        targets[i] = GameManager.Instance.BattleManager.SlotController.EnemySlot[(EffectRange - (user.Index + 1) + i)]; 
                     }
                     else
                     {

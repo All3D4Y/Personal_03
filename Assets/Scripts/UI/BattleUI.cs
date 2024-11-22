@@ -16,8 +16,18 @@ public class BattleUI : MonoBehaviour
     CanvasGroup skillGroup;
     CanvasGroup itemGroup;
 
+    ChangeGroupUI changeUIs;
+    SkillGroupUI skillUIs;
+    //ItemGroupUI itemUI;
+
+    public ChangeGroupUI ChangeUIs => changeUIs;
+    public SkillGroupUI SkillUIs => skillUIs;
+
     void Awake()
     {
+        changeUIs = transform.GetChild(4).GetComponent<ChangeGroupUI>();
+        skillUIs = transform.GetChild(5).GetComponent<SkillGroupUI>();
+
         battleUI = GetComponent<CanvasGroup>();
 
         changeBTN = transform.GetChild(1).GetComponent<Button>();
@@ -42,6 +52,8 @@ public class BattleUI : MonoBehaviour
         battleUI.interactable = true;
         battleUI.blocksRaycasts = true;
 
+        changeUIs.Initialize();
+
         IsNotActionState();
     }
 
@@ -58,6 +70,9 @@ public class BattleUI : MonoBehaviour
         changeGroup.blocksRaycasts = true;
         skillGroup.blocksRaycasts = false;
         itemGroup.blocksRaycasts = false;
+
+        GameManager.Instance.GuideLine.OnDeactivateGuide();
+        changeUIs.OnActivate();
     }
 
     public void OnSkillGroup()
@@ -73,6 +88,9 @@ public class BattleUI : MonoBehaviour
         changeGroup.blocksRaycasts = false;
         skillGroup.blocksRaycasts = true;
         itemGroup.blocksRaycasts = false;
+
+        GameManager.Instance.GuideLine.OnActivateGuide();
+        changeUIs.OnDeactivate();
     }
 
     public void OnItemGroup()
@@ -88,6 +106,9 @@ public class BattleUI : MonoBehaviour
         changeGroup.blocksRaycasts = false;
         skillGroup.blocksRaycasts = false;
         itemGroup.blocksRaycasts = true;
+
+        GameManager.Instance.GuideLine.OnDeactivateGuide();
+        changeUIs.OnDeactivate();
     }
 
     public void IsNotActionState()

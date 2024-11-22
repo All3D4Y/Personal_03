@@ -56,7 +56,14 @@ public class SkillUI : MonoBehaviour
             skillName.text = skill.skillName;
             skillDescription.text = skill.skillDescription;
             mpCost.text = skill.MPCost.ToString();
+
+            button.onClick.AddListener(OnExecute);
         }
+    }
+
+    void OnExecute()
+    {
+        GameManager.Instance.BattleManager.UseSkillOrItem(skill);
     }
 
     public void Clear()
