@@ -30,6 +30,7 @@ public class Skill_Attack : SkillData, IAttack
                 target.Passer = new DamagePasser(GetDamage(damage, target.ActorData.DEF));
             }
         }
+        user.ActorData.MP -= MPCost;
     }
     
     public float DoDamage(float baseATK)

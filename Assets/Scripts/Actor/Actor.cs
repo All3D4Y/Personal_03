@@ -38,8 +38,13 @@ public class Actor : RecycleObject
     protected float currentIncreasingSpeed;
 
     protected SPUM_Prefabs spum;
+    protected bool isAttackEnd = false;
+    protected bool isHurtEnd = false;
 
     // Properties
+
+    public bool IsAttackEnd { get => isAttackEnd; set => isAttackEnd = value; }
+    public bool IsHurtEnd { get => isHurtEnd; set => isHurtEnd = value; }
 
     public string ActorName => actorName;
     public ActorCode Code => code;
@@ -48,6 +53,8 @@ public class Actor : RecycleObject
 
     public float MaxHP => maxHp;
     public float MaxMP => maxMp;
+
+    public SPUM_Prefabs SPUM => spum;
 
     /// <summary>
     /// 체력
@@ -77,6 +84,7 @@ public class Actor : RecycleObject
         set
         {
             currentMp = value;
+            onMPChanged?.Invoke(currentMp / maxMp);
             if (currentMp < 0)
             {
                 LowMpMode();
@@ -155,5 +163,10 @@ public class Actor : RecycleObject
     public void LowMpMode()
     {
         // MP가 0 이하일때
+    }
+
+    public void HurtAnimationEnd()
+    {
+        IsHurtEnd = true;
     }
 }

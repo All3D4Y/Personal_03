@@ -13,6 +13,12 @@ public class Factory : Singleton<Factory>
     ActorPool enemy_00;
     ActorPool enemy_01;
 
+    EffectPool slashEffect;
+    EffectPool magicEffect;
+    EffectPool arrowEffect;
+
+    ArrowPool arrow;
+
     protected override void OnInitialize()
     {
         // 풀 초기화
@@ -47,6 +53,26 @@ public class Factory : Singleton<Factory>
         enemy_01 = child.GetComponent<ActorPool>();
         if (enemy_01 != null)
             enemy_01.Initialize();
+
+        child = transform.GetChild(6);
+        slashEffect = child.GetComponent<EffectPool>();
+        if (slashEffect != null)
+            slashEffect.Initialize();
+
+        child = transform.GetChild(7);
+        magicEffect = child.GetComponent<EffectPool>();
+        if (magicEffect != null)
+            magicEffect.Initialize();
+
+        child = transform.GetChild(8);
+        arrowEffect = child.GetComponent<EffectPool>();
+        if (arrowEffect != null)
+            arrowEffect.Initialize();
+
+        child = transform.GetChild(9);
+        arrow = child.GetComponent<ArrowPool>();
+        if (arrow != null)
+            arrow.Initialize();
     }
 
     public Actor GetActor(int index)
@@ -75,5 +101,31 @@ public class Factory : Singleton<Factory>
                 break;
         }
         return temp.GetObject();
+    }
+
+    public Effects GetEffect(int index)
+    {
+        EffectPool temp = null;
+
+        switch (index)
+        {
+            case 0:
+                temp = slashEffect;
+                break;
+            case 1:
+                temp = magicEffect;
+                break;
+            case 2:
+                temp = arrowEffect;
+                break;
+        }
+        return temp.GetObject();
+    }
+
+    public Arrow GetArrow(Vector2 pos, bool isRight = false)
+    {
+        Arrow temp = isRight ? arrow.GetObject(pos, new Vector3(0, 0, 180)) : arrow.GetObject(pos);
+
+        return temp;
     }
 }

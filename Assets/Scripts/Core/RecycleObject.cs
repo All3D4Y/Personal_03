@@ -14,6 +14,8 @@ public class RecycleObject : MonoBehaviour
     {
         transform.localPosition = Vector3.zero;     // 위치 초기화
 
+        transform.localRotation = Quaternion.identity;  // 회전 초기화
+
         StopAllCoroutines();    // 이전에 실행 중이던 코루틴 모두 정지
 
         OnReset();              // 각 클래스별 리셋 처리

@@ -13,5 +13,14 @@ public class Enemy : Actor
 
     public override void AttackAnimation(int num)
     {
+        switch (num)
+        {
+            case 0:
+                spum.PlayAnimation(4);
+                break;
+            case 1:
+                spum.PlayAnimation(5);
+                break;
+        }
     }
 }

@@ -20,7 +20,7 @@ public class Ally : Actor
                 spum.PlayAnimation(4);
                 break;
             case 2:
-                spum.PlayAnimation(6);
+                spum.PlayAnimation(9);
                 break;
             case 3:
                 spum.PlayAnimation(6);

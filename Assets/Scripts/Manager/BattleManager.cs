@@ -32,6 +32,8 @@ public class BattleManager : MonoBehaviour
 
     public BattleSlot OnTurnSlot { get; private set; }
 
+    public BattleSlot[] Targets => targets;
+
 
     void Awake()
     {
