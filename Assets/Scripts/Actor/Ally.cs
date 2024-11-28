@@ -9,7 +9,22 @@ public class Ally : Actor
         side = ActorSide.Ally;
     }
 
-    public override void Animation()
+    public override void AttackAnimation(int num)
     {
+        switch (num)
+        {
+            case 0:
+                spum.PlayAnimation(4);
+                break;
+            case 1:
+                spum.PlayAnimation(4);
+                break;
+            case 2:
+                spum.PlayAnimation(6);
+                break;
+            case 3:
+                spum.PlayAnimation(6);
+                break;
+        }
     }
 }

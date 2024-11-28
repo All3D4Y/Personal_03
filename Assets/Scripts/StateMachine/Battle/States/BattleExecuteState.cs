@@ -18,11 +18,14 @@ namespace BattlePhase
             // 전투단계 진입 시 실행할 코드
             // 애니메이션 재생
             Debug.Log("BattleExecute 상태 진입");
+            battleManager.OnTurnSlot.ActorData.AttackAnimation((int)battleManager.OnTurnSlot.ActorData.Type);
             battleManager.DamageCalculate();
+
         }
         public void Exit()
         {
             // 전투단계에서 종료 시 실행할 코드
+            battleManager.ClearTurnSlot();
             battleManager.SlotController.SortAllSlot();
             battleManager.TurnCount();
             Debug.Log("BattleExecute 상태 종료");

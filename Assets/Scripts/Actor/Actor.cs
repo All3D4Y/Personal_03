@@ -37,6 +37,8 @@ public class Actor : RecycleObject
     protected float currentDEF;
     protected float currentIncreasingSpeed;
 
+    protected SPUM_Prefabs spum;
+
     // Properties
 
     public string ActorName => actorName;
@@ -119,6 +121,11 @@ public class Actor : RecycleObject
         set => currentIncreasingSpeed = value;
     }
 
+    void Awake()
+    {
+        spum = GetComponent<SPUM_Prefabs>();
+    }
+
     protected override void OnEnable()
     {
         base.OnEnable();
@@ -130,9 +137,14 @@ public class Actor : RecycleObject
         IncreasingSpeed = increasingSpeed;
     }
 
-    public virtual void Animation()
+    public virtual void AttackAnimation(int num)
     {
         // 애니메이션
+    }
+
+    public void HurtAnimation()
+    {
+        spum.PlayAnimation(4);
     }
 
     public void Die()

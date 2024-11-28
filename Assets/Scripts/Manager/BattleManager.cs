@@ -144,6 +144,7 @@ public class BattleManager : MonoBehaviour
             foreach (BattleSlot target in targets)
             {
                 target.ActorData.HP -= target.Passer.Damage;
+
                 target.Passer = null;
             }
         }

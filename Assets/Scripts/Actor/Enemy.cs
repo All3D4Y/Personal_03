@@ -11,7 +11,7 @@ public class Enemy : Actor
         side = ActorSide.Enemy;
     }
 
-    public override void Animation()
+    public override void AttackAnimation(int num)
     {
     }
 }
