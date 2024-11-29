@@ -13,7 +13,7 @@ public class ObjectPool<T> : MonoBehaviour where T : RecycleObject  // T는 반�
     /// <summary>
     /// 풀의 크기. 처음에 생성하는 오브젝트의 개수(크기는 2^n이 좋음)
     /// </summary>
-    public int poolSize = 64;
+    public int poolSize = 8;
 
     /// <summary>
     /// 생성된 모든 오브젝트가 들어있는 배열.(제네릭(T타입)으로 해서 다양한 오브젝트를 지원)
@@ -70,6 +70,7 @@ public class ObjectPool<T> : MonoBehaviour where T : RecycleObject  // T는 반�
             OnGenerateObject(comp);
 
             result[i] = comp;       // 배열에 만들어진 것을 모두 저장
+            readyQueue.Enqueue(comp);       // 초기화 시점에 큐에 추가
             obj.SetActive(false);   // 비활성화 시키기
         }
     }

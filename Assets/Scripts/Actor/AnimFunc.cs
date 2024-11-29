@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,18 +6,22 @@ using UnityEngine;
 public class AnimFunc : MonoBehaviour
 {
     Actor parent;
+
+    public Action onAttackAnimEnd;
+    public Action onHurtAnimEnd;
+
     void Awake()
     {
         parent =  GetComponentInParent<Actor>();
     }
 
-    public void SetAttackEnd()
+    public void AttackEnd()
     {
-        parent.IsAttackEnd = true;
+        onAttackAnimEnd?.Invoke();
     }
 
-    public void SetHurtEnd()
+    public void HurtEnd()
     {
-        parent.IsHurtEnd = true;
+        onHurtAnimEnd?.Invoke();
     }
 }

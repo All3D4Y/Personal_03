@@ -38,13 +38,9 @@ public class Actor : RecycleObject
     protected float currentIncreasingSpeed;
 
     protected SPUM_Prefabs spum;
-    protected bool isAttackEnd = false;
-    protected bool isHurtEnd = false;
+    protected AnimFunc anim;
 
     // Properties
-
-    public bool IsAttackEnd { get => isAttackEnd; set => isAttackEnd = value; }
-    public bool IsHurtEnd { get => isHurtEnd; set => isHurtEnd = value; }
 
     public string ActorName => actorName;
     public ActorCode Code => code;
@@ -55,6 +51,8 @@ public class Actor : RecycleObject
     public float MaxMP => maxMp;
 
     public SPUM_Prefabs SPUM => spum;
+
+    public AnimFunc Anim => anim;
 
     /// <summary>
     /// 체력
@@ -132,6 +130,7 @@ public class Actor : RecycleObject
     void Awake()
     {
         spum = GetComponent<SPUM_Prefabs>();
+        anim = transform.GetChild(0).GetComponent<AnimFunc>();
     }
 
     protected override void OnEnable()
@@ -163,10 +162,5 @@ public class Actor : RecycleObject
     public void LowMpMode()
     {
         // MP가 0 이하일때
-    }
-
-    public void HurtAnimationEnd()
-    {
-        IsHurtEnd = true;
     }
 }
