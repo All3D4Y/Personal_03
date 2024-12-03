@@ -8,7 +8,7 @@ public class Test02_Battle : TestBase
     SlotController controller;
 
     Ally[] characterDatas;
-    Enemy[] enemyDatas;
+    OldEnemy[] enemyDatas;
 
     void Start()
     {

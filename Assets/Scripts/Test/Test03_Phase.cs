@@ -7,9 +7,9 @@ using UnityEngine.InputSystem.XR;
 
 public class Test03_Phase : TestBase
 {
-    BattleManager battleManager;
+    OldBattleManager battleManager;
     Ally[] characterDatas;
-    Enemy[] enemyDatas;
+    OldEnemy[] enemyDatas;
     public SlotVisualizer slotVisualizer;
     public Transform a;
     public Transform b;
@@ -18,7 +18,7 @@ public class Test03_Phase : TestBase
 
     void Start()
     {
-        battleManager = GameManager.Instance.BattleManager;
+        battleManager = OldGameManager.Instance.BattleManager;
     }
 
     protected override void OnTestLClick(InputAction.CallbackContext context)

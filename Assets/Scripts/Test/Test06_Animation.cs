@@ -7,8 +7,8 @@ public class Test06_Animation : TestBase
 {
     public Ally testAlly_0;
     public Ally testAlly_1;
-    public Enemy enemy_0;
-    public Enemy enemy_1;
+    public OldEnemy enemy_0;
+    public OldEnemy enemy_1;
 
     protected override void OnTest1(InputAction.CallbackContext context)
     {
