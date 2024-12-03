@@ -50,19 +50,12 @@ public class SlotManager
     void InitializeBattle()
     {
         // 슬롯 초기화
-        SlotManager playerSlots = new SlotManager(4); // 아군 슬롯 4개
-        SlotManager enemySlots = new SlotManager(4);  // 적 슬롯 4개
-        SlotManager playerStandbySlots = new SlotManager(4); // 
-        SlotManager enemyStandbySlots = new SlotManager(4);
-
-        //PlayerDataManager.Instance.players
+        SlotManager playerSlots = new SlotManager(4);           // 아군 슬롯 4개
+        SlotManager enemySlots = new SlotManager(4);            // 적 슬롯 4개
+        SlotManager playerStandbySlots = new SlotManager(4);    // 아군 대기석 4개
+        SlotManager enemyStandbySlots = new SlotManager(4);     // 적군 대기석 4개
 
         // 아군 배치
-
-        //playerSlots.AssignCharacterToSlot();
-
         // 적 배치
-        //enemySlots.AssignCharacterToSlot();
-        //enemySlots.AssignCharacterToSlot();
     }
 }

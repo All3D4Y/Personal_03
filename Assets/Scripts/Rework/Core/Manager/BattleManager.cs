@@ -8,21 +8,12 @@ public class BattleManager : MonoBehaviour
     BattleState currentState;               // 현재 상태
     Dictionary<Type, BattleState> states;   // 상태 목록
 
-    TurnOrder turnOrder;
-
     List<Character> playerParty;
     List<Character> enemyParty;
 
-    public TurnOrder TurnOrder
-    {
-        get => turnOrder;
-        set => turnOrder = value;
-    } 
-
+    public TurnOrder TurnOrder { get; set; }
     public List<Character> PlayerParty => playerParty;
     public List<Character> EnemyParty => enemyParty;
-
-
 
 
     void Start()

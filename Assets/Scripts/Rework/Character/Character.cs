@@ -88,7 +88,7 @@ public class Character : MonoBehaviour
     /// </summary>
     public float DEF { get; set; }
 
-    void OnEnable()
+    public void Initialize()
     {
         HP = maxHp;
         MP = maxMp;
