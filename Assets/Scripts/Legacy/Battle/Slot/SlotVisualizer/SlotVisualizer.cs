@@ -63,7 +63,7 @@ public class SlotVisualizer : MonoBehaviour
 
         for (int i = 0; i < allies.Length; i++)
         {
-            Actor temp = Factory.Instance.GetActor(index_Ally[i]);  // 팩토리에서 가져와서
+            Actor temp = OldFactory.Instance.GetActor(index_Ally[i]);  // 팩토리에서 가져와서
             if (i < 4)                                              // 0~3 까지는
             {
                 GetIn(temp.gameObject, allyPos[i]);                 // 슬롯 위치에 보여지게 넣고
@@ -78,7 +78,7 @@ public class SlotVisualizer : MonoBehaviour
 
         for (int i = 0; i < enemies.Length; i++)
         {
-            Actor temp = Factory.Instance.GetActor(index_Enemy[i]); // 팩토리에서 가져와서
+            Actor temp = OldFactory.Instance.GetActor(index_Enemy[i]); // 팩토리에서 가져와서
             if (i < 4)                                              // 0~3 까지는
             {
                 GetIn(temp.gameObject, enemyPos[i]);                // 슬롯 위치에 보여지게 넣고

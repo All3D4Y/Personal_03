@@ -6,15 +6,18 @@ using UnityEngine;
 
 public class SlotManager
 {
-    private List<Slot> slots;
+    List<Slot> slots;
 
-    public SlotManager(int numberOfSlots)
+    public bool IsPlayer {  get; private set; }
+
+    public SlotManager(int numberOfSlots, bool isPlayer)
     {
         slots = new List<Slot>();
         for (int i = 0; i < numberOfSlots; i++)
         {
-            slots.Add(new Slot(i));
+            slots.Add(new Slot(i, isPlayer));
         }
+        IsPlayer = isPlayer;
     }
 
     public Slot GetSlot(int index)
@@ -27,7 +30,8 @@ public class SlotManager
     public void AssignCharacterToSlot(Character character, int index)
     {
         Slot slot = GetSlot(index);
-        slot.AssignCharacter(character);
+        if (character != null)
+            slot.AssignCharacter(character);
     }
 
     public void ClearSlot(int index)
@@ -46,16 +50,30 @@ public class SlotManager
         return slots.Where(slot => !slot.IsEmpty).ToList();
     }
 
-    // 나중에 상태머신으로 이동
-    void InitializeBattle()
+    public void MoveCharacter(int fromSlotIndex, int toSlotIndex)
     {
-        // 슬롯 초기화
-        SlotManager playerSlots = new SlotManager(4);           // 아군 슬롯 4개
-        SlotManager enemySlots = new SlotManager(4);            // 적 슬롯 4개
-        SlotManager playerStandbySlots = new SlotManager(4);    // 아군 대기석 4개
-        SlotManager enemyStandbySlots = new SlotManager(4);     // 적군 대기석 4개
+        Slot fromSlot = GetSlot(fromSlotIndex);
+        Slot toSlot = GetSlot(toSlotIndex);
 
-        // 아군 배치
-        // 적 배치
+        if (!toSlot.IsEmpty)
+        {
+            Debug.LogWarning("이동하려는 슬롯이 점유 중이거나 차단되었습니다!");
+            return;
+        }
+
+        Character character = fromSlot.CharacterData;
+        if (character == null)
+        {
+            Debug.LogWarning("이동할 캐릭터가 없습니다!");
+            return;
+        }
+
+        fromSlot.ClearSlot();              // 원래 슬롯 비우기
+        toSlot.AssignCharacter(character); // 목표 슬롯에 캐릭터 할당
+
+        // 캐릭터 오브젝트의 위치 업데이트
+        character.transform.position = toSlot.SlotTransform.position;
+
+        Debug.Log($"{character.Name}가 슬롯 {fromSlotIndex}에서 {toSlotIndex}로 이동했습니다.");
     }
 }

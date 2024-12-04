@@ -6,10 +6,12 @@ using UnityEngine;
 public class Character : MonoBehaviour
 {
     [Header("기본 정보")]
+    [SerializeField] protected int code = 0;
     [SerializeField] protected string characterName = "이름";
     [TextArea(2, 5)]
     [SerializeField] protected string description = "설명";
     [Space(20)]
+    [SerializeField] protected bool isPlayer = true;
     [SerializeField] protected float attackPower = 0f;
     [SerializeField] protected float defensivePower = 0f;
     [SerializeField] protected float maxHp = 0f;
@@ -30,8 +32,9 @@ public class Character : MonoBehaviour
     public event Action<float> onMPChanged;
 
     // 프로퍼티
+    public int Code => code;                            // 캐릭터 코드
     public string Name => characterName;                // 캐릭터 이름
-    public bool IsPlayer { get; set; }                  // 아군 여부
+    public bool IsPlayer => isPlayer;                   // 아군 여부
     public bool IsAlive { get; set; }                   // 생존 여부
     public float BaseSpeed => baseSpeed;                // 초기 속도
     public float CurrentSpeedIncrement { get; set; }    // 턴마다 증가하는 속도
@@ -96,10 +99,12 @@ public class Character : MonoBehaviour
         DEF = defensivePower;
         CurrentSpeed = BaseSpeed;
         CurrentSpeedIncrement = speedIncrement;
+        IsAlive = true;
     }
 
     void Die()
     {
+        IsAlive = false;
     }
 
     void OnLowMP()

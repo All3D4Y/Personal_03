@@ -4,52 +4,48 @@ using UnityEngine;
 
 public class CharacterFactory : MonoBehaviour
 {
-    public GameObject[] characters;
-
-    Transform[] playerSlotTransforms;
-    Transform[] playerStandbySlotTransforms;
-    Transform[] enemySlotTransforms;
-    Transform[] enemyStandbySlotTransforms;
-
-    void Awake()
+    [System.Serializable]
+    public struct CharacterCodeAndPrefab
     {
-        playerSlotTransforms = new Transform[4];
-        playerStandbySlotTransforms = new Transform[4];
-        enemySlotTransforms = new Transform[4];
-        enemyStandbySlotTransforms = new Transform[4];
+        public int code;
+        public GameObject prefab;
+    }
 
-        Transform child = transform.GetChild(0);
-        for (int i = 0; i < playerSlotTransforms.Length; i++)
-        {
-            playerSlotTransforms[i] = child.GetChild(i);
-        }
+    public List<CharacterCodeAndPrefab> prefabMappings;
+    private Dictionary<int, GameObject> prefabMap;
 
-        child = transform.GetChild(1);
-        for (int i = 0; i < playerStandbySlotTransforms.Length; i++)
+    private void Awake()
+    {
+        // Dictionary 초기화
+        prefabMap = new Dictionary<int, GameObject>();
+        foreach (var mapping in prefabMappings)
         {
-            playerStandbySlotTransforms[i] = child.GetChild(i);
-        }
-
-        child = transform.GetChild(2);
-        for (int i = 0; i < enemySlotTransforms.Length; i++)
-        {
-            enemySlotTransforms[i] = child.GetChild(i);
-        }
-
-        child = transform.GetChild(3);
-        for (int i = 0; i < enemyStandbySlotTransforms.Length; i++)
-        {
-            enemyStandbySlotTransforms[i] = child.GetChild(i);
+            if (!prefabMap.ContainsKey(mapping.code))
+            {
+                prefabMap[mapping.code] = mapping.prefab;
+            }
+            else
+            {
+                Debug.LogWarning($"중복된 코드 {mapping.code}가 감지되었습니다.");
+            }
         }
     }
 
-    public Character GenerateCharacter(int prefabIndex, int slotIndex, Transform parent = null)
+
+    public Character GenerateCharacter(int code, Transform parent = null)
     {
+        // 코드로 프리팹 찾기
+        if (!prefabMap.TryGetValue(code, out GameObject prefab))
+        {
+            Debug.LogWarning($"CharacterFactory: 코드 {code}에 대한 프리팹이 없습니다.");
+            return null;
+        }
+
         // 프리팹 인스턴스화
-        GameObject characterObject = Instantiate(characters[prefabIndex], parent);
+        GameObject characterObject = Instantiate(prefab, parent);
         Character character = characterObject.GetComponent<Character>();
 
-        // 캐릭터 속성 초기화
+        // 캐릭터 스테이터스 초기화
         character.Initialize();
 
         return character;

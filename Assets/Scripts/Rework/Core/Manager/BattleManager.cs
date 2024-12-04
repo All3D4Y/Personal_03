@@ -12,9 +12,10 @@ public class BattleManager : MonoBehaviour
     List<Character> enemyParty;
 
     public TurnOrder TurnOrder { get; set; }
+    public SlotManager PlayerSlot { get; set; }
+    public SlotManager EnemySlot { get; set; }
     public List<Character> PlayerParty => playerParty;
     public List<Character> EnemyParty => enemyParty;
-
 
     void Start()
     {
@@ -33,6 +34,11 @@ public class BattleManager : MonoBehaviour
         ChangeState<Preparation>();
     }
 
+    void Update()
+    {
+        currentState?.Update();
+    }
+
     public void ChangeState<T>() where T : BattleState
     {
         if (currentState != null)
@@ -40,10 +46,5 @@ public class BattleManager : MonoBehaviour
 
         currentState = states[typeof(T)];
         currentState.Enter();
-    }
-
-    void Update()
-    {
-        currentState?.Update();
     }
 }

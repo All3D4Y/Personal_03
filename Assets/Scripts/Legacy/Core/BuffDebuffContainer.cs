@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class BuffDebuffContainer
 {
-    static List<IBuffDebuff> buffDebuffs = new List<IBuffDebuff>();
+    static List<IOldBuffDebuff> buffDebuffs = new List<IOldBuffDebuff>();
 
-    public static List<IBuffDebuff> BuffDebuffs => buffDebuffs;
+    public static List<IOldBuffDebuff> BuffDebuffs => buffDebuffs;
 
-    public static void SaveBuff(IBuffDebuff buffDebuff)
+    public static void SaveBuff(IOldBuffDebuff buffDebuff)
     {
         buffDebuffs.Add(buffDebuff);
     }
 
-    public static void DeleteBuff(IBuffDebuff buffDebuff)
+    public static void DeleteBuff(IOldBuffDebuff buffDebuff)
     {
         buffDebuffs.Remove(buffDebuff);
     }

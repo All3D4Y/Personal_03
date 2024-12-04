@@ -155,7 +155,7 @@ public class OldBattleManager : MonoBehaviour
     public void TurnCount()
     {
         // 버프 유지 카운트 --
-        IBuffDebuff[] buffs = BuffDebuffContainer.BuffDebuffs.ToArray();
+        IOldBuffDebuff[] buffs = BuffDebuffContainer.BuffDebuffs.ToArray();
         foreach (var buff in buffs)
         {
             buff.Duration--;
