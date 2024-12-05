@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BattleUI : MonoBehaviour
+public class OldBattleUI : MonoBehaviour
 {
     Button changeBTN;
     Button skillBTN;
@@ -16,17 +16,17 @@ public class BattleUI : MonoBehaviour
     CanvasGroup skillGroup;
     CanvasGroup itemGroup;
 
-    ChangeGroupUI changeUIs;
-    SkillGroupUI skillUIs;
+    OldChangeGroupUI changeUIs;
+    OldSkillGroupUI skillUIs;
     //ItemGroupUI itemUI;
 
-    public ChangeGroupUI ChangeUIs => changeUIs;
-    public SkillGroupUI SkillUIs => skillUIs;
+    public OldChangeGroupUI ChangeUIs => changeUIs;
+    public OldSkillGroupUI SkillUIs => skillUIs;
 
     void Awake()
     {
-        changeUIs = transform.GetChild(4).GetComponent<ChangeGroupUI>();
-        skillUIs = transform.GetChild(5).GetComponent<SkillGroupUI>();
+        changeUIs = transform.GetChild(4).GetComponent<OldChangeGroupUI>();
+        skillUIs = transform.GetChild(5).GetComponent<OldSkillGroupUI>();
 
         battleUI = GetComponent<CanvasGroup>();
 

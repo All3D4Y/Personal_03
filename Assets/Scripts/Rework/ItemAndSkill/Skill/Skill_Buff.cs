@@ -30,8 +30,4 @@ public class Skill_Buff : ItemSkill, IBuff
                 break;
         }
     }
-
-    public override void SetTarget()
-    {
-    }
 }

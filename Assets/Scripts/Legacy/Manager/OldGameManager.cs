@@ -8,8 +8,8 @@ public class OldGameManager : Singleton<OldGameManager>
     SlotController slotController;
     OldStageDataManager stageDataManager;
     SlotVisualizer slotVisualizer;
-    BattleUI battleUI;
-    SkillGroupUI skillUI;
+    OldBattleUI battleUI;
+    OldSkillGroupUI skillUI;
     SkillGuideLine guideLine;
 
     public OldBattleManager BattleManager => battleManager;
@@ -20,7 +20,7 @@ public class OldGameManager : Singleton<OldGameManager>
 
     public SlotVisualizer SlotVisualizer => slotVisualizer;
 
-    public BattleUI BattleUI => battleUI;
+    public OldBattleUI BattleUI => battleUI;
 
     public SkillGuideLine GuideLine => guideLine;
 
@@ -34,7 +34,7 @@ public class OldGameManager : Singleton<OldGameManager>
         base.OnInitialize();
         battleManager = FindAnyObjectByType<OldBattleManager>();
         slotVisualizer = FindAnyObjectByType<SlotVisualizer>();
-        battleUI = FindAnyObjectByType<BattleUI>();
+        battleUI = FindAnyObjectByType<OldBattleUI>();
         guideLine = FindAnyObjectByType<SkillGuideLine>();
     }
 }

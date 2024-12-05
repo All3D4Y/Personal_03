@@ -7,9 +7,9 @@ public class Character : MonoBehaviour
 {
     [Header("기본 정보")]
     [SerializeField] protected int code = 0;
-    [SerializeField] protected string characterName = "이름";
+    public string characterName = "이름";
     [TextArea(2, 5)]
-    [SerializeField] protected string description = "설명";
+    public string description = "설명";
     [Space(20)]
     [SerializeField] protected bool isPlayer = true;
     [SerializeField] protected float attackPower = 0f;
@@ -22,12 +22,14 @@ public class Character : MonoBehaviour
     [SerializeField] protected float speedIncrement = 0;    // 턴마다 증가하는 속도
     [Space(20)]
     [Header("보유 스킬")]
-    public SkillData[] skillDatas;
+    public ItemSkill[] skillDatas;
 
     float currentHP;
     float currentMP;
 
-    public event Action onDie;
+    Vector2 cemetery = new Vector2(0, -200);
+
+    public event Action<Character> onDie;
     public event Action<float> onHPChanged;
     public event Action<float> onMPChanged;
 
@@ -39,6 +41,9 @@ public class Character : MonoBehaviour
     public float BaseSpeed => baseSpeed;                // 초기 속도
     public float CurrentSpeedIncrement { get; set; }    // 턴마다 증가하는 속도
     public float CurrentSpeed { get; set; }             // 현재 속도
+
+    public float MaxHp => maxHp;
+    public float MaxMp => maxMp;
 
     /// <summary>
     /// 체력
@@ -53,7 +58,6 @@ public class Character : MonoBehaviour
             if (currentHP < 0)
             {
                 Die();
-                onDie?.Invoke();
                 Debug.Log($"{this.gameObject.name}is dead!");
             }
         }
@@ -105,6 +109,7 @@ public class Character : MonoBehaviour
     void Die()
     {
         IsAlive = false;
+        onDie?.Invoke(this);
     }
 
     void OnLowMP()
@@ -121,5 +126,10 @@ public class Character : MonoBehaviour
         //{
         //    // 계수 정상화
         //}
+    }
+
+    void GoToCemetery()
+    {
+        transform.Translate(cemetery);
     }
 }

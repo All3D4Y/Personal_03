@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ChangeUI : MonoBehaviour
+public class OldChangeUI : MonoBehaviour
 {
     BattleSlot slot;
 

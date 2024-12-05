@@ -19,11 +19,12 @@ public class Preparation : BattleState
         InitializeBattle();
 
         // UI 초기화
-
+        // ui.preinitialize();
 
         // TurnOrder 초기화
         manager.TurnOrder = new TurnOrder();
-        //manager.TurnOrder.Initialize(manager.PlayerParty, manager.EnemyParty);
+        manager.TurnOrder.Initialize(manager.PlayerParty, manager.EnemyParty);
+        manager.SetTurnCharacter(manager.TurnOrder.GetNextCharacter());
 
         // SelectAction 으로
         manager.ChangeState<SelectAction>();
@@ -53,6 +54,8 @@ public class Preparation : BattleState
             {
                 manager.PlayerSlot.AssignCharacterToSlot(temp, i);
                 temp.transform.Translate(manager.PlayerSlot.GetSlot(i).SlotTransform.position);
+                if (i < 5)
+                    manager.PlayerParty.Add(temp);
             }
         }
 
@@ -65,6 +68,8 @@ public class Preparation : BattleState
             {
                 manager.EnemySlot.AssignCharacterToSlot(temp, i);
                 temp.transform.Translate(manager.EnemySlot.GetSlot(i).SlotTransform.position);
+                if (i < 5)
+                    manager.EnemyParty.Add(temp);
             }
         }
     }

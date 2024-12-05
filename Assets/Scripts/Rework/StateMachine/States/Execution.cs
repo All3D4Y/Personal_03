@@ -9,7 +9,7 @@ public class Execution : BattleState
     public override void Enter()
     {
         Debug.Log("행동 실행 단계...");
-        // 선택한 행동 처리 (데미지 계산, 애니메이션 실행)
+        // 데미지 계산, 버프 적용
         manager.ChangeState<StateUpdate>();
     }
 

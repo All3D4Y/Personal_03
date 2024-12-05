@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SkillGroupUI : MonoBehaviour
+public class OldSkillGroupUI : MonoBehaviour
 {
-    SkillUI[] skillUIs;
+    OldSkillUI[] skillUIs;
 
     Ally onTurnAlly = null;
 
@@ -12,10 +12,10 @@ public class SkillGroupUI : MonoBehaviour
     {
         onTurnAlly = OldGameManager.Instance.BattleManager.OnTurnSlot.ActorData as Ally;
 
-        skillUIs = new SkillUI[4];
+        skillUIs = new OldSkillUI[4];
         for (int i = 0; i < 4; i++)
         {
-            skillUIs[i] = transform.GetChild(0).GetChild(i).GetComponent<SkillUI>();
+            skillUIs[i] = transform.GetChild(0).GetChild(i).GetComponent<OldSkillUI>();
         }
 
         if (onTurnAlly != null)

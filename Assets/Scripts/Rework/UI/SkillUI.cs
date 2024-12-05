@@ -1,12 +1,13 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class SkillUI : MonoBehaviour
 {
-    SkillData skill = null;
+    ItemSkill skill = null;
 
     Button button;
     Image skillIcon;
@@ -18,7 +19,7 @@ public class SkillUI : MonoBehaviour
 
     public bool IsEmpty => skill == null;
 
-    public void Initialize()
+    void Awake()
     {
         button = GetComponent<Button>();
 
@@ -37,33 +38,36 @@ public class SkillUI : MonoBehaviour
         mpCost = child.GetComponent<TextMeshProUGUI>();
     }
 
-    /// <summary>
-    /// 스킬 UI에 스킬 정보를 넣는 함수
-    /// </summary>
-    /// <param name="actor">스킬을 가진 Actor</param>
-    /// <param name="index">스킬의 인덱스</param>
-    public void SetSkill(Actor actor, int index)
+    public void Initialize()
     {
-        if (actor != null)
+        if (!IsEmpty)
         {
-            skill = actor.skillDatas[index];
-        
-            skillIcon.sprite = skill.Icon;
+            skillIcon.sprite = skill.icon;
 
-            string temp = skill.EffectCount == 1 ? "[Single]" : "[Multi]";
+            string temp = skill.Count == 1 ? "[Single]" : "[Multi]";
             count.text = temp;
-            range.text = $"[Range : {skill.EffectRange}]";
-            skillName.text = skill.skillName;
-            skillDescription.text = skill.skillDescription;
-            mpCost.text = skill.MPCost.ToString();
-
-            button.onClick.AddListener(OnExecute);
+            range.text = $"[Range : {skill.Range}]";
+            skillName.text = skill.iS_Name;
+            skillDescription.text = skill.iS_Description;
+            mpCost.text = skill.MPCost.ToString(); 
+        }
+        else
+        {
+            Debug.LogWarning($"이 UI ({this.name})에는 할당된 스킬이 없어 초기화를 실행하지 못 했습니다!");
         }
     }
 
-    void OnExecute()
+    public void AssignSkill(ItemSkill skill)
     {
-        OldGameManager.Instance.BattleManager.UseSkillOrItem(skill);
+        if (IsEmpty)
+        {
+            this.skill = skill;
+            button.onClick.AddListener(this.skill.Execute); 
+        }
+        else
+        {
+            Debug.LogWarning($"이 UI ({this.name})에는 이미 할당된 스킬 정보가 있습니다!");
+        }
     }
 
     public void Clear()

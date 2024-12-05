@@ -5,8 +5,8 @@ using UnityEngine.InputSystem;
 
 public class Test04_UI : TestBase
 {
-    public BattleUI bui;
-    public SkillUI sui;
+    public OldBattleUI bui;
+    public OldSkillUI sui;
 
     protected override void OnTest1(InputAction.CallbackContext context)
     {

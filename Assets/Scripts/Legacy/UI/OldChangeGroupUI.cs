@@ -2,16 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChangeGroupUI : MonoBehaviour
+public class OldChangeGroupUI : MonoBehaviour
 {
-    ChangeUI[] changeUIs;
+    OldChangeUI[] changeUIs;
 
     public void Initialize()
     {
-        changeUIs = new ChangeUI[transform.childCount];
+        changeUIs = new OldChangeUI[transform.childCount];
         for (int i = 0; i < changeUIs.Length; i++)
         {
-            changeUIs[i] = transform.GetChild(0).GetChild(i).GetComponent<ChangeUI>();
+            changeUIs[i] = transform.GetChild(0).GetChild(i).GetComponent<OldChangeUI>();
         }
     }
 

@@ -14,11 +14,17 @@ public class BattleManager : MonoBehaviour
     public TurnOrder TurnOrder { get; set; }
     public SlotManager PlayerSlot { get; set; }
     public SlotManager EnemySlot { get; set; }
-    public List<Character> PlayerParty => playerParty;
-    public List<Character> EnemyParty => enemyParty;
+    public List<Character> PlayerParty { get => playerParty; set => playerParty = value; }
+    public List<Character> EnemyParty { get => enemyParty; set => enemyParty = value; }
+
+    public Character OnTurnCharacter {  get; private set; }
 
     void Start()
     {
+        // 리스트 초기화
+        playerParty = new List<Character>();
+        enemyParty = new List<Character>();
+
         // 상태 초기화
         states = new Dictionary<Type, BattleState>
         {
@@ -46,5 +52,10 @@ public class BattleManager : MonoBehaviour
 
         currentState = states[typeof(T)];
         currentState.Enter();
+    }
+
+    public void SetTurnCharacter(Character character)
+    {
+        OnTurnCharacter = character;
     }
 }

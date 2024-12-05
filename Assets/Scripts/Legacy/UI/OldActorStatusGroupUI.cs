@@ -2,16 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ActorStatusGroupUI : MonoBehaviour
+public class OldActorStatusGroupUI : MonoBehaviour
 {
-    ActorStatusUI[] actorStatusUIs;
+    OldActorStatusUI[] actorStatusUIs;
 
     void Awake()
     {
-        actorStatusUIs = new ActorStatusUI[transform.childCount];
+        actorStatusUIs = new OldActorStatusUI[transform.childCount];
         for (int i = 0; i < actorStatusUIs.Length; i++)
         {
-            actorStatusUIs[i] = transform.GetChild(i).GetComponent<ActorStatusUI>();
+            actorStatusUIs[i] = transform.GetChild(i).GetComponent<OldActorStatusUI>();
         }
     }
 

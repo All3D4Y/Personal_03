@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ActorStatusUI : MonoBehaviour
+public class OldActorStatusUI : MonoBehaviour
 {
     Slider hp;
     Slider mp;
