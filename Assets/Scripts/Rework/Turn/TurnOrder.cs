@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.TextCore.Text;
 
 public class TurnOrder
 {
@@ -12,14 +11,19 @@ public class TurnOrder
     public void Initialize(List<Character> players, List<Character> enemies)
     {
         // 캐릭터 리스트 초기화
-        characters = new List<Character>(players.Concat(enemies));
-        
-        // 죽으면 리스트에서 빠지도록 델리게이트 등록
-        foreach (Character c in characters)
+        List<Character> list = new List<Character>();
+        for (int i = 0; i < players.Count; i++)
         {
-            c.onDie -= (character) => RemoveCharacter(character);
-            c.onDie += (character) => RemoveCharacter(character);
+            if (i < 4)                              // i < 4 (대기석은 턴 계산을 하지 않음)
+                list.Add(players[i]);
         }
+        for (int i = 0; i < enemies.Count; i++)
+        {
+            if (i < 4)
+                list.Add(enemies[i]);
+        }
+
+        characters = list;
     }
 
     public Character GetNextCharacter()
@@ -43,15 +47,6 @@ public class TurnOrder
         return nextCharacter; // 행동할 캐릭터 반환
     }
 
-    public void RemoveCharacter(Character character)
-    {
-        if (characters.Contains(character))
-        {
-            characters.Remove(character);
-            Debug.Log($"{character.Name}가 TurnOrder 리스트에서 제거되었습니다.");
-        }
-    }
-
     public bool IsBattleOver()
     {
         // 적 또는 아군이 모두 쓰러졌는지 확인
@@ -59,12 +54,6 @@ public class TurnOrder
         bool allEnemiesDefeated = characters.All(c => !c.IsPlayer);     // 리스트에 남은 캐릭터가 전부 적이다 => 패배
 
         return allPlayersDefeated || allEnemiesDefeated;        // true가 리턴되면 배틀 종료
-    }
-
-    public List<Character> GetTurnOrder()
-    {
-        // 디버깅 및 UI 업데이트용으로 캐릭터들의 현재 속도 반환
-        return characters.OrderByDescending(c => c.CurrentSpeed).ToList();
     }
 
     public void IncreaseSpeed()

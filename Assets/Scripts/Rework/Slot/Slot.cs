@@ -30,6 +30,7 @@ public class Slot
         if (!IsEmpty)
             throw new InvalidOperationException("슬롯이 비어있지 않습니다.");
         CharacterData = character;
+        character.Index = SlotIndex;
     }
 
     /// <summary>

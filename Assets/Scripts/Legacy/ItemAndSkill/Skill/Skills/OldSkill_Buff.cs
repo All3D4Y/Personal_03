@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New SKill_Buff Data", menuName = "Scripable Objects/SKill_Buff Data", order = 3)]
+//[CreateAssetMenu(fileName = "New SKill_Buff Data", menuName = "Scripable Objects/SKill_Buff Data", order = 3)]
 public class OldSkill_Buff : SkillData, IOldBuffDebuff
 {
     public BuffDebuffType buffDebufftype;

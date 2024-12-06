@@ -21,9 +21,11 @@ public class SkillGroupUI : GroupUIBase
     {
         foreach (SkillUI skillUI in skillUIs)
         {
-            skillUI.Initialize();
             if (!skillUI.IsEmpty)
+            {
                 skillUI.gameObject.SetActive(true);
+                skillUI.Initialize();
+            }
             else
                 skillUI.gameObject.SetActive(false);
         }
@@ -37,5 +39,11 @@ public class SkillGroupUI : GroupUIBase
         }
     }
 
-
+    public void Clear()
+    {
+        foreach (SkillUI skillUI in skillUIs)
+        {
+            skillUI.Clear();
+        }
+    }
 }

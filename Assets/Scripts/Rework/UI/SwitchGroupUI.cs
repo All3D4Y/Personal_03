@@ -6,14 +6,16 @@ public class SwitchGroupUI : GroupUIBase
 {
     SwitchUI[] switchUIs;
 
+    public SwitchUI[] SwitchUIs => switchUIs;
+
     protected override void Awake()
     {
         base.Awake();
 
-        switchUIs = new SwitchUI[3];
+        switchUIs = new SwitchUI[transform.childCount];
         for (int i = 0; i < switchUIs.Length; i++)
         {
-            transform.GetChild(i).GetComponent<SwitchUI>();
+            switchUIs[i] = transform.GetChild(i).GetComponent<SwitchUI>();
         }
     }
 
@@ -21,11 +23,21 @@ public class SwitchGroupUI : GroupUIBase
     {
         foreach (SwitchUI switchUI in switchUIs)
         {
-            switchUI.Initialize();
-            if (!switchUI.IsEmpty) 
+            if (!switchUI.IsEmpty)
+            {
+                switchUI.Initialize();
                 switchUI.gameObject.SetActive(true);
+            }
             else
                 switchUI.gameObject.SetActive(false);
+        }
+    }
+
+    public void Clear()
+    {
+        foreach (SwitchUI switchUI in switchUIs)
+        {
+            switchUI.Clear();
         }
     }
 }

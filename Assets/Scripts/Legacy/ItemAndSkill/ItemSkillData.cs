@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemSkillData : ScriptableObject, IAction
+public class ItemSkillData : ScriptableObject, IOldAction
 {
     [SerializeField] protected Sprite icon;
 

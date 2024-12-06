@@ -62,7 +62,7 @@ public class SkillUI : MonoBehaviour
         if (IsEmpty)
         {
             this.skill = skill;
-            button.onClick.AddListener(this.skill.Execute); 
+            button.onClick.AddListener(() => GameManager.Instance.BattleManager.ActionManager.ActionExecute(this.skill));
         }
         else
         {

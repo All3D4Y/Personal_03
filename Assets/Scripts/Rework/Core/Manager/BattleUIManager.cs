@@ -44,12 +44,44 @@ public class BattleUIManager : GroupUIBase
 
     public void PreInitialize()
     {
-        // preparation 단계에서 최초 1회만 실행
+        // Preparation 단계에서 최초 1회만 실행
+        // Switch쪽은 여기서 등록하기
+        SlotManager playerSlot = GameManager.Instance.BattleManager.PlayerSlot;
+        
+        if (playerSlot != null && playerSlot.SlotCount > 4)         // 플레이어 슬롯이 있고, 슬롯에 5명 이상이 있을 때
+        {
+            for (int i = 0; i < playerSlot.SlotCount - 4; i++)
+            {
+                switchGroupUI.SwitchUIs[i].AssignCharacter(playerSlot.GetSlot(i + 4).CharacterData);
+            }
+        }
+        
+        switchGroupUI.Initialize();
     }
 
     public void Initialize()
     {
-        // selectAction 단계의 enter에서 실행
+        // SelectAction 단계의 Enter에서 실행
+        // Turn 정보 받아와서 SkillUI들에 적용하기
+        Character turn = GameManager.Instance.BattleManager.OnTurnCharacter;
+
+        if (turn != null)
+        {
+            skillGroupUI.AssignSkills(turn);    // 캐릭터의 스킬들을 등록하고
+            skillGroupUI.Initialize();          // 초기화 실행
+        }
+        else
+            Debug.LogWarning("차례인 캐릭터가 없습니다!");
+
+        // 액션 선택 단계 진입 시 첫 활성화는 Skill
+        OnSkill();
+        // 마지막으로 보여지게 하기
+        OnVisible();
+    }
+
+    public void Clear()
+    {
+        skillGroupUI.Clear();
     }
 
     void OnSwitch()

@@ -2096,7 +2096,8 @@ MonoBehaviour:
   maxMp: 70
   baseSpeed: 30
   speedIncrement: 30
-  skillDatas: []
+  skillDatas:
+  - {fileID: 11400000, guid: c9478f99a6285c745865b83d048eb61c, type: 2}
 --- !u!1 &5962691518407367409
 GameObject:
   m_ObjectHideFlags: 0

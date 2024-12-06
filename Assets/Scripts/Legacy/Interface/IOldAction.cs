@@ -1,4 +1,4 @@
-﻿public interface IAction
+﻿public interface IOldAction
 {
     /// <summary>
     /// 효과의 종류

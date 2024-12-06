@@ -16,12 +16,31 @@ public abstract class ItemSkill : ScriptableObject
     public int Range => range;
     public int MPCost => mpCost;
 
-    public abstract void Affect(Character character);
+    public abstract void Affect(Character user, Character target);
     public void Execute()
     {
         // 실행 로직
+        BattleManager battleManager = GameManager.Instance.BattleManager;
+        Character turn = battleManager.OnTurnCharacter;
+        int[] targets = new int[count];
+        if (this is IAttack)
+        {
+            targets = SetTargetIndex(turn.Index);
+        }
+        else if (this is IBuff)
+        {
+            targets = BuffTargetIndex(turn.Index);
+        }
+
+        foreach (int target in targets)
+        {
+            if (turn.IsPlayer)
+                Affect(turn, battleManager.EnemySlot.GetSlot(target).CharacterData);
+            else
+                Affect(turn, battleManager.PlayerSlot.GetSlot(target).CharacterData);
+        }
     }
-    public int[] SetTarget(int index)
+    public int[] SetTargetIndex(int index)
     {
         int[] result = new int[count];
 
@@ -32,11 +51,11 @@ public abstract class ItemSkill : ScriptableObject
 
         return result;
     }
-    public int[] SetTarget(Slot user)
+    public int[] SetTargetIndex(Slot user)
     {
-        return SetTarget(user.SlotIndex);
+        return SetTargetIndex(user.SlotIndex);
     }
-    public int[] BuffTarget(int index)
+    public int[] BuffTargetIndex(int index)
     {
         int[] result = new int[count];
         
@@ -47,8 +66,8 @@ public abstract class ItemSkill : ScriptableObject
 
         return result;
     }
-    public int[] BuffTarget(Slot user)
+    public int[] BuffTargetIndex(Slot user)
     {
-        return BuffTarget(user.SlotIndex);
+        return BuffTargetIndex(user.SlotIndex);
     }
 }

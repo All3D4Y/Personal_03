@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu(fileName = "New SKill_Buff Data", menuName = "Scripable Objects/SKill_Buff Data", order = 3)]
 public class Skill_Buff : ItemSkill, IBuff
 {
     [SerializeField] BuffType type = BuffType.Attack;
@@ -14,19 +15,19 @@ public class Skill_Buff : ItemSkill, IBuff
     public float Ratio => ratio;
     public bool IsDebuff => isDebuff;
 
-    public override void Affect(Character character)
+    public override void Affect(Character user, Character target)
     {
         ratio *= isDebuff ? 1 : -1;
         switch ((int)type)
         {
             case 0:
-                character.ATK *= (1 + ratio);
+                target.ATK *= (1 + ratio);
                 break;
             case 1:
-                character.DEF *= (1 + ratio);
+                target.DEF *= (1 + ratio);
                 break;
             case 2:
-                character.CurrentSpeedIncrement *= (1 + ratio);
+                target.CurrentSpeedIncrement *= (1 + ratio);
                 break;
         }
     }

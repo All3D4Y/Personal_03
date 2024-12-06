@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
+[CreateAssetMenu(fileName = "New SKill_Attack Data", menuName = "Scripable Objects/SKill_Attack Data", order = 2)]
 public class Skill_Attack : ItemSkill, IAttack
 {
     [SerializeField] float ratio = 1.0f;
@@ -18,11 +19,14 @@ public class Skill_Attack : ItemSkill, IAttack
 
     public float CriticalBonus => criticalBonus;        // 크리티컬 대미지 보너스 비율
 
-    public override void Affect(Character character)
+    public float TempDamage {  get; set; }
+
+    public override void Affect(Character user, Character target)
     {
+        target.HP -= (1 - target.DEF * 0.01f) * DoDamage(user);
     }
 
-    public float DoDamage(float atk)
+    public float DoDamage(Character user)
     {
         float criticalDamage = 0;
         if (Random.value < criticalRate)
@@ -30,7 +34,7 @@ public class Skill_Attack : ItemSkill, IAttack
             criticalDamage = criticalBonus;
             onCritical?.Invoke(true);
         }
-        float finalDamage = atk * ratio * Random.Range( 0.8f, 1.2f) * (1 + criticalDamage);
+        float finalDamage = user.ATK * ratio * Random.Range( 0.8f, 1.2f) * (1 + criticalDamage);
 
         return finalDamage;
     }

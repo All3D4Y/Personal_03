@@ -26,7 +26,7 @@ public class CharacterFactory : MonoBehaviour
             }
             else
             {
-                Debug.LogWarning($"중복된 코드 {mapping.code}가 감지되었습니다.");
+                Debug.LogWarning($"코드 {mapping.code}는 중복된 키값입니다.");
             }
         }
     }
@@ -37,7 +37,7 @@ public class CharacterFactory : MonoBehaviour
         // 코드로 프리팹 찾기
         if (!prefabMap.TryGetValue(code, out GameObject prefab))
         {
-            Debug.LogWarning($"CharacterFactory: 코드 {code}에 대한 프리팹이 없습니다.");
+            Debug.LogWarning($"{this.name}: 코드 {code}에 맞는 프리팹이 없습니다.");
             return null;
         }
 

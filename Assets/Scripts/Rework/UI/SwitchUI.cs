@@ -26,7 +26,7 @@ public class SwitchUI : MonoBehaviour
 
     public void Initialize()
     {
-        if (character != null)
+        if (!IsEmpty)
         {
             playerName.text = character.characterName;
             hpSlider.value = character.HP / character.MaxHp;

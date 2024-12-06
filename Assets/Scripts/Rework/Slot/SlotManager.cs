@@ -9,6 +9,7 @@ public class SlotManager
     List<Slot> slots;
 
     public bool IsPlayer {  get; private set; }
+    public int SlotCount { get; private set; }
 
     public SlotManager(int numberOfSlots, bool isPlayer)
     {

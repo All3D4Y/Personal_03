@@ -116,7 +116,7 @@ public class OldBattleManager : MonoBehaviour
     /// 스킬이나 아이템을 사용하는 함수
     /// </summary>
     /// <param name="action">선택한 행동</param>
-    public void UseSkillOrItem(IAction action)
+    public void UseSkillOrItem(IOldAction action)
     {
         if (action is SkillData)
         {

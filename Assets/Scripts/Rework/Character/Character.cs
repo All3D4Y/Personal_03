@@ -29,7 +29,7 @@ public class Character : MonoBehaviour
 
     Vector2 cemetery = new Vector2(0, -200);
 
-    public event Action<Character> onDie;
+    public event Action onDie;
     public event Action<float> onHPChanged;
     public event Action<float> onMPChanged;
 
@@ -41,7 +41,7 @@ public class Character : MonoBehaviour
     public float BaseSpeed => baseSpeed;                // 초기 속도
     public float CurrentSpeedIncrement { get; set; }    // 턴마다 증가하는 속도
     public float CurrentSpeed { get; set; }             // 현재 속도
-
+    public int Index {  get; set; }
     public float MaxHp => maxHp;
     public float MaxMp => maxMp;
 
@@ -97,6 +97,7 @@ public class Character : MonoBehaviour
 
     public void Initialize()
     {
+        Index = 999;
         HP = maxHp;
         MP = maxMp;
         ATK = attackPower;
@@ -109,7 +110,7 @@ public class Character : MonoBehaviour
     void Die()
     {
         IsAlive = false;
-        onDie?.Invoke(this);
+        onDie?.Invoke();
     }
 
     void OnLowMP()

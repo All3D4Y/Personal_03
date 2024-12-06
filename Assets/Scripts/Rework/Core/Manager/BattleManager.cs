@@ -8,23 +8,22 @@ public class BattleManager : MonoBehaviour
     BattleState currentState;               // 현재 상태
     Dictionary<Type, BattleState> states;   // 상태 목록
 
-    List<Character> playerParty;
-    List<Character> enemyParty;
-
     public TurnOrder TurnOrder { get; set; }
     public SlotManager PlayerSlot { get; set; }
     public SlotManager EnemySlot { get; set; }
-    public List<Character> PlayerParty { get => playerParty; set => playerParty = value; }
-    public List<Character> EnemyParty { get => enemyParty; set => enemyParty = value; }
+    public List<Character> PlayerParty { get; private set; }
+    public List<Character> EnemyParty { get; private set; }
 
     public Character OnTurnCharacter {  get; private set; }
+    public ActionManager ActionManager { get; private set; }
+
+    void Awake()
+    {
+        ActionManager = GetComponent<ActionManager>();
+    }
 
     void Start()
     {
-        // 리스트 초기화
-        playerParty = new List<Character>();
-        enemyParty = new List<Character>();
-
         // 상태 초기화
         states = new Dictionary<Type, BattleState>
         {
@@ -57,5 +56,45 @@ public class BattleManager : MonoBehaviour
     public void SetTurnCharacter(Character character)
     {
         OnTurnCharacter = character;
+    }
+
+    public void InitializeBattle()
+    {
+        // 리스트 초기화
+        PlayerParty = new List<Character>();
+        EnemyParty = new List<Character>();
+
+        // 슬롯 초기화
+        PlayerSlot = new SlotManager(8, true);  // 아군 슬롯 8개
+        EnemySlot = new SlotManager(8, false);  // 적 슬롯 8개
+
+        // 아군 배치
+        int[] characterCodes = PlayerDataManager.Instance.players;
+        CharacterFactory CF = Factory.Instance.CharacterFactory;
+        for (int i = 0; i < characterCodes.Length; i++)
+        {
+            Character temp = CF.GenerateCharacter(characterCodes[i], CF.transform);
+            if (temp != null)
+            {
+                PlayerSlot.AssignCharacterToSlot(temp, i);                                  // 슬롯에 캐릭터 등록
+                temp.transform.Translate(PlayerSlot.GetSlot(i).SlotTransform.position);     // 위치 설정
+                PlayerParty.Add(temp);                                                      // 플레이어 파티(리스트)에 등록
+                temp.onDie += () => PlayerParty.Remove(temp);                               // 죽으면 리스트에서 빠지도록 델리게이트 등록
+            }
+        }
+
+        // 적 배치
+        characterCodes = StageDataManager.Instance.CurrentStage.enemyCodes;
+        for (int i = 0; i < characterCodes.Length; i++)
+        {
+            Character temp = CF.GenerateCharacter(characterCodes[i], CF.transform);
+            if (temp != null)
+            {
+                EnemySlot.AssignCharacterToSlot(temp, i);                                   // 슬롯에 캐릭터 등록
+                temp.transform.Translate(EnemySlot.GetSlot(i).SlotTransform.position);      // 위치 설정
+                EnemyParty.Add(temp);                                                       // 적 파티(리스트)에 등록
+                temp.onDie += () => EnemyParty.Remove(temp);                                // 죽으면 리스트에서 빠지도록 델리게이트 등록
+            }
+        }
     }
 }
