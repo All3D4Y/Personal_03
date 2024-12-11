@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -30,5 +30,7 @@ public class Skill_Buff : ItemSkill, IBuff
                 target.CurrentSpeedIncrement *= (1 + ratio);
                 break;
         }
+        Debug.Log($"{target.Name}이 {duration}동안 {type}의 효과를 받습니다...");
+        target.CharacterAnim.GetBuff();
     }
 }

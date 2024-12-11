@@ -45,6 +45,8 @@ public class Character : MonoBehaviour
     public float MaxHp => maxHp;
     public float MaxMp => maxMp;
 
+    public CharacterAnim CharacterAnim { get; private set; }
+
     /// <summary>
     /// 체력
     /// </summary>
@@ -94,6 +96,11 @@ public class Character : MonoBehaviour
     /// 방어력
     /// </summary>
     public float DEF { get; set; }
+
+    void Awake()
+    {
+        CharacterAnim = transform.GetChild(0).GetComponent<CharacterAnim>();
+    }
 
     public void Initialize()
     {

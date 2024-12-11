@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,6 +21,7 @@ public class SkillUI : MonoBehaviour
     void Awake()
     {
         button = GetComponent<Button>();
+        button.onClick.AddListener(UIExecution);
 
         Transform child;
         child = transform.GetChild(0).GetChild(0);
@@ -49,7 +49,7 @@ public class SkillUI : MonoBehaviour
             range.text = $"[Range : {skill.Range}]";
             skillName.text = skill.iS_Name;
             skillDescription.text = skill.iS_Description;
-            mpCost.text = skill.MPCost.ToString(); 
+            mpCost.text = skill.MPCost.ToString();
         }
         else
         {
@@ -62,16 +62,26 @@ public class SkillUI : MonoBehaviour
         if (IsEmpty)
         {
             this.skill = skill;
-            button.onClick.AddListener(() => GameManager.Instance.BattleManager.ActionManager.ActionExecute(this.skill));
         }
         else
         {
-            Debug.LogWarning($"이 UI ({this.name})에는 이미 할당된 스킬 정보가 있습니다!");
+            Debug.LogWarning($"UI ({this.name})에는 이미 할당된 스킬 정보가 있습니다!");
         }
     }
 
     public void Clear()
     {
         skill = null;
+    }
+
+    public void UIExecution()
+    {
+        GameManager.Instance.BattleManager.ActionManager.SetAction(skill);
+        GameManager.Instance.BattleManager.ChangeState<Execution>();
+    }
+
+    public void TestDebug()
+    {
+        Debug.Log("Skill Clicked");
     }
 }

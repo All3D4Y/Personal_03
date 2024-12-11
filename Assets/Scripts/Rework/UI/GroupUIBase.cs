@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class GroupUIBase : MonoBehaviour
 {
-    public float visibleSmoothness = 1.0f;
-
     protected CanvasGroup canvasGroup;
 
     protected virtual void Awake()

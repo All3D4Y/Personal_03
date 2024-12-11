@@ -11,9 +11,9 @@ public class ActionManager : MonoBehaviour
         SelectedAction = action;
     }
 
-    public void ActionExecute(ItemSkill action)
+    public void ActionExecute()
     {
-        action.Execute();
+        SelectedAction.Execute();
     }
 
     public void Clear()

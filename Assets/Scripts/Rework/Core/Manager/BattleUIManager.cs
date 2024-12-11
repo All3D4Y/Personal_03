@@ -14,12 +14,13 @@ public class BattleUIManager : GroupUIBase
 
     SwitchGroupUI switchGroupUI;
     SkillGroupUI skillGroupUI;
-    //ItemGroupUI itemUI;
+    ItemGroupUI itemGroupUI;
 
     public Action<int> onMoveInput;
 
     public SwitchGroupUI SwitchUIs => switchGroupUI;
     public SkillGroupUI SkillUIs => skillGroupUI;
+
 
     protected override void Awake()
     {
@@ -27,7 +28,7 @@ public class BattleUIManager : GroupUIBase
 
         switchGroupUI = transform.GetChild(4).GetComponent<SwitchGroupUI>();
         skillGroupUI = transform.GetChild(5).GetComponent<SkillGroupUI>();
-        //itemGroupUI
+        itemGroupUI = transform.GetChild(6).GetComponent<ItemGroupUI>();
 
         switchBTN = transform.GetChild(1).GetComponent<Button>();
         skillBTN = transform.GetChild(2).GetComponent<Button>();
@@ -88,14 +89,14 @@ public class BattleUIManager : GroupUIBase
     {
         switchGroupUI.OnVisible();
         skillGroupUI.OnTransparent();
-        //item.ontransparent
+        itemGroupUI.OnTransparent();
     }
 
     void OnSkill()
     {
         switchGroupUI.OnTransparent();
         skillGroupUI.OnVisible();
-        //item.ontransparent
+        itemGroupUI.OnTransparent();
     }
 
     void OnItem()

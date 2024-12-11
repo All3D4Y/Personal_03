@@ -23,7 +23,7 @@ public class SPUM_Prefabs : MonoBehaviour
             break;
 
             case 1: //Run
-            _anim.SetFloat("RunState",0.5f);
+            _anim.SetFloat("RunState",0.22222f);
             break;
 
             case 2: //Death
@@ -32,7 +32,7 @@ public class SPUM_Prefabs : MonoBehaviour
             break;
 
             case 3: //Stun
-            _anim.SetFloat("RunState",1.0f);
+            _anim.SetFloat("RunState",0.44444f);
             break;
 
             case 4: //Attack Sword
@@ -69,6 +69,10 @@ public class SPUM_Prefabs : MonoBehaviour
             _anim.SetTrigger("Attack");
             _anim.SetFloat("AttackState",1.0f);
             _anim.SetFloat("SkillState",1.0f);
+            break;
+
+            case 10:
+            _anim.SetFloat("RunState", 0.66666f);
             break;
         }
     }

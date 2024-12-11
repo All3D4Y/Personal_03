@@ -26,18 +26,24 @@ public abstract class ItemSkill : ScriptableObject
         if (this is IAttack)
         {
             targets = SetTargetIndex(turn.Index);
+            foreach (int target in targets)
+            {
+                if (turn.IsPlayer)
+                    Affect(turn, battleManager.EnemySlot.GetSlot(target).CharacterData);
+                else
+                    Affect(turn, battleManager.PlayerSlot.GetSlot(target).CharacterData);
+            }
         }
         else if (this is IBuff)
         {
             targets = BuffTargetIndex(turn.Index);
-        }
-
-        foreach (int target in targets)
-        {
-            if (turn.IsPlayer)
-                Affect(turn, battleManager.EnemySlot.GetSlot(target).CharacterData);
-            else
-                Affect(turn, battleManager.PlayerSlot.GetSlot(target).CharacterData);
+            foreach (int target in targets)
+            {
+                if (turn.IsPlayer)
+                    Affect(turn, battleManager.PlayerSlot.GetSlot(target).CharacterData);
+                else
+                    Affect(turn, battleManager.EnemySlot.GetSlot(target).CharacterData);
+            }
         }
     }
     public int[] SetTargetIndex(int index)
