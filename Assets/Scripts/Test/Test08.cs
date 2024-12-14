@@ -10,4 +10,14 @@ public class Test08 : TestBase
     {
         spum.CharacterAnim.BuffDebuff();
     }
+
+    protected override void OnTest2(InputAction.CallbackContext context)
+    {
+        spum.CharacterAnim.Hurt();
+    }
+
+    protected override void OnTest3(InputAction.CallbackContext context)
+    {
+        spum.CharacterAnim.GetBuff();
+    }
 }

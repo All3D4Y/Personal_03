@@ -17,20 +17,20 @@ public class CharacterAnim : MonoBehaviour
 
     void MeleeAttack()
     {
-        animator.SetTrigger("Attack");
         animator.SetFloat("AttackState", 0.6666f);
+        animator.SetTrigger("Attack");
     }
 
     void RangedAttack()
     {
-        animator.SetTrigger("Attack");
         animator.SetFloat("AttackState", 0.0f);
+        animator.SetTrigger("Attack");
     }
 
     void MagicAttack()
     {
-        animator.SetTrigger("Attack");
         animator.SetFloat("AttackState", 0.3333f);
+        animator.SetTrigger("Attack");
     }
 
     public void Attack(int index)
@@ -51,19 +51,19 @@ public class CharacterAnim : MonoBehaviour
 
     public void BuffDebuff()
     {
-        animator.SetTrigger("Attack");
         animator.SetFloat("AttackState", 1.0f);
+        animator.SetTrigger("Attack");
     }
     public void GetBuff()
     {
-        animator.SetTrigger("Affect");
         animator.SetFloat("AffectState", 1.0f);
+        animator.SetTrigger("Affect");
     }
 
     public void Hurt()
     {
-        animator.SetTrigger("Affect");
         animator.SetFloat("AffectState", 0.0f);
+        animator.SetTrigger("Affect");
     }
 
     public void Death()

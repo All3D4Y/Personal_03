@@ -78,7 +78,7 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: Attack
     m_Mirror: 0
-  m_BlendParameter: AttackState
+  m_BlendParameter: AffectState
   m_BlendParameterY: Attack
   m_MinThreshold: 0
   m_MaxThreshold: 1
