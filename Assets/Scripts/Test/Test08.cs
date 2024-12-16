@@ -6,18 +6,20 @@ using UnityEngine.InputSystem;
 public class Test08 : TestBase
 {
     public Character spum;
+
+    public CharacterStatusUI ui;
     protected override void OnTest1(InputAction.CallbackContext context)
     {
-        spum.CharacterAnim.BuffDebuff();
+        ui.Initialize(spum);
     }
 
     protected override void OnTest2(InputAction.CallbackContext context)
     {
-        spum.CharacterAnim.Hurt();
+        spum.HP -= 6;
     }
 
     protected override void OnTest3(InputAction.CallbackContext context)
     {
-        spum.CharacterAnim.GetBuff();
+        spum.HP += 6;
     }
 }

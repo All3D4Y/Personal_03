@@ -24,7 +24,7 @@ public class Execution : BattleState
 
     public override void Exit()
     {
-        // 데미지 계산, 버프 적용
+        // 델리게이트 해제
         manager.OnTurnCharacter.CharacterAnim.onActionAnimEnd -= ActionExecutionEnd;
     }
 
