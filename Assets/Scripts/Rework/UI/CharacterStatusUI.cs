@@ -10,6 +10,8 @@ public class CharacterStatusUI : MonoBehaviour
     Slider hp_Slider;
     Slider mp_Slider;
 
+    RectTransform rect;
+
     Character character;
 
     Camera mainCam;
@@ -18,6 +20,7 @@ public class CharacterStatusUI : MonoBehaviour
     {
         hp_Slider = transform.GetChild(0).GetComponent<Slider>();
         mp_Slider = transform.GetChild(1).GetComponent<Slider>();
+        rect = GetComponent<RectTransform>();
         mainCam = Camera.main;
     }
 
@@ -32,12 +35,15 @@ public class CharacterStatusUI : MonoBehaviour
         this.character = character;
         character.onHPChanged += HPUpdate;
         character.onMPChanged += MPUpdate;
+        hp_Slider.value = character.HP / character.MaxHp;
+        mp_Slider.value = character.MP / character.MaxMp;
         TransformUpdate();
     }
 
     public void TransformUpdate()
     {
-        transform.Translate(mainCam.ScreenToWorldPoint(character.transform.position));
+        Vector3 characterScreenPos = mainCam.WorldToScreenPoint(character.transform.position);
+        rect.position = characterScreenPos;
     }
 
     void HPUpdate(float hp)

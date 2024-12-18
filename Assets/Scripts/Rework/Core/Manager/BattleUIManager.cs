@@ -15,16 +15,22 @@ public class BattleUIManager : GroupUIBase
     SwitchGroupUI switchGroupUI;
     SkillGroupUI skillGroupUI;
     ItemGroupUI itemGroupUI;
+    CharacterStatusGroupUI characterStatusGroupUI;
 
     public Action<int> onMoveInput;
 
     public SwitchGroupUI SwitchUIs => switchGroupUI;
     public SkillGroupUI SkillUIs => skillGroupUI;
+    public CharacterStatusGroupUI CharacterUIs => characterStatusGroupUI;
+
+
 
 
     protected override void Awake()
     {
         base.Awake();
+
+        characterStatusGroupUI = transform.parent.GetChild(1).GetComponent<CharacterStatusGroupUI>();
 
         switchGroupUI = transform.GetChild(4).GetComponent<SwitchGroupUI>();
         skillGroupUI = transform.GetChild(5).GetComponent<SkillGroupUI>();
@@ -74,6 +80,9 @@ public class BattleUIManager : GroupUIBase
         else
             Debug.LogWarning("차례인 캐릭터가 없습니다!");
 
+        onMoveInput += GameManager.Instance.BattleManager.PlayerSlot.OnMoveSlot;
+        // 캐릭터 UI활성화
+        characterStatusGroupUI.OnVisible();
         // 액션 선택 단계 진입 시 첫 활성화는 Skill
         OnSkill();
         // 마지막으로 보여지게 하기
@@ -82,6 +91,7 @@ public class BattleUIManager : GroupUIBase
 
     public void Clear()
     {
+        onMoveInput -= GameManager.Instance.BattleManager.PlayerSlot.OnMoveSlot;
         skillGroupUI.Clear();
     }
 

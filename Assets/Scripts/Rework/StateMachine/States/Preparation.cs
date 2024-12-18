@@ -19,6 +19,7 @@ public class Preparation : BattleState
         manager.InitializeBattle();
 
         // UI 초기화
+        Factory.Instance.CharacterUIPool.Initialize();
         GameManager.Instance.BattleUIManager.PreInitialize();
 
         // TurnOrder 초기화

@@ -117,6 +117,7 @@ public class Character : MonoBehaviour
     void Die()
     {
         IsAlive = false;
+        GoToCemetery();
         onDie?.Invoke();
     }
 
