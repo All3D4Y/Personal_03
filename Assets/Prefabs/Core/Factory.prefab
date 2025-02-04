@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5279618168554609771
 Transform:
   m_ObjectHideFlags: 0
@@ -44,8 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db9c681dd37db0d4c9e711bbdcfbf2d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 0}
-  poolSize: 8
+  prefab: {fileID: 453807784319177402, guid: 14cb1005144b2de4bb23eac2c77a18aa, type: 3}
+  poolSize: 4
 --- !u!1 &4520509593317366263
 GameObject:
   m_ObjectHideFlags: 0

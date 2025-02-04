@@ -7,6 +7,9 @@ using UnityEngine.UI;
 public class SkillUI : MonoBehaviour
 {
     ItemSkill skill = null;
+    GuideLine guideLine = null;
+
+    Image board;
 
     Button button;
     Image skillIcon;
@@ -16,25 +19,33 @@ public class SkillUI : MonoBehaviour
     TextMeshProUGUI skillDescription;
     TextMeshProUGUI mpCost;
 
+    Color invalidColor = new Color(1, 1, 1, 0.2f);
+
     public bool IsEmpty => skill == null;
+    public GuideLine GuideLine => guideLine;
 
     void Awake()
     {
-        button = GetComponent<Button>();
+        guideLine = transform.GetChild(0).GetComponent<GuideLine>();
+
+        Transform child = transform.GetChild(2);
+
+        button = child.GetComponent<Button>();
         button.onClick.AddListener(UIExecution);
 
-        Transform child;
-        child = transform.GetChild(0).GetChild(0);
+        board = child.GetComponent<Image>();
+
+        child = child.GetChild(0).GetChild(0);
         skillIcon = child.GetComponent<Image>();
-        child = transform.GetChild(1);
+        child = transform.GetChild(2).GetChild(1);
         count = child.GetComponent<TextMeshProUGUI>();
-        child = transform.GetChild(2);
+        child = transform.GetChild(2).GetChild(2);
         range = child.GetComponent<TextMeshProUGUI>();
-        child = transform.GetChild(3);
+        child = transform.GetChild(2).GetChild(3);
         skillName = child.GetComponent<TextMeshProUGUI>();
-        child = transform.GetChild(4);
+        child = transform.GetChild(2).GetChild(4);
         skillDescription = child.GetComponent<TextMeshProUGUI>();
-        child = transform.GetChild(6);
+        child = transform.GetChild(2).GetChild(6);
         mpCost = child.GetComponent<TextMeshProUGUI>();
     }
 
@@ -42,6 +53,7 @@ public class SkillUI : MonoBehaviour
     {
         if (!IsEmpty)
         {
+            // 스킬 정보 UI에 적용
             skillIcon.sprite = skill.icon;
 
             string temp = skill.Count == 1 ? "[Single]" : "[Multi]";
@@ -50,12 +62,20 @@ public class SkillUI : MonoBehaviour
             skillName.text = skill.iS_Name;
             skillDescription.text = skill.iS_Description;
             mpCost.text = skill.MPCost.ToString();
+
+            // 가이드라인 초기화
+            if (skill.Range != 0)
+            {
+                guideLine.Initialize(skill.Count, transform.GetSiblingIndex());
+                guideLine.TransformUpdate(skill.Range - GameManager.Instance.BattleManager.OnTurnCharacter.Index - 4);
+            }
         }
         else
         {
             Debug.LogWarning($"이 UI ({this.name})에는 할당된 스킬이 없어 초기화를 실행하지 못 했습니다!");
         }
     }
+
 
     public void AssignSkill(ItemSkill skill)
     {
@@ -83,5 +103,22 @@ public class SkillUI : MonoBehaviour
     public void TestDebug()
     {
         Debug.Log("Skill Clicked");
+    }
+
+    public void IsValidTarget()
+    {
+        if (!IsEmpty)
+        {
+            if (skill.IsValid())
+            {
+                board.color = Color.white;
+                button.interactable = true;
+            }
+            else
+            {
+                board.color = invalidColor;
+                button.interactable = false;
+            }
+        }
     }
 }

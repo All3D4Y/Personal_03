@@ -1,41 +1,62 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class GuideLine : RecycleObject
+public class GuideLine : MonoBehaviour
 {
-    Animator animator;
+    Image[] guides;
 
-    readonly int Count_Hash = Animator.StringToHash("Count");
+    RectTransform rect;
 
-    public SkillData Skill {  get; private set; }
+    Color invalidColor = new Color(1f, 1f, 1f, 0.3f);
 
     void Awake()
     {
-        animator = GetComponent<Animator>();
-    }
+        rect = GetComponent<RectTransform>();
 
-    public void AssignSkill(SkillData skillData)
-    {
-        Skill = skillData;
-        animator.SetInteger(Count_Hash, (int)skillData.EffectCount);
-    }
+        guides = new Image[4];
 
-    public void ClearSkill()
-    {
-        Skill = null;
-    }
-
-    public void Initialize()
-    {
-        if (Skill == null)
+        for (int i = 0; i < guides.Length; i++)
         {
-            Debug.LogWarning("이 보조선에는 할당된 스킬이 없어 표시할 수 없습니다!");
-            return;
+            guides[i] = transform.GetChild(i).GetComponent<Image>();
+        }
+    }
+    public void Initialize(int targetCount, int index)
+    {
+        if (targetCount > 0)
+        {
+            guides[targetCount - 1].gameObject.SetActive(true);
+
+            RectTransform temp = guides[targetCount - 1].rectTransform;
+            temp.localPosition = new Vector3(temp.localPosition.x, temp.localPosition.y + 25 * index, temp.localPosition.z);
+            temp.sizeDelta = new Vector2(temp.sizeDelta.x, temp.sizeDelta.y + 50 * index);
+        }
+    }
+    public void TransformUpdate(int posX)
+    {
+        float rectX = Mathf.Clamp(rect.localPosition.x + posX * 180, 215, 755);
+
+        Vector3 pos = new Vector3(rectX, rect.localPosition.y, 0);
+
+        rect.localPosition = pos;
+    }
+
+    public void ValidColor(bool isValid)
+    {
+        if (!isValid)
+        {
+            foreach (var guide in guides)
+            {
+                guide.color = invalidColor;
+            }
         }
         else
         {
-            // 위치 초기화시키기 로직
+            foreach (var guide in guides)
+            {
+                guide.color = Color.white;
+            }
         }
     }
 }

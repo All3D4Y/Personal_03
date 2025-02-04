@@ -6,26 +6,40 @@ using UnityEngine;
 
 public class SlotManager
 {
-    List<Slot> slots;
+    Slot[] slots;
 
     public bool IsPlayer {  get; private set; }
     public int SlotCount { get; private set; }
 
+    // 생성자
     public SlotManager(int numberOfSlots, bool isPlayer)
     {
-        slots = new List<Slot>();
+        slots = new Slot[numberOfSlots];
         for (int i = 0; i < numberOfSlots; i++)
         {
-            slots.Add(new Slot(i, isPlayer));
+            slots[i] = new Slot(i, isPlayer);
         }
         IsPlayer = isPlayer;
     }
 
+    // 인덱스로 슬롯을 반환하는 함수
     public Slot GetSlot(int index)
     {
-        if (index < 0 || index >= slots.Count)
-            throw new ArgumentOutOfRangeException($"슬롯 {index}는 유효하지 않습니다.");
-        return slots[index];
+        Slot result = null;
+
+        if (index < 0 || index >= slots.Length)
+        {
+            Debug.LogWarning($"슬롯 {index}는 유효하지 않습니다.");
+            
+            if (index < 0)
+                result = slots[0];
+            else if (index >= slots.Length)
+                result = slots[slots.Length - 1];
+        }
+        else
+            result = slots[index];
+
+        return result;
     }
 
     public void AssignCharacterToSlot(Character character, int index)
@@ -71,6 +85,7 @@ public class SlotManager
                 Character toCharacter = toSlot.CharacterData;
                 fromSlot.ClearSlot();                                               // 원래 슬롯 비우기
                 toSlot.ClearSlot();                                                 // 목표 슬롯 비우기
+
                 toSlot.AssignCharacter(fromCharacter);                              // 목표 슬롯에 캐릭터 할당
                 fromSlot.AssignCharacter(toCharacter);                              // 원래 슬롯에 캐릭터 할당
 

@@ -16,4 +16,8 @@ public class Factory : Singleton<Factory>
         characterFactory = transform.GetChild(0).GetComponent<CharacterFactory>();
         characterUIPool = transform.GetChild(1).GetComponent<CharacterUIPool>();
     }
+
+    protected override void OnInitialize()
+    {
+    }
 }

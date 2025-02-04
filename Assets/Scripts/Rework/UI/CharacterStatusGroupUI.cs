@@ -6,6 +6,6 @@ public class CharacterStatusGroupUI : GroupUIBase
 {
     void Start()
     {
-        OnTransparent();
+        OnVisible();
     }
 }

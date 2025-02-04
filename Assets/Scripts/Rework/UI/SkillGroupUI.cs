@@ -19,15 +19,15 @@ public class SkillGroupUI : GroupUIBase
 
     public void Initialize()
     {
-        foreach (SkillUI skillUI in skillUIs)
+        for (int i = 0; i < skillUIs.Length; i++)
         {
-            if (!skillUI.IsEmpty)
+            if (!skillUIs[i].IsEmpty)
             {
-                skillUI.gameObject.SetActive(true);
-                skillUI.Initialize();
+                skillUIs[i].gameObject.SetActive(true);
+                skillUIs[i].Initialize();
             }
             else
-                skillUI.gameObject.SetActive(false);
+                skillUIs[i].gameObject.SetActive(false);
         }
     }
 
@@ -44,6 +44,16 @@ public class SkillGroupUI : GroupUIBase
         foreach (SkillUI skillUI in skillUIs)
         {
             skillUI.Clear();
+        }
+    }
+
+    public void IsValidTarget()
+    {
+        foreach (SkillUI skillUI in skillUIs)
+        {
+            skillUI.IsValidTarget();
+            //if (skillUI.GuideLine != null)
+            //    skillUI.GuideLine.TransformUpdate(1);
         }
     }
 }

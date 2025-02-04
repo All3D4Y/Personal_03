@@ -36,23 +36,38 @@ public abstract class ItemSkill : ScriptableObject
         }
         else if (this is IBuff)
         {
-            targets = BuffTargetIndex(turn.Index);
-            foreach (int target in targets)
+            Skill_Buff buff = this as Skill_Buff;
+            if (!buff.IsDebuff)
             {
-                if (turn.IsPlayer)
-                    Affect(turn, battleManager.PlayerSlot.GetSlot(target).CharacterData);
-                else
-                    Affect(turn, battleManager.EnemySlot.GetSlot(target).CharacterData);
+                targets = BuffTargetIndex(turn.Index);
+                foreach (int target in targets)
+                {
+                    if (turn.IsPlayer)
+                        Affect(turn, battleManager.PlayerSlot.GetSlot(target).CharacterData);
+                    else
+                        Affect(turn, battleManager.EnemySlot.GetSlot(target).CharacterData);
+                } 
+            }
+            else
+            {
+                targets = SetTargetIndex(turn.Index);
+                foreach (int target in targets)
+                {
+                    if (turn.IsPlayer)
+                        Affect(turn, battleManager.EnemySlot.GetSlot(target).CharacterData);
+                    else
+                        Affect(turn, battleManager.PlayerSlot.GetSlot(target).CharacterData);
+                }
             }
         }
     }
-    public int[] SetTargetIndex(int index)
+    public int[] SetTargetIndex(int userIndex)
     {
         int[] result = new int[count];
 
         for (int i = 0; i < result.Length; i++)
         {
-            result[i] = range - (index + 1) + i;
+            result[i] = range - (userIndex + 1) + i;
         }
 
         return result;
@@ -67,7 +82,7 @@ public abstract class ItemSkill : ScriptableObject
         
         for(int i = 0; i < result.Length; i++)
         {
-            result[i] = index - 1 - i;
+            result[i] = index - range - i;
         }
 
         return result;
@@ -75,5 +90,46 @@ public abstract class ItemSkill : ScriptableObject
     public int[] BuffTargetIndex(Slot user)
     {
         return BuffTargetIndex(user.SlotIndex);
+    }
+    public bool IsValid()
+    {
+        bool result = false;
+        int[] temp;
+
+        BattleManager battleManager = GameManager.Instance.BattleManager;
+
+        if (this is IAttack)
+        {
+            temp = SetTargetIndex(battleManager.OnTurnCharacter.Index);
+            foreach (int i in temp)
+            {
+                if (i >= 0 && !battleManager.EnemySlot.GetSlot(i).IsEmpty)
+                    result = true;
+            }
+        }
+        else if (this is IBuff)
+        {
+            Skill_Buff buff = this as Skill_Buff;
+            if (!buff.IsDebuff)
+            {
+                temp = BuffTargetIndex(battleManager.OnTurnCharacter.Index);
+                foreach (int i in temp)
+                {
+                    if (i >= 0 && !battleManager.PlayerSlot.GetSlot(i).IsEmpty)
+                        result = true;
+                } 
+            }
+            else
+            {
+                temp = SetTargetIndex(battleManager.OnTurnCharacter.Index);
+                foreach (int i in temp)
+                {
+                    if (i >= 0 && !battleManager.EnemySlot.GetSlot(i).IsEmpty)
+                        result = true;
+                }
+            }
+        }
+
+        return result;
     }
 }
