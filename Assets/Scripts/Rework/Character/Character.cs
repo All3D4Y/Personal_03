@@ -60,7 +60,7 @@ public class Character : MonoBehaviour
             if (currentHP < 0)
             {
                 Die();
-                Debug.Log($"{this.gameObject.name}is dead!");
+                Debug.Log($"{this.gameObject.name}가 사망했습니다!");
             }
         }
     }

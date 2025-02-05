@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -22,6 +23,8 @@ public class SkillUI : MonoBehaviour
     Color invalidColor = new Color(1, 1, 1, 0.2f);
 
     public bool IsEmpty => skill == null;
+
+    
     public GuideLine GuideLine => guideLine;
 
     void Awake()
@@ -66,16 +69,30 @@ public class SkillUI : MonoBehaviour
             // 가이드라인 초기화
             if (skill.Range != 0)
             {
-                guideLine.Initialize(skill.Count, transform.GetSiblingIndex());
-                guideLine.TransformUpdate(skill.Range - GameManager.Instance.BattleManager.OnTurnCharacter.Index - 4);
+                if (skill is IBuff)
+                {
+                    IBuff buff = skill as IBuff;
+                    if (buff.IsDebuff)
+                    {
+                        guideLine.Initialize(skill.Count, transform.GetSiblingIndex());
+                        guideLine.TransformUpdate(skill.Range, skill.Count);
+                    }
+                }
+                else
+                {
+                    guideLine.Initialize(skill.Count, transform.GetSiblingIndex());
+                    guideLine.TransformUpdate(skill.Range, skill.Count);
+                }
             }
+
+            // 타겟이 유효한지 검사
+            IsValidTarget();
         }
         else
         {
             Debug.LogWarning($"이 UI ({this.name})에는 할당된 스킬이 없어 초기화를 실행하지 못 했습니다!");
         }
     }
-
 
     public void AssignSkill(ItemSkill skill)
     {
@@ -113,12 +130,15 @@ public class SkillUI : MonoBehaviour
             {
                 board.color = Color.white;
                 button.interactable = true;
+                guideLine.ValidColor(true);
             }
             else
             {
                 board.color = invalidColor;
                 button.interactable = false;
+                guideLine.ValidColor(false);
             }
+            guideLine.TransformUpdate(skill.Range, skill.Count);
         }
     }
 }

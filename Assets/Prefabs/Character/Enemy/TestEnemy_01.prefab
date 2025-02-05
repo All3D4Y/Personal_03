@@ -68,7 +68,7 @@ MonoBehaviour:
   code: 51
   characterName: Archer
   description: "\uC124\uBA85"
-  isPlayer: 1
+  isPlayer: 0
   attackPower: 5
   defensivePower: 5
   maxHp: 40

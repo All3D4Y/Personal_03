@@ -2933,7 +2933,7 @@ MonoBehaviour:
   code: 50
   characterName: Thief
   description: "\uC124\uBA85"
-  isPlayer: 1
+  isPlayer: 0
   attackPower: 10
   defensivePower: 5
   maxHp: 50

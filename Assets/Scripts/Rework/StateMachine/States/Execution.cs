@@ -11,6 +11,7 @@ public class Execution : BattleState
         Debug.Log("행동 실행 단계...");
         // 선택한 액션을 실행하는 애니메이션 재생 (공격, 버프 사용), mp -- UI 갱신
         // 액션 실행 애니메이션이 끝나면 mp--, 받는 애니메이션 재생하는 함수를 실행하는 델리게이트 등록
+        manager.OnTurnCharacter.CharacterAnim.onActionAnimEnd -= ActionExecutionEnd;
         manager.OnTurnCharacter.CharacterAnim.onActionAnimEnd += ActionExecutionEnd;
         // 액션 실행 애니메이션 재생
         DoActionAnim();

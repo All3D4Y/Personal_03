@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -24,6 +25,11 @@ public class GuideLine : MonoBehaviour
     }
     public void Initialize(int targetCount, int index)
     {
+        foreach (var guide in guides)
+        {
+            guide.gameObject.SetActive(false);
+        }
+
         if (targetCount > 0)
         {
             guides[targetCount - 1].gameObject.SetActive(true);
@@ -33,9 +39,9 @@ public class GuideLine : MonoBehaviour
             temp.sizeDelta = new Vector2(temp.sizeDelta.x, temp.sizeDelta.y + 50 * index);
         }
     }
-    public void TransformUpdate(int posX)
+    public void TransformUpdate(int range, int count)
     {
-        float rectX = Mathf.Clamp(rect.localPosition.x + posX * 180, 215, 755);
+        float rectX = Mathf.Clamp(755 + (range - GameManager.Instance.BattleManager.OnTurnCharacter.Index - 5 + count) * 180, 215, 755);
 
         Vector3 pos = new Vector3(rectX, rect.localPosition.y, 0);
 

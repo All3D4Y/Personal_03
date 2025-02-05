@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class SelectAction : BattleState
@@ -10,7 +11,13 @@ public class SelectAction : BattleState
     {
         Debug.Log("액션 선택 중...");
         // UI 활성화
-        GameManager.Instance.BattleUIManager.Initialize();
+        if (manager.OnTurnCharacter.IsPlayer)
+            GameManager.Instance.BattleUIManager.Initialize();
+        else
+        {
+            manager.ActionManager.SetAction(manager.OnTurnCharacter.skillDatas[0]);
+            manager.ChangeState<Execution>();
+        }
     }
 
     public override void Update()

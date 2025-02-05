@@ -29,6 +29,7 @@ public class SkillGroupUI : GroupUIBase
             else
                 skillUIs[i].gameObject.SetActive(false);
         }
+        IsValidTarget();
     }
 
     public void AssignSkills(Character turnCharacter)
