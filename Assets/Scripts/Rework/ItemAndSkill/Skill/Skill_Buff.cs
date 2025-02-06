@@ -31,6 +31,6 @@ public class Skill_Buff : ItemSkill, IBuff
                 break;
         }
         Debug.Log($"{target.Name}이 {duration}턴 동안 {type}의 효과를 받습니다...");
-        target.CharacterAnim.GetBuff();
+        //target.CharacterAnim.GetBuff();
     }
 }

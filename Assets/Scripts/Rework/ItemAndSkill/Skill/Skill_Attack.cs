@@ -28,7 +28,7 @@ public class Skill_Attack : ItemSkill, IAttack
     public override void Affect(Character user, Character target)
     {
         target.HP -= (1 - target.DEF * 0.01f) * DoDamage(user);
-        target.CharacterAnim.Hurt();
+        //target.CharacterAnim.Hurt();
     }
 
     public float DoDamage(Character user)

@@ -97,4 +97,21 @@ public class BattleManager : MonoBehaviour
             }
         }
     }
+
+    public void GetDelay(float delay)
+    {
+        StopAllCoroutines();
+        StartCoroutine(Delay(delay));
+    }
+
+    IEnumerator Delay(float delay)
+    {
+        float temp = 0;
+        while (temp <= delay)
+        {
+            temp += Time.deltaTime;
+            yield return null;
+        }
+        ChangeState<StateUpdate>();
+    }
 }

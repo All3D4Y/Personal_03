@@ -121,6 +121,6 @@ public class Execution : BattleState
     void ActionGetEnd()
     {
         manager.ActionManager.ActionExecute();
-        manager.ChangeState<StateUpdate>();
+        manager.GetDelay(1.5f);
     }
 }

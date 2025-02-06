@@ -33,8 +33,10 @@ public class CharacterStatusUI : MonoBehaviour
     public void Initialize(Character character)
     {
         this.character = character;
+        character.CUI = this;
         character.onHPChanged += HPUpdate;
         character.onMPChanged += MPUpdate;
+        character.onDie += TransformUpdate;
         hp_Slider.value = character.HP / character.MaxHp;
         mp_Slider.value = character.MP / character.MaxMp;
         TransformUpdate();

@@ -115,4 +115,36 @@ public class SlotManager
             }
         }
     }
+
+    public void ReorderSlots()
+    {
+        // 일단 모든 슬롯을 비우고
+        foreach (Slot slot in slots)
+        {
+            slot.ClearSlot();
+        }
+        // 살아있는 캐릭터들만 재배치하기
+        if (IsPlayer)
+        {
+            int i = 0;
+            foreach (var character in GameManager.Instance.BattleManager.PlayerParty)
+            {
+                AssignCharacterToSlot(character, i);
+                character.transform.position = GameManager.Instance.SlotTransform.PlayerSlot[i].position;
+                character.CUI.TransformUpdate();
+                i++;
+            }
+        }
+        else
+        {
+            int i = 0;
+            foreach (var character in GameManager.Instance.BattleManager.EnemyParty)
+            {
+                AssignCharacterToSlot(character, i);
+                character.transform.position = GameManager.Instance.SlotTransform.EnemySlot[i].position;
+                character.CUI.TransformUpdate();
+                i++;
+            }
+        }
+    }
 }

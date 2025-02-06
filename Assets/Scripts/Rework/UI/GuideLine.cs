@@ -23,7 +23,7 @@ public class GuideLine : MonoBehaviour
             guides[i] = transform.GetChild(i).GetComponent<Image>();
         }
     }
-    public void Initialize(int targetCount, int index)
+    public void Initialize(int targetCount, int skillIndex)
     {
         foreach (var guide in guides)
         {
@@ -35,8 +35,8 @@ public class GuideLine : MonoBehaviour
             guides[targetCount - 1].gameObject.SetActive(true);
 
             RectTransform temp = guides[targetCount - 1].rectTransform;
-            temp.localPosition = new Vector3(temp.localPosition.x, temp.localPosition.y + 25 * index, temp.localPosition.z);
-            temp.sizeDelta = new Vector2(temp.sizeDelta.x, temp.sizeDelta.y + 50 * index);
+            temp.localPosition = new Vector3(temp.localPosition.x, temp.localPosition.y + 25 * skillIndex, temp.localPosition.z);
+            temp.sizeDelta = new Vector2(temp.sizeDelta.x, temp.sizeDelta.y + 50 * skillIndex);
         }
     }
     public void TransformUpdate(int range, int count)

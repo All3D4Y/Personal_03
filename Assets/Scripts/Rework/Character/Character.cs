@@ -45,6 +45,8 @@ public class Character : MonoBehaviour
     public float MaxHp => maxHp;
     public float MaxMp => maxMp;
 
+    public CharacterStatusUI CUI { get; set; }
+
     public CharacterAnim CharacterAnim { get; private set; }
 
     /// <summary>
@@ -57,7 +59,7 @@ public class Character : MonoBehaviour
         {
             currentHP = value;
             onHPChanged?.Invoke(currentHP / maxHp);
-            if (currentHP < 0)
+            if (currentHP < 0 && IsAlive)
             {
                 Die();
                 Debug.Log($"{this.gameObject.name}가 사망했습니다!");
@@ -75,7 +77,7 @@ public class Character : MonoBehaviour
         {
             currentMP = value;
             onMPChanged?.Invoke(currentMP / maxMp);
-            if (currentMP < 0)
+            if (currentMP < 0 && IsAlive)
             {
                 OnLowMP();
             }

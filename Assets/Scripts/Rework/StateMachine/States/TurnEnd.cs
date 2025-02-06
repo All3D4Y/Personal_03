@@ -10,6 +10,8 @@ public class TurnEnd : BattleState
     {
         Debug.Log("턴 종료 단계...");
 
+        manager.PlayerSlot.ReorderSlots();
+        manager.EnemySlot.ReorderSlots();
         TurnCount();
     }
 

@@ -53,7 +53,7 @@ public class TurnOrder
         bool allPlayersDefeated = characters.All(c => c.IsPlayer);      // 리스트에 남은 캐릭터가 전부 플레이어다 => 승리
         bool allEnemiesDefeated = characters.All(c => !c.IsPlayer);     // 리스트에 남은 캐릭터가 전부 적이다 => 패배
 
-        return allPlayersDefeated || allEnemiesDefeated;        // true가 리턴되면 배틀 종료
+        return allPlayersDefeated || allEnemiesDefeated;                // true가 리턴되면 배틀 종료
     }
 
     public void IncreaseSpeed()
