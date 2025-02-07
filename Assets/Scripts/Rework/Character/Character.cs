@@ -77,13 +77,16 @@ public class Character : MonoBehaviour
         {
             currentMP = value;
             onMPChanged?.Invoke(currentMP / maxMp);
-            if (currentMP < 0 && IsAlive)
+            if (IsAlive)
             {
-                OnLowMP();
-            }
-            else
-            {
-                OffLowMP();
+                if (currentMP < 0)
+                {
+                    OnLowMP();
+                }
+                else
+                {
+                    OffLowMP();
+                } 
             }
         }
 
@@ -125,18 +128,18 @@ public class Character : MonoBehaviour
 
     void OnLowMP()
     {
-        //foreach (IAttack attack in skillDatas)
-        //{
-        //    // 계수 * 0.2f
-        //}
+        foreach (IAttack attack in skillDatas)
+        {
+            ATK *= 0.5f;
+        }
     }
 
     void OffLowMP()
     {
-        //foreach (IAttack attack in skillDatas)
-        //{
-        //    // 계수 정상화
-        //}
+        foreach (IAttack attack in skillDatas)
+        {
+            ATK = attackPower;
+        }
     }
 
     void GoToCemetery()

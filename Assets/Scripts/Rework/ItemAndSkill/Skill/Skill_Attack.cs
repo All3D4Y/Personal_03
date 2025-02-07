@@ -13,6 +13,8 @@ public class Skill_Attack : ItemSkill, IAttack
     [SerializeField] float criticalBonus = 1.0f;
     [SerializeField] AttackCode code = AttackCode.MeleeAttack;
 
+    public Action<float> onAttackDamage;                // 공격 시 발생한 대미지
+
     public Action<bool> onCritical;                     // 크리티컬이 발생하면 알리는 델리게이트
 
     public float Ratio => ratio;                        // 스킬 계수
@@ -27,8 +29,9 @@ public class Skill_Attack : ItemSkill, IAttack
 
     public override void Affect(Character user, Character target)
     {
-        target.HP -= (1 - target.DEF * 0.01f) * DoDamage(user);
-        //target.CharacterAnim.Hurt();
+        float dmg = (1 - target.DEF * 0.01f) * DoDamage(user);
+        onAttackDamage?.Invoke(dmg);
+        target.HP -= dmg;
     }
 
     public float DoDamage(Character user)

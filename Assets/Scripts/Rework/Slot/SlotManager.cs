@@ -92,6 +92,8 @@ public class SlotManager
                 fromCharacter.transform.position = toSlot.SlotTransform.position;   // 원래 슬롯의 캐릭터를 목표 슬롯의 위치로
                 toCharacter.transform.position = fromSlot.SlotTransform.position;   // 목표 슬롯의 캐릭터를 원래 슬롯의 위치로
             }
+            fromSlot.CharacterData.CUI.TransformUpdate();
+            toSlot.CharacterData.CUI.TransformUpdate();
             Debug.Log($"{fromSlot.CharacterData.Name}가 슬롯 {fromSlotIndex}에서 {toSlotIndex}로 이동했습니다.");
         }
         else
@@ -118,16 +120,24 @@ public class SlotManager
 
     public void ReorderSlots()
     {
-        // 일단 모든 슬롯을 비우고
+        // 살아있는 캐릭터만 있는 리스트를 만들고 슬롯 비우기
+        List<Character> list = new List<Character>();
         foreach (Slot slot in slots)
         {
-            slot.ClearSlot();
+            if (!slot.IsEmpty)
+            {
+                if (slot.CharacterData.IsAlive)
+                {
+                    list.Add(slot.CharacterData);
+                }
+                slot.ClearSlot();
+            }
         }
         // 살아있는 캐릭터들만 재배치하기
         if (IsPlayer)
         {
             int i = 0;
-            foreach (var character in GameManager.Instance.BattleManager.PlayerParty)
+            foreach (Character character in list)
             {
                 AssignCharacterToSlot(character, i);
                 character.transform.position = GameManager.Instance.SlotTransform.PlayerSlot[i].position;
