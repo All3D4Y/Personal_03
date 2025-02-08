@@ -22,13 +22,16 @@ public class Factory : Singleton<Factory>
 
     protected override void OnInitialize()
     {
-        if (damageNumberPool != null)
+        if (damageNumberPool == null)
         {
+            damageNumberPool = transform.GetChild(2).GetComponent<DamageNumberPool>();
             damageNumberPool.Initialize();
         }
+        else
+            damageNumberPool.Initialize();
     }
 
-    public DamageNumberUI[] GetDamageUI(Vector2 position, float damageAmount)
+    public void GetDamageUI(Vector2 position, float damageAmount)
     {
         int intDamage = Mathf.FloorToInt(damageAmount);
 
@@ -42,20 +45,16 @@ public class Factory : Singleton<Factory>
             intDamage = (int)(intDamage % Mathf.Pow(10, i));
         }
 
-        DamageNumberUI[] result = new DamageNumberUI[count + 1];
-
-        for (int i = 0; i < result.Length; i++)
+        for (int i = 0; i < count + 1; i++)
         {
             Vector2 temp = position + new Vector2(i * -0.6f, 0);
-            result[i] = GetDamageNumber(temp, numbers[i]);
+            GetDamageNumber(temp, numbers[i]);
         }
-
-        return result;
     }
 
     public DamageNumberUI GetDamageNumber(Vector2 position, int number)
     {
-        DamageNumberUI result = damageNumberPool.GetObject(position);
+        DamageNumberUI result = damageNumberPool.GetObject();
         result.SetNumber(number);
         result.transform.position = position;
 

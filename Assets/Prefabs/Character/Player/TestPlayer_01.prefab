@@ -2090,10 +2090,10 @@ MonoBehaviour:
   characterName: Wizard
   description: "\uC124\uBA85"
   isPlayer: 1
-  attackPower: 15
+  attackPower: 30
   defensivePower: 5
   maxHp: 70
-  maxMp: 70
+  maxMp: 700
   baseSpeed: 30
   speedIncrement: 30
   skillDatas:

@@ -3803,10 +3803,10 @@ MonoBehaviour:
   characterName: Knight
   description: "\uC124\uBA85"
   isPlayer: 1
-  attackPower: 10
+  attackPower: 20
   defensivePower: 40
   maxHp: 140
-  maxMp: 30
+  maxMp: 300
   baseSpeed: 60
   speedIncrement: 40
   skillDatas:

@@ -2934,11 +2934,11 @@ MonoBehaviour:
   characterName: Thief
   description: "\uC124\uBA85"
   isPlayer: 0
-  attackPower: 10
+  attackPower: 15
   defensivePower: 5
   maxHp: 50
   maxMp: 500
-  baseSpeed: 300
+  baseSpeed: 30
   speedIncrement: 40
   skillDatas:
   - {fileID: 11400000, guid: aa5f97d5eb1b6664aad73698910751ce, type: 2}

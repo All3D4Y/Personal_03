@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class SkillUI : MonoBehaviour
 {
-    ItemSkill skill = null;
+    Skill skill = null;
     GuideLine guideLine = null;
 
     Image board;
@@ -94,7 +94,7 @@ public class SkillUI : MonoBehaviour
         }
     }
 
-    public void AssignSkill(ItemSkill skill)
+    public void AssignSkill(Skill skill)
     {
         if (IsEmpty)
         {

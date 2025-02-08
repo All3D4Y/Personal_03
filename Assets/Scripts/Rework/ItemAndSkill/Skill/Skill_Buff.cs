@@ -1,9 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New SKill_Buff Data", menuName = "Scripable Objects/SKill_Buff Data", order = 3)]
-public class Skill_Buff : ItemSkill, IBuff
+public class Skill_Buff : Skill, IBuff
 {
     [SerializeField] BuffType type = BuffType.Attack;
     [SerializeField] int duration = 0;
@@ -31,6 +32,6 @@ public class Skill_Buff : ItemSkill, IBuff
                 break;
         }
         Debug.Log($"{target.Name}이 {duration}턴 동안 {type}의 효과를 받습니다...");
-        //target.CharacterAnim.GetBuff();
+        target.CUI.OnBuff(type);  // 버프 아이콘 활성화
     }
 }

@@ -61,7 +61,7 @@ public class TurnOrder
         // 생존 중인 캐릭터들 속도 증가
         foreach (var character in characters)
         {
-            if (!character.IsAlive) // 생존 중인 캐릭터만 속도 증가
+            if (character.IsAlive) // 생존 중인 캐릭터만 속도 증가
                 character.CurrentSpeed += character.CurrentSpeedIncrement;
         }
     }

@@ -69,11 +69,11 @@ MonoBehaviour:
   characterName: Archer
   description: "\uC124\uBA85"
   isPlayer: 0
-  attackPower: 5
+  attackPower: 10
   defensivePower: 5
   maxHp: 40
   maxMp: 500
-  baseSpeed: 50
+  baseSpeed: 20
   speedIncrement: 35
   skillDatas:
   - {fileID: 11400000, guid: 191b2e999166c2d48bf1716ca889100c, type: 2}

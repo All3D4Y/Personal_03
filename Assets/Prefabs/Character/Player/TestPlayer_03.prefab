@@ -466,7 +466,7 @@ MonoBehaviour:
   attackPower: 0
   defensivePower: 5
   maxHp: 60
-  maxMp: 60
+  maxMp: 600
   baseSpeed: 100
   speedIncrement: 60
   skillDatas:

@@ -20,58 +20,6 @@ public class OldFactory : Singleton<OldFactory>
 
     protected override void OnInitialize()
     {
-        // 풀 초기화
-        Transform child;
-
-        child = transform.GetChild(0);
-        ally_00 = child.GetComponent<ActorPool>();
-        if (ally_00 != null)
-            ally_00.Initialize();
-
-        child = transform.GetChild(1);
-        ally_01 = child.GetComponent<ActorPool>();
-        if (ally_01 != null)
-            ally_01.Initialize();
-
-        child = transform.GetChild(2);
-        ally_02 = child.GetComponent<ActorPool>();
-        if (ally_02 != null)
-            ally_02.Initialize();
-
-        child = transform.GetChild(3);
-        ally_03 = child.GetComponent<ActorPool>();
-        if (ally_03 != null)
-            ally_03.Initialize();
-
-        child = transform.GetChild(4);
-        enemy_00 = child.GetComponent<ActorPool>();
-        if (enemy_00 != null)
-            enemy_00.Initialize();
-
-        child = transform.GetChild(5);
-        enemy_01 = child.GetComponent<ActorPool>();
-        if (enemy_01 != null)
-            enemy_01.Initialize();
-
-        child = transform.GetChild(6);
-        slashEffect = child.GetComponent<EffectPool>();
-        if (slashEffect != null)
-            slashEffect.Initialize();
-
-        child = transform.GetChild(7);
-        magicEffect = child.GetComponent<EffectPool>();
-        if (magicEffect != null)
-            magicEffect.Initialize();
-
-        child = transform.GetChild(8);
-        arrowEffect = child.GetComponent<EffectPool>();
-        if (arrowEffect != null)
-            arrowEffect.Initialize();
-
-        child = transform.GetChild(9);
-        arrow = child.GetComponent<ArrowPool>();
-        if (arrow != null)
-            arrow.Initialize();
     }
 
     public Actor GetActor(int index)

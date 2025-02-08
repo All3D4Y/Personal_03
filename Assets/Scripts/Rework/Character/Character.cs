@@ -22,7 +22,7 @@ public class Character : MonoBehaviour
     [SerializeField] protected float speedIncrement = 0;    // 턴마다 증가하는 속도
     [Space(20)]
     [Header("보유 스킬")]
-    public ItemSkill[] skillDatas;
+    public Skill[] skillDatas;
 
     float currentHP;
     float currentMP;
@@ -81,11 +81,7 @@ public class Character : MonoBehaviour
             {
                 if (currentMP < 0)
                 {
-                    OnLowMP();
-                }
-                else
-                {
-                    OffLowMP();
+                    currentMP = 0;
                 } 
             }
         }
@@ -124,22 +120,6 @@ public class Character : MonoBehaviour
         IsAlive = false;
         GoToCemetery();
         onDie?.Invoke();
-    }
-
-    void OnLowMP()
-    {
-        foreach (IAttack attack in skillDatas)
-        {
-            ATK *= 0.5f;
-        }
-    }
-
-    void OffLowMP()
-    {
-        foreach (IAttack attack in skillDatas)
-        {
-            ATK = attackPower;
-        }
     }
 
     void GoToCemetery()

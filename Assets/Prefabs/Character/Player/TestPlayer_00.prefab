@@ -567,10 +567,10 @@ MonoBehaviour:
   characterName: Warrior
   description: "\uC124\uBA85"
   isPlayer: 1
-  attackPower: 10
+  attackPower: 20
   defensivePower: 10
   maxHp: 100
-  maxMp: 30
+  maxMp: 300
   baseSpeed: 50
   speedIncrement: 50
   skillDatas:

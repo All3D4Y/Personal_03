@@ -5,7 +5,7 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 
 [CreateAssetMenu(fileName = "New SKill_Attack Data", menuName = "Scripable Objects/SKill_Attack Data", order = 2)]
-public class Skill_Attack : ItemSkill, IAttack
+public class Skill_Attack : Skill, IAttack
 {
 
     [SerializeField] float ratio = 1.0f;
@@ -43,6 +43,9 @@ public class Skill_Attack : ItemSkill, IAttack
             onCritical?.Invoke(true);
         }
         float finalDamage = user.ATK * ratio * Random.Range( 0.8f, 1.2f) * (1 + criticalDamage);
+
+        if (user.MP <= 0)
+            finalDamage *= 0.2f;
 
         return finalDamage;
     }

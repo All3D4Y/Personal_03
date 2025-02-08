@@ -16,12 +16,23 @@ public class CharacterStatusUI : MonoBehaviour
 
     Camera mainCam;
 
+    CanvasGroup buffGroup;
+
+    BuffIconUI[] buffIconUIs;
+
     void Awake()
     {
         hp_Slider = transform.GetChild(0).GetComponent<Slider>();
         mp_Slider = transform.GetChild(1).GetComponent<Slider>();
         rect = GetComponent<RectTransform>();
         mainCam = Camera.main;
+
+        buffGroup = transform.GetChild(2).GetComponent<CanvasGroup>();
+        buffIconUIs = new BuffIconUI[3];
+        for (int i = 0; i < buffIconUIs.Length; i++)
+        {
+            buffIconUIs[i] = transform.GetChild(2).GetChild(i).GetComponent<BuffIconUI>();
+        }
     }
 
     void OnDisable()
@@ -62,6 +73,18 @@ public class CharacterStatusUI : MonoBehaviour
     void MPUpdate(float mp)
     {
         StartCoroutine(SliderSmoothing(mp_Slider, mp));
+    }
+
+    public void OnBuff(BuffType type)
+    {
+        foreach (BuffIconUI buffIconUI in buffIconUIs)
+        {
+            if (!buffIconUI.IsActivated())
+            {
+                buffIconUI.SetIcon(type);
+                break;
+            }
+        }
     }
 
     IEnumerator SliderSmoothing(Slider slider, float targetValue)

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class ItemSkill : ScriptableObject
+public abstract class Skill : ScriptableObject
 {
     public Sprite icon;
     public string iS_Name;

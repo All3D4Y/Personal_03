@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class ActionManager : MonoBehaviour
 {
-    public ItemSkill SelectedAction { get; private set; }
+    public Skill SelectedAction { get; private set; }
 
-    public void SetAction(ItemSkill action)
+    public void SetAction(Skill action)
     {
         SelectedAction = action;
     }

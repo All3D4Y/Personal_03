@@ -31,7 +31,7 @@ public class Execution : BattleState
 
     void DoActionAnim()
     {
-        ItemSkill skill = manager.ActionManager.SelectedAction;
+        Skill skill = manager.ActionManager.SelectedAction;
         if (skill != null)
         {
             if (skill is Skill_Attack)
@@ -47,7 +47,7 @@ public class Execution : BattleState
     }
     void GetActionAnim()
     {
-        ItemSkill skill = manager.ActionManager.SelectedAction;
+        Skill skill = manager.ActionManager.SelectedAction;
         if (skill != null)
         {
             if (skill is Skill_Attack)
