@@ -89,9 +89,10 @@ public class SlotManager
                 toSlot.AssignCharacter(fromCharacter);                              // 목표 슬롯에 캐릭터 할당
                 fromSlot.AssignCharacter(toCharacter);                              // 원래 슬롯에 캐릭터 할당
 
-                fromCharacter.transform.position = toSlot.SlotTransform.position;   // 원래 슬롯의 캐릭터를 목표 슬롯의 위치로
-                toCharacter.transform.position = fromSlot.SlotTransform.position;   // 목표 슬롯의 캐릭터를 원래 슬롯의 위치로
-            }
+                
+                OnMoveTransform(fromCharacter, toSlot.SlotTransform.position);      // 원래 슬롯의 캐릭터를 목표 슬롯의 위치로
+                OnMoveTransform(toCharacter, fromSlot.SlotTransform.position);      // 목표 슬롯의 캐릭터를 원래 슬롯의 위치로
+            }                                                                 
             fromSlot.CharacterData.CUI.TransformUpdate();
             toSlot.CharacterData.CUI.TransformUpdate();
             Debug.Log($"{fromSlot.CharacterData.Name}가 슬롯 {fromSlotIndex}에서 {toSlotIndex}로 이동했습니다.");
@@ -156,5 +157,10 @@ public class SlotManager
                 i++;
             }
         }
+    }
+
+    void OnMoveTransform(Character character, Vector3 toPos)
+    {
+        GameManager.Instance.CoroutineManager.OnMoveCharacter(character, toPos);
     }
 }

@@ -4,5 +4,5 @@ public interface IAttack
     float CriticalRate { get; }
     float CriticalBonus { get; }
 
-    float DoDamage(Character user);
+    float DoDamage(Character user, out bool isCritical);
 }

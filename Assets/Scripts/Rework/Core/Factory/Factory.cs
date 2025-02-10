@@ -31,7 +31,7 @@ public class Factory : Singleton<Factory>
             damageNumberPool.Initialize();
     }
 
-    public void GetDamageUI(Vector2 position, float damageAmount)
+    public void GetDamageUI(Vector2 position, float damageAmount, bool isCritical)
     {
         int intDamage = Mathf.FloorToInt(damageAmount);
 
@@ -47,16 +47,20 @@ public class Factory : Singleton<Factory>
 
         for (int i = 0; i < count + 1; i++)
         {
-            Vector2 temp = position + new Vector2(i * -0.6f, 0);
-            GetDamageNumber(temp, numbers[i]);
+            Vector2 temp = position + new Vector2(0.15f + i * -0.3f, 0.3f);
+            GetDamageNumber(temp, numbers[i], isCritical);
         }
     }
 
-    public DamageNumberUI GetDamageNumber(Vector2 position, int number)
+    public DamageNumberUI GetDamageNumber(Vector2 position, int number, bool isCritical)
     {
         DamageNumberUI result = damageNumberPool.GetObject();
         result.SetNumber(number);
         result.transform.position = position;
+        if (isCritical)
+        {
+            result.Critical();
+        }
 
         return result;
     }

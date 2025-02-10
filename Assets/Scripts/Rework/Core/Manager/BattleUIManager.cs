@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class BattleUIManager : GroupUIBase
 {
+    bool canClick = true;
+
     Button switchBTN;
     Button skillBTN;
     Button itemBTN;
@@ -116,18 +118,46 @@ public class BattleUIManager : GroupUIBase
 
     void OnRightClick()
     {
-        onMoveInput?.Invoke(-1);
-        IsValidTarget();
+        if (canClick)
+        {
+            canClick = false;
+            StartCoroutine(ClickCoolDown());
+            onMoveInput?.Invoke(-1);
+            IsValidTarget();
+        }
     }
 
     void OnLeftClick()
     {
-        onMoveInput?.Invoke(1);
-        IsValidTarget();
+        if (canClick)
+        {
+            canClick = false;
+            StartCoroutine(ClickCoolDown());
+            onMoveInput?.Invoke(1);
+            IsValidTarget();
+        }
     }
 
     void IsValidTarget()
     {
         skillGroupUI.IsValidTarget();
+    }
+
+    IEnumerator ClickCoolDown()
+    {
+        float cooldown = 0.5f;
+        float elapsedTime = 0.0f;
+        try
+        {
+            while (elapsedTime > cooldown)
+            {
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+        }
+        finally
+        {
+            canClick = true;
+        }
     }
 }

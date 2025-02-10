@@ -23,6 +23,5 @@ public class Test11 : TestBase
 
     protected override void OnTest2(InputAction.CallbackContext context)
     {
-        Factory.Instance.GetDamageUI(position, damageAmount);
     }
 }

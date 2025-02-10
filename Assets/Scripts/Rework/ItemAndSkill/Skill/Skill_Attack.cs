@@ -29,18 +29,20 @@ public class Skill_Attack : Skill, IAttack
 
     public override void Affect(Character user, Character target)
     {
-        float dmg = (1 - target.DEF * 0.01f) * DoDamage(user);
-        onAttackDamage?.Invoke(dmg);
+        bool isCritical;
+        float dmg = (1 - target.DEF * 0.01f) * DoDamage(user, out isCritical);
+        Factory.Instance.GetDamageUI(target.transform.position, dmg, isCritical);
         target.HP -= dmg;
     }
 
-    public float DoDamage(Character user)
+    public float DoDamage(Character user, out bool isCritical)
     {
         float criticalDamage = 0;
+        isCritical = false;
         if (Random.value < criticalRate)
         {
             criticalDamage = criticalBonus;
-            onCritical?.Invoke(true);
+            isCritical = true;
         }
         float finalDamage = user.ATK * ratio * Random.Range( 0.8f, 1.2f) * (1 + criticalDamage);
 

@@ -5,16 +5,16 @@ using UnityEngine.UI;
 
 public class BuffIconUI : MonoBehaviour
 {
-    List<Image> icons;
+    Image[] icons;
 
-    public List<Image> Icons => icons;
+    public Image[] Icons => icons;
 
 
-    void Awake()
+    public void Initialize()
     {
-        icons = new List<Image>(3);
+        icons = new Image[3];
 
-        for (int i = 0; i < icons.Count; i++)
+        for (int i = 0; i < icons.Length; i++)
         {
             icons[i] = transform.GetChild(i).GetComponent<Image>();
         }

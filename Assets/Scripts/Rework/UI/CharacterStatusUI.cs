@@ -51,6 +51,11 @@ public class CharacterStatusUI : MonoBehaviour
         hp_Slider.value = character.HP / character.MaxHp;
         mp_Slider.value = character.MP / character.MaxMp;
         TransformUpdate();
+
+        foreach (BuffIconUI buffIconUI in buffIconUIs)
+        {
+            buffIconUI.Initialize();
+        }
     }
 
     public void TransformUpdate()

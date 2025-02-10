@@ -11,7 +11,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Damage
   - 
   - 
   - 
@@ -38,12 +38,18 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: Guide
-    uniqueID: 2160422895
+  - name: BG
+    uniqueID: 2324892301
     locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
   - name: Effect
     uniqueID: 478054625
+    locked: 0
+  - name: Damage
+    uniqueID: 2170016699
+    locked: 0
+  - name: Guide
+    uniqueID: 2160422895
     locked: 0
