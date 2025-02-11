@@ -43,9 +43,11 @@ public abstract class Skill : ScriptableObject
                 foreach (int target in targets)
                 {
                     if (turn.IsPlayer)
-                        Affect(turn, battleManager.PlayerSlot.GetSlot(target).CharacterData);
+                        battleManager.PlayerSlot.GetSlot(target).CharacterData.BuffManager.AddBuff(buff);
+                        //Affect(turn, battleManager.PlayerSlot.GetSlot(target).CharacterData);
                     else
-                        Affect(turn, battleManager.EnemySlot.GetSlot(target).CharacterData);
+                        battleManager.EnemySlot.GetSlot(target).CharacterData.BuffManager.AddBuff(buff);
+                    //Affect(turn, battleManager.EnemySlot.GetSlot(target).CharacterData);
                 } 
             }
             else
@@ -54,9 +56,11 @@ public abstract class Skill : ScriptableObject
                 foreach (int target in targets)
                 {
                     if (turn.IsPlayer)
-                        Affect(turn, battleManager.EnemySlot.GetSlot(target).CharacterData);
+                        battleManager.EnemySlot.GetSlot(target).CharacterData.BuffManager.AddBuff(buff);
+                    //Affect(turn, battleManager.EnemySlot.GetSlot(target).CharacterData);
                     else
-                        Affect(turn, battleManager.PlayerSlot.GetSlot(target).CharacterData);
+                        battleManager.PlayerSlot.GetSlot(target).CharacterData.BuffManager.AddBuff(buff);
+                    //Affect(turn, battleManager.PlayerSlot.GetSlot(target).CharacterData);
                 }
             }
         }
@@ -91,6 +95,48 @@ public abstract class Skill : ScriptableObject
     {
         return BuffTargetIndex(user.SlotIndex);
     }
+    public bool IsValid(int userIndex)
+    {
+        bool result = false;
+        int[] temp;
+
+        BattleManager battleManager = GameManager.Instance.BattleManager;
+
+        if (this is IAttack)
+        {
+            temp = SetTargetIndex(userIndex);
+            foreach (int i in temp)
+            {
+                if (i >= 0 && !battleManager.EnemySlot.GetSlot(i).IsEmpty)
+                    result |= true;
+            }
+        }
+        else if (this is IBuff)
+        {
+            Skill_Buff buff = this as Skill_Buff;
+            if (!buff.IsDebuff)
+            {
+                temp = BuffTargetIndex(userIndex);
+                foreach (int i in temp)
+                {
+                    if (i >= 0 && !battleManager.PlayerSlot.GetSlot(i).IsEmpty)
+                        result |= true;
+                } 
+            }
+            else
+            {
+                temp = SetTargetIndex(userIndex);
+                foreach (int i in temp)
+                {
+                    if (i >= 0 && !battleManager.EnemySlot.GetSlot(i).IsEmpty)
+                        result |= true;
+                }
+            }
+        }
+
+        return result;
+    }
+
     public bool IsValid()
     {
         bool result = false;
@@ -104,7 +150,7 @@ public abstract class Skill : ScriptableObject
             foreach (int i in temp)
             {
                 if (i >= 0 && !battleManager.EnemySlot.GetSlot(i).IsEmpty)
-                    result = true;
+                    result |= true;
             }
         }
         else if (this is IBuff)
@@ -116,8 +162,8 @@ public abstract class Skill : ScriptableObject
                 foreach (int i in temp)
                 {
                     if (i >= 0 && !battleManager.PlayerSlot.GetSlot(i).IsEmpty)
-                        result = true;
-                } 
+                        result |= true;
+                }
             }
             else
             {
@@ -125,7 +171,7 @@ public abstract class Skill : ScriptableObject
                 foreach (int i in temp)
                 {
                     if (i >= 0 && !battleManager.EnemySlot.GetSlot(i).IsEmpty)
-                        result = true;
+                        result |= true;
                 }
             }
         }

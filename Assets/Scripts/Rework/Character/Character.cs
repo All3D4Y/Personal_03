@@ -46,6 +46,7 @@ public class Character : MonoBehaviour
     public float MaxMp => maxMp;
 
     public CharacterStatusUI CUI { get; set; }
+    public BuffManager BuffManager { get; set; }
 
     public CharacterAnim CharacterAnim { get; private set; }
 
@@ -113,6 +114,15 @@ public class Character : MonoBehaviour
         CurrentSpeed = BaseSpeed;
         CurrentSpeedIncrement = speedIncrement;
         IsAlive = true;
+
+        BuffManager = new BuffManager(this);
+    }
+
+    public void BuffOff()
+    {
+        ATK = attackPower;
+        DEF = defensivePower;
+        CurrentSpeedIncrement = speedIncrement;
     }
 
     void Die()

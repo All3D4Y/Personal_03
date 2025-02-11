@@ -80,7 +80,7 @@ public class CharacterStatusUI : MonoBehaviour
         StartCoroutine(SliderSmoothing(mp_Slider, mp));
     }
 
-    public void OnBuff(BuffType type)
+    public void SetBuffIcon(BuffType type)
     {
         foreach (BuffIconUI buffIconUI in buffIconUIs)
         {
@@ -89,6 +89,14 @@ public class CharacterStatusUI : MonoBehaviour
                 buffIconUI.SetIcon(type);
                 break;
             }
+        }
+    }
+
+    public void ClearBuffIcon()
+    {
+        foreach (BuffIconUI buffIconUI in buffIconUIs)
+        {
+            buffIconUI.ClearIcon();
         }
     }
 

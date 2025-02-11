@@ -15,6 +15,7 @@ public class BattleManager : MonoBehaviour
     public List<Character> EnemyParty { get; private set; }
 
     public Character OnTurnCharacter {  get; private set; }
+    public EnemyAction EnemyAction { get; set; }
     public ActionManager ActionManager { get; private set; }
 
     void Awake()

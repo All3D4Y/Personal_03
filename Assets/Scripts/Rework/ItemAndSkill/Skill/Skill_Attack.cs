@@ -27,12 +27,15 @@ public class Skill_Attack : Skill, IAttack
 
     public AttackCode Code => code;
 
-    public override void Affect(Character user, Character target)
+    public override void Affect(Character user, Character target = null)
     {
         bool isCritical;
         float dmg = (1 - target.DEF * 0.01f) * DoDamage(user, out isCritical);
-        Factory.Instance.GetDamageUI(target.transform.position, dmg, isCritical);
-        target.HP -= dmg;
+        if (target != null)
+        {
+            Factory.Instance.GetDamageUI(target.transform.position, dmg, isCritical);
+            target.HP -= dmg;
+        }
     }
 
     public float DoDamage(Character user, out bool isCritical)

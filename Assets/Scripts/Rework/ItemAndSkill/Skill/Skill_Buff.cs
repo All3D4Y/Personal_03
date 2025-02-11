@@ -32,6 +32,5 @@ public class Skill_Buff : Skill, IBuff
                 break;
         }
         Debug.Log($"{target.Name}이 {duration}턴 동안 {type}의 효과를 받습니다...");
-        target.CUI.OnBuff(type);  // 버프 아이콘 활성화
     }
 }

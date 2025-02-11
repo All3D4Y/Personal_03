@@ -468,7 +468,7 @@ MonoBehaviour:
   maxHp: 60
   maxMp: 600
   baseSpeed: 100
-  speedIncrement: 60
+  speedIncrement: 45
   skillDatas:
   - {fileID: 11400000, guid: 1d75f9c2bb153b84ca64dce7a2b643ac, type: 2}
 --- !u!1 &2129557821651186440

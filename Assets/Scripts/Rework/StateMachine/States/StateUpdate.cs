@@ -10,6 +10,7 @@ public class StateUpdate : BattleState
     {
         Debug.Log("상태 처리 단계...");
         // 지속 데미지, 상태 갱신
+        
         manager.ChangeState<TurnEnd>();
     }
 
@@ -19,5 +20,17 @@ public class StateUpdate : BattleState
 
     public override void Exit()
     {
+    }
+
+    void BuffUpdate()
+    {
+        foreach (Character c in manager.PlayerParty)
+        {
+            c.BuffManager.BuffUpdate();
+        }
+        foreach (Character c in manager.EnemyParty)
+        {
+            c.BuffManager.BuffUpdate();
+        }
     }
 }

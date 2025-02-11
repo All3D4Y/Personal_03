@@ -27,6 +27,9 @@ public class Preparation : BattleState
         manager.TurnOrder.Initialize(manager.PlayerParty, manager.EnemyParty);
         manager.SetTurnCharacter(manager.TurnOrder.GetNextCharacter());
 
+        // EnemyAction 초기화
+        manager.EnemyAction = new EnemyAction();
+
         // SelectAction 으로
         manager.ChangeState<SelectAction>();
     }

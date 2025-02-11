@@ -135,27 +135,16 @@ public class SlotManager
             }
         }
         // 살아있는 캐릭터들만 재배치하기
-        if (IsPlayer)
+        int i = 0;
+        foreach (Character character in list)
         {
-            int i = 0;
-            foreach (Character character in list)
-            {
-                AssignCharacterToSlot(character, i);
-                character.transform.position = GameManager.Instance.SlotTransform.PlayerSlot[i].position;
-                character.CUI.TransformUpdate();
-                i++;
-            }
-        }
-        else
-        {
-            int i = 0;
-            foreach (var character in GameManager.Instance.BattleManager.EnemyParty)
-            {
-                AssignCharacterToSlot(character, i);
-                character.transform.position = GameManager.Instance.SlotTransform.EnemySlot[i].position;
-                character.CUI.TransformUpdate();
-                i++;
-            }
+            AssignCharacterToSlot(character, i);
+            if (IsPlayer)
+                OnMoveTransform(character, GameManager.Instance.SlotTransform.PlayerSlot[i].position);
+            else
+                OnMoveTransform(character, GameManager.Instance.SlotTransform.EnemySlot[i].position);
+            character.CUI.TransformUpdate();
+            i++;
         }
     }
 

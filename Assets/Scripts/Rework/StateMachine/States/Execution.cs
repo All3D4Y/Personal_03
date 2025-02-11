@@ -11,8 +11,8 @@ public class Execution : BattleState
         Debug.Log("행동 실행 단계...");
         // 선택한 액션을 실행하는 애니메이션 재생 (공격, 버프 사용), mp -- UI 갱신
         // 액션 실행 애니메이션이 끝나면 mp--, 받는 애니메이션 재생하는 함수를 실행하는 델리게이트 등록
-        manager.OnTurnCharacter.CharacterAnim.onActionAnimEnd -= ActionExecutionEnd;
-        manager.OnTurnCharacter.CharacterAnim.onActionAnimEnd += ActionExecutionEnd;
+        manager.OnTurnCharacter.CharacterAnim.onActionAnimEnd -= DoActionAnimEnd;
+        manager.OnTurnCharacter.CharacterAnim.onActionAnimEnd += DoActionAnimEnd;
         // 액션 실행 애니메이션 재생
         DoActionAnim();
         // 액션의 효과를 받는 애니메이션 재생 (피격, 버프 이펙트), hp -- UI 갱신
@@ -26,7 +26,7 @@ public class Execution : BattleState
     public override void Exit()
     {
         // 델리게이트 해제
-        manager.OnTurnCharacter.CharacterAnim.onActionAnimEnd -= ActionExecutionEnd;
+        manager.OnTurnCharacter.CharacterAnim.onActionAnimEnd -= DoActionAnimEnd;
     }
 
     void DoActionAnim()
@@ -110,7 +110,7 @@ public class Execution : BattleState
         }
     }
 
-    void ActionExecutionEnd()
+    void DoActionAnimEnd()
     {
         // 스킬 사용으로 인한 MP --
         manager.OnTurnCharacter.MP -= manager.ActionManager.SelectedAction.MPCost;

@@ -15,8 +15,8 @@ public class SelectAction : BattleState
             GameManager.Instance.BattleUIManager.Initialize();
         else
         {
-            manager.ActionManager.SetAction(manager.OnTurnCharacter.skillDatas[0]);
-            manager.ChangeState<Execution>();
+            manager.EnemyAction.Initialize();
+            manager.EnemyAction.OnMoveValidSlot();
         }
     }
 
