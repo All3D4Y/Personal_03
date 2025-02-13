@@ -74,13 +74,15 @@ public class SkillUI : MonoBehaviour
                     IBuff buff = skill as IBuff;
                     if (buff.IsDebuff)
                     {
-                        guideLine.Initialize(skill.Count, transform.GetSiblingIndex() - 1);
+                        guideLine.Initialize(skill.Count, transform.GetSiblingIndex());
                         guideLine.TransformUpdate(skill.Range, skill.Count);
                     }
+                    else
+                        guideLine.ResetGuide();
                 }
                 else
                 {
-                    guideLine.Initialize(skill.Count, transform.GetSiblingIndex() - 1);
+                    guideLine.Initialize(skill.Count, transform.GetSiblingIndex());
                     guideLine.TransformUpdate(skill.Range, skill.Count);
                 }
             }

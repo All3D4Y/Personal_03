@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -7,6 +8,8 @@ public class TurnOrder
 {
     List<Character> characters;         // 모든 캐릭터(아군/적)
     float actionThreshold = 100f;       // 행동 임계값
+
+    public Action onTurnCount;
 
     public void Initialize(List<Character> players, List<Character> enemies)
     {

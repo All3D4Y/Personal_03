@@ -82,4 +82,29 @@ public class CharacterAnim : MonoBehaviour
         Debug.Log("액션 효과 적용 애니메이션 종료");
         getActionAnimEnd?.Invoke();
     }
+
+    public void ShootArrow()
+    {
+        bool temp = transform.parent.localScale.x == -1 ? true : false;
+        Factory.Instance.GetArrow(transform.position, temp);
+    }
+
+    public void HitArrow()
+    {
+        bool temp = transform.parent.localScale.x == -1? true : false;
+        Factory.Instance.GetArrowHitEffect(transform.position, temp);
+        Hurt();
+    }
+
+    public void HitSlash()
+    {
+
+    }
+
+#if UNITY_EDITOR
+    public void TestRangedAttack()
+    {
+        RangedAttack();
+    }
+#endif
 }

@@ -12,7 +12,11 @@ public class SelectAction : BattleState
         Debug.Log("액션 선택 중...");
         // UI 활성화
         if (manager.OnTurnCharacter.IsPlayer)
+        {
+            manager.OnTurnEffect.OnVisible();
+            manager.OnTurnEffect.TransformUpdate();
             GameManager.Instance.BattleUIManager.Initialize();
+        }   
         else
         {
             manager.EnemyAction.Initialize();
@@ -27,6 +31,7 @@ public class SelectAction : BattleState
     public override void Exit()
     {
         // UI 비활성화
+        manager.OnTurnEffect.OnTransparent();
         GameManager.Instance.BattleUIManager.Clear();
         GameManager.Instance.BattleUIManager.OnTransparent();
     }

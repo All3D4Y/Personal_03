@@ -11,17 +11,19 @@ public class BuffManager
 
     public BuffManager(Character character)
     {
-        character = this.character;
+        this.character = character;
+    }
+
+    public void Initialize()
+    {
         buffList = new List<IBuff>();
+        GameManager.Instance.BattleManager.TurnOrder.onTurnCount += TurnCount;
     }
 
     public void AddBuff(IBuff buff)
     {
         buffList.Add(buff);
-    }
-    public void RemoveBuff(IBuff buff)
-    {
-        buffList.Remove(buff);
+        buff.ElapsedTurn = 0;
     }
 
     public void BuffUpdate()
@@ -35,5 +37,15 @@ public class BuffManager
             skill.Affect(character, character);
             character.CUI.SetBuffIcon(buff.Type);  // 버프 아이콘 활성화
         }
+    }
+
+    public void TurnCount()
+    {
+        foreach (IBuff buff in buffList)
+        {
+            buff.ElapsedTurn++;
+        }
+
+        buffList.RemoveAll(buff => buff.ElapsedTurn > buff.Duration);
     }
 }

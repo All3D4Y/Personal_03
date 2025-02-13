@@ -13,6 +13,7 @@ public class Skill_Buff : Skill, IBuff
 
     public BuffType Type => type;
     public int Duration => duration;
+    public int ElapsedTurn { get; set; }
     public float Ratio => ratio;
     public bool IsDebuff => isDebuff;
 

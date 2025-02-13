@@ -52,6 +52,7 @@ public class Execution : BattleState
         {
             if (skill is Skill_Attack)
             {
+                Skill_Attack attack = skill as Skill_Attack;
                 int[] targets = skill.SetTargetIndex(manager.OnTurnCharacter.Index);
                 // 받는 애니메이션이 끝나면 hp --, 다음 단계로 넘어가는 함수를 실행하는 델리게이트 등록
                 if (manager.OnTurnCharacter.IsPlayer)
@@ -68,9 +69,18 @@ public class Execution : BattleState
                 foreach (int target in targets)
                 {
                     if (manager.OnTurnCharacter.IsPlayer)
-                        manager.EnemySlot.GetSlot(target).CharacterData.CharacterAnim.Hurt();
+                    {
+                        if (attack.Code == AttackCode.RangedAttack)
+                            manager.EnemySlot.GetSlot(target).CharacterData.CharacterAnim.HitArrow();
+                        else if (attack.Code == AttackCode.MeleeAttack)
+                            manager.EnemySlot.GetSlot(target).CharacterData.CharacterAnim.HitSlash();
+
+                    }
                     else
+                    {
                         manager.PlayerSlot.GetSlot(target).CharacterData.CharacterAnim.Hurt();
+
+                    }
                 }
             }
             else if (skill is Skill_Buff)

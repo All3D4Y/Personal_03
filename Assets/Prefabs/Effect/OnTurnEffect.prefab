@@ -19334,6 +19334,7 @@ GameObject:
   - component: {fileID: 3703550666274595457}
   - component: {fileID: 5224815373544476301}
   - component: {fileID: 8923906388090716420}
+  - component: {fileID: -5257626489022906053}
   m_Layer: 0
   m_Name: OnTurnEffect
   m_TagString: Untagged
@@ -24154,3 +24155,15 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &-5257626489022906053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8758352573115392856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fbf45eb580142a41aa6e30a23b8fe0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

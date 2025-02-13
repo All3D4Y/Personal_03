@@ -21,4 +21,4 @@ MonoBehaviour:
   ratio: 0.8
   criticalRate: 0.8
   criticalBonus: 0.5
-  code: 0
+  code: 1

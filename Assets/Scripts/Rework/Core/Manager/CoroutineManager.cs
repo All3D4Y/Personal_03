@@ -13,12 +13,15 @@ public class CoroutineManager : MonoBehaviour
 
     IEnumerator OnMoveCharacterCoroutine(Character character, Vector3 toPos)
     {
+        OnTurnEffect onTurnEffect = GameManager.Instance.BattleManager.OnTurnEffect;
+
         if (character.transform.position.x < toPos.x)
         {
             while (character.transform.position.x < toPos.x)
             {
                 character.transform.Translate(-moveSpeed * Time.deltaTime * Vector3.left);
                 character.CUI.TransformUpdate();
+                onTurnEffect.TransformUpdate();
                 if (character.transform.position.x > toPos.x)
                     character.transform.position = toPos;
                 yield return null;
@@ -30,6 +33,7 @@ public class CoroutineManager : MonoBehaviour
             {
                 character.transform.Translate(moveSpeed * Time.deltaTime * Vector3.left);
                 character.CUI.TransformUpdate();
+                onTurnEffect.TransformUpdate();
                 if (character.transform.position.x < toPos.x)
                     character.transform.position = toPos;
                 yield return null;

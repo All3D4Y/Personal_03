@@ -7,28 +7,34 @@ public class Factory : Singleton<Factory>
     CharacterFactory characterFactory;
     CharacterUIPool characterUIPool;
     DamageNumberPool damageNumberPool;
+    ArrowPool arrowPool;
+    ArrowHitEffectPool arrowHitEffectPool;
 
     public CharacterFactory CharacterFactory => characterFactory;
     public CharacterUIPool CharacterUIPool => characterUIPool;
     public DamageNumberPool DamageNumberPool => damageNumberPool;
-
+    public ArrowPool ArrowPool => arrowPool;
+    public ArrowHitEffectPool ArrowHitEffectPool => arrowHitEffectPool;
     protected override void OnPreInitialize()
     {
         base.OnPreInitialize();
         characterFactory = transform.GetChild(0).GetComponent<CharacterFactory>();
         characterUIPool = transform.GetChild(1).GetComponent<CharacterUIPool>();
         damageNumberPool = transform.GetChild(2).GetComponent<DamageNumberPool>();
+        arrowPool = transform.GetChild(3).GetComponent<ArrowPool>();
+        arrowHitEffectPool = transform.GetChild(4).GetComponent<ArrowHitEffectPool>();
     }
 
     protected override void OnInitialize()
     {
-        if (damageNumberPool == null)
-        {
-            damageNumberPool = transform.GetChild(2).GetComponent<DamageNumberPool>();
+        if (damageNumberPool != null)
             damageNumberPool.Initialize();
-        }
-        else
-            damageNumberPool.Initialize();
+
+        if (arrowPool != null)
+            arrowPool.Initialize();
+
+        if (arrowHitEffectPool != null)
+            arrowHitEffectPool.Initialize();
     }
 
     public void GetDamageUI(Vector2 position, float damageAmount, bool isCritical)
@@ -61,6 +67,24 @@ public class Factory : Singleton<Factory>
         {
             result.Critical();
         }
+
+        return result;
+    }
+
+    public Arrow GetArrow(Vector2 position, bool isRight)
+    {
+        Arrow result = arrowPool.GetObject();
+        result.isRight = isRight;
+        result.transform.position = position + new Vector2(0, 0.3f);
+
+        return result;
+    }
+
+    public ArrowHitEffect GetArrowHitEffect(Vector2 position, bool isRight)
+    {
+        ArrowHitEffect result = arrowHitEffectPool.GetObject();
+        result.transform.localScale = isRight? 0.6f * Vector3.one : new Vector3(-0.6f, 0.6f, 0.6f);
+        result.transform.position = position + new Vector2(0, 0.3f);
 
         return result;
     }

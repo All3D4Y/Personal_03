@@ -12,6 +12,9 @@ public class GuideLine : MonoBehaviour
 
     Color invalidColor = new Color(1f, 1f, 1f, 0.3f);
 
+    Vector2 defaultPos = new Vector2(0, 75);
+    Vector2 defaultSize = new Vector2(500, 100);
+
     void Awake()
     {
         rect = GetComponent<RectTransform>();
@@ -25,17 +28,14 @@ public class GuideLine : MonoBehaviour
     }
     public void Initialize(int targetCount, int skillIndex)
     {
-        foreach (var guide in guides)
-        {
-            guide.gameObject.SetActive(false);
-        }
+        ResetGuide();
 
         if (targetCount > 0)
         {
-            guides[targetCount - 1].gameObject.SetActive(true);
+            guides[targetCount - 1].enabled = true;
 
             RectTransform temp = guides[targetCount - 1].rectTransform;
-            temp.localPosition = new Vector3(temp.localPosition.x, temp.localPosition.y + 25 * skillIndex, temp.localPosition.z);
+            temp.localPosition = new Vector3(temp.localPosition.x, temp.localPosition.y + 25 * (skillIndex - 1), temp.localPosition.z);
             temp.sizeDelta = new Vector2(temp.sizeDelta.x, temp.sizeDelta.y + 50 * skillIndex);
         }
     }
@@ -63,6 +63,16 @@ public class GuideLine : MonoBehaviour
             {
                 guide.color = Color.white;
             }
+        }
+    }
+
+    public void ResetGuide()
+    {
+        foreach (Image guide in guides)
+        {
+            guide.enabled = false;
+            guide.rectTransform.localPosition = defaultPos;
+            guide.rectTransform.sizeDelta = defaultSize;
         }
     }
 }

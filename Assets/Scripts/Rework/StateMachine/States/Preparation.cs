@@ -27,6 +27,16 @@ public class Preparation : BattleState
         manager.TurnOrder.Initialize(manager.PlayerParty, manager.EnemyParty);
         manager.SetTurnCharacter(manager.TurnOrder.GetNextCharacter());
 
+        // BuffManager 초기화
+        foreach (Character c in manager.PlayerParty)
+        {
+            c.BuffManager.Initialize();
+        }
+        foreach (Character c in manager.EnemyParty)
+        {
+            c.BuffManager.Initialize();
+        }
+
         // EnemyAction 초기화
         manager.EnemyAction = new EnemyAction();
 

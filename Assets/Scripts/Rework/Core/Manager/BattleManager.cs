@@ -17,6 +17,7 @@ public class BattleManager : MonoBehaviour
     public Character OnTurnCharacter {  get; private set; }
     public EnemyAction EnemyAction { get; set; }
     public ActionManager ActionManager { get; private set; }
+    public OnTurnEffect OnTurnEffect { get; private set; }
 
     void Awake()
     {
@@ -71,10 +72,10 @@ public class BattleManager : MonoBehaviour
 
         // 아군 배치
         int[] characterCodes = PlayerDataManager.Instance.players;
-        CharacterFactory CF = Factory.Instance.CharacterFactory;
+        CharacterFactory cF = Factory.Instance.CharacterFactory;
         for (int i = 0; i < characterCodes.Length; i++)
         {
-            Character temp = CF.GenerateCharacter(characterCodes[i], CF.transform);
+            Character temp = cF.GenerateCharacter(characterCodes[i], cF.transform);
             if (temp != null)
             {
                 PlayerSlot.AssignCharacterToSlot(temp, i);                                  // 슬롯에 캐릭터 등록
@@ -88,7 +89,7 @@ public class BattleManager : MonoBehaviour
         characterCodes = StageDataManager.Instance.CurrentStage.enemyCodes;
         for (int i = 0; i < characterCodes.Length; i++)
         {
-            Character temp = CF.GenerateCharacter(characterCodes[i], CF.transform);
+            Character temp = cF.GenerateCharacter(characterCodes[i], cF.transform);
             if (temp != null)
             {
                 EnemySlot.AssignCharacterToSlot(temp, i);                                   // 슬롯에 캐릭터 등록
@@ -97,6 +98,10 @@ public class BattleManager : MonoBehaviour
                 temp.onDie += () => EnemyParty.Remove(temp);                                // 죽으면 리스트에서 빠지도록 델리게이트 등록
             }
         }
+
+        // 턴 표시 이펙트 찾아두기
+        OnTurnEffect = FindAnyObjectByType<OnTurnEffect>();
+        OnTurnEffect.OnTransparent();
     }
 
     public void GetDelay(float delay)

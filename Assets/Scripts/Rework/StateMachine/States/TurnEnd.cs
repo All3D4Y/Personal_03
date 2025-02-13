@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -25,7 +26,8 @@ public class TurnEnd : BattleState
 
     void TurnCount()
     {
-        manager.TurnOrder.Initialize(manager.PlayerParty, manager.EnemyParty);      // 죽어서 턴계산에서 빠진 캐릭터들을 적용
+        manager.TurnOrder.Initialize(manager.PlayerParty, manager.EnemyParty);      // 죽어서 리스트에서 빠진 캐릭터들을 적용하는 초기화
+        manager.TurnOrder.onTurnCount?.Invoke();
 
         if (!manager.TurnOrder.IsBattleOver())                                      // 배틀이 끝나지 않았으면
         {

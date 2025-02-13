@@ -10,7 +10,7 @@ public class StateUpdate : BattleState
     {
         Debug.Log("상태 처리 단계...");
         // 지속 데미지, 상태 갱신
-        
+        BuffUpdate();
         manager.ChangeState<TurnEnd>();
     }
 

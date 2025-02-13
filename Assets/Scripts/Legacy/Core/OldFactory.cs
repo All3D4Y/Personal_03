@@ -68,11 +68,4 @@ public class OldFactory : Singleton<OldFactory>
         }
         return temp.GetObject();
     }
-
-    public Arrow GetArrow(Vector2 pos, bool isRight = false)
-    {
-        Arrow temp = isRight ? arrow.GetObject(pos, new Vector3(0, 0, 180)) : arrow.GetObject(pos);
-
-        return temp;
-    }
 }
