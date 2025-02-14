@@ -50,6 +50,3 @@ TagManager:
   - name: Damage
     uniqueID: 2170016699
     locked: 0
-  - name: Guide
-    uniqueID: 2160422895
-    locked: 0

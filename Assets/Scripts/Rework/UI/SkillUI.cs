@@ -67,6 +67,8 @@ public class SkillUI : MonoBehaviour
             mpCost.text = skill.MPCost.ToString();
 
             // 가이드라인 초기화
+            guideLine.ResetGuide();
+
             if (skill.Range != 0)
             {
                 if (skill is IBuff)
@@ -77,8 +79,6 @@ public class SkillUI : MonoBehaviour
                         guideLine.Initialize(skill.Count, transform.GetSiblingIndex());
                         guideLine.TransformUpdate(skill.Range, skill.Count);
                     }
-                    else
-                        guideLine.ResetGuide();
                 }
                 else
                 {

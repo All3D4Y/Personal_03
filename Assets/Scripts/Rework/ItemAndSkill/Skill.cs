@@ -28,10 +28,13 @@ public abstract class Skill : ScriptableObject
             targets = SetTargetIndex(turn.Index);
             foreach (int target in targets)
             {
-                if (turn.IsPlayer)
-                    Affect(turn, battleManager.EnemySlot.GetSlot(target).CharacterData);
-                else
-                    Affect(turn, battleManager.PlayerSlot.GetSlot(target).CharacterData);
+                if (target >= 0)
+                {
+                    if (turn.IsPlayer)
+                        Affect(turn, battleManager.EnemySlot.GetSlot(target).CharacterData);
+                    else
+                        Affect(turn, battleManager.PlayerSlot.GetSlot(target).CharacterData); 
+                }
             }
         }
         else if (this is IBuff)

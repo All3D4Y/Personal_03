@@ -5022,7 +5022,7 @@ GameObject:
   - component: {fileID: 3890178585407517982}
   - component: {fileID: 6943032426096806392}
   - component: {fileID: 9020268392911390705}
-  - component: {fileID: -5911440476165554256}
+  - component: {fileID: 6087842635007636020}
   m_Layer: 0
   m_Name: MultipleMagicHit
   m_TagString: Untagged
@@ -9902,7 +9902,7 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &-5911440476165554256
+--- !u!114 &6087842635007636020
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9911,7 +9911,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6145619172504833306}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b12f79518064ee4d93ff0782966cbc5, type: 3}
+  m_Script: {fileID: 11500000, guid: 1db34031cc2079c4a877d2518ae079d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &7970637671546338201

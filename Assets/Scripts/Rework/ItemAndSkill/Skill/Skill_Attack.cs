@@ -29,10 +29,10 @@ public class Skill_Attack : Skill, IAttack
 
     public override void Affect(Character user, Character target = null)
     {
-        bool isCritical;
-        float dmg = (1 - target.DEF * 0.01f) * DoDamage(user, out isCritical);
         if (target != null)
         {
+            bool isCritical;
+            float dmg = (1 - target.DEF * 0.01f) * DoDamage(user, out isCritical);
             Factory.Instance.GetDamageUI(target.transform.position, dmg, isCritical);
             target.HP -= dmg;
         }

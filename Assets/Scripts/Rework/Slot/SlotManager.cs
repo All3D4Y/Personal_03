@@ -31,10 +31,10 @@ public class SlotManager
         {
             Debug.LogWarning($"슬롯 {index}는 유효하지 않습니다.");
             
-            if (index < 0)
-                result = slots[0];
-            else if (index >= slots.Length)
-                result = slots[slots.Length - 1];
+            //if (index < 0)
+            //    result = slots[0];
+            //else if (index >= slots.Length)
+            //    result = slots[slots.Length - 1];
         }
         else
             result = slots[index];

@@ -29,7 +29,7 @@ public class CharacterAnim : MonoBehaviour
 
     void MagicAttack()
     {
-        animator.SetFloat("AttackState", 0.3333f);
+        animator.SetFloat("AttackState", 1.0f);
         animator.SetTrigger("Attack");
     }
 
@@ -98,7 +98,15 @@ public class CharacterAnim : MonoBehaviour
 
     public void HitSlash()
     {
+        bool temp = transform.parent.localScale.x == -1? true : false;
+        Factory.Instance.GetSlashHitEffect(transform.position, temp);
+        Hurt();
+    }
 
+    public void HitMagic()
+    {
+        bool temp = transform.parent.localScale.x == -1? true : false;
+        Factory.Instance.GetMagicHitEffect(transform.position, temp);
     }
 
 #if UNITY_EDITOR

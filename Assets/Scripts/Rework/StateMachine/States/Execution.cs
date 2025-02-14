@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class Execution : BattleState
 {
@@ -38,6 +39,13 @@ public class Execution : BattleState
             {
                 Skill_Attack temp = skill as Skill_Attack;
                 manager.OnTurnCharacter.CharacterAnim.Attack((int)temp.Code);
+                if (temp.Code == AttackCode.MagicAttack)
+                {
+                    bool isRight = manager.OnTurnCharacter.transform.localScale.x == -1 ? true : false;
+                    int int_isRight = isRight? 1 : -1;
+                    Vector3 position = manager.OnTurnCharacter.transform.position + int_isRight * 5 * Vector3.right;
+                    GameManager.Instance.CoroutineManager.OnMagicHitEffect(position, isRight);
+                }
             }
             else if (skill is Skill_Buff)
             {
@@ -57,29 +65,64 @@ public class Execution : BattleState
                 // 받는 애니메이션이 끝나면 hp --, 다음 단계로 넘어가는 함수를 실행하는 델리게이트 등록
                 if (manager.OnTurnCharacter.IsPlayer)
                 {
-                    manager.EnemySlot.GetSlot(targets[targets.Length - 1]).CharacterData.CharacterAnim.getActionAnimEnd -= ActionGetEnd;
-                    manager.EnemySlot.GetSlot(targets[targets.Length - 1]).CharacterData.CharacterAnim.getActionAnimEnd += ActionGetEnd;
+                    if (!manager.EnemySlot.GetSlot(targets[targets.Length - 1]).IsEmpty)
+                    {
+                        manager.EnemySlot.GetSlot(targets[targets.Length - 1]).CharacterData.CharacterAnim.getActionAnimEnd -= ActionGetEnd;
+                        manager.EnemySlot.GetSlot(targets[targets.Length - 1]).CharacterData.CharacterAnim.getActionAnimEnd += ActionGetEnd; 
+                    }
                 }
                 else
                 {
-                    manager.PlayerSlot.GetSlot(targets[targets.Length - 1]).CharacterData.CharacterAnim.getActionAnimEnd -= ActionGetEnd;
-                    manager.PlayerSlot.GetSlot(targets[targets.Length - 1]).CharacterData.CharacterAnim.getActionAnimEnd += ActionGetEnd;
+                    if (!manager.PlayerSlot.GetSlot(targets[targets.Length - 1]).IsEmpty)
+                    {
+                        manager.PlayerSlot.GetSlot(targets[targets.Length - 1]).CharacterData.CharacterAnim.getActionAnimEnd -= ActionGetEnd;
+                        manager.PlayerSlot.GetSlot(targets[targets.Length - 1]).CharacterData.CharacterAnim.getActionAnimEnd += ActionGetEnd; 
+                    }
                 }
 
                 foreach (int target in targets)
                 {
-                    if (manager.OnTurnCharacter.IsPlayer)
+                    if (target >= 0)
                     {
                         if (attack.Code == AttackCode.RangedAttack)
-                            manager.EnemySlot.GetSlot(target).CharacterData.CharacterAnim.HitArrow();
+                        {
+                            if (manager.OnTurnCharacter.IsPlayer)
+                            {
+                                if (!manager.EnemySlot.GetSlot(target).IsEmpty)
+                                    manager.EnemySlot.GetSlot(target).CharacterData.CharacterAnim.HitArrow();
+                            }
+                            else
+                            {
+                                if (!manager.PlayerSlot.GetSlot(target).IsEmpty)
+                                    manager.PlayerSlot.GetSlot(target).CharacterData.CharacterAnim.HitArrow();
+                            }
+                        }
                         else if (attack.Code == AttackCode.MeleeAttack)
-                            manager.EnemySlot.GetSlot(target).CharacterData.CharacterAnim.HitSlash();
-
-                    }
-                    else
-                    {
-                        manager.PlayerSlot.GetSlot(target).CharacterData.CharacterAnim.Hurt();
-
+                        {
+                            if (manager.OnTurnCharacter.IsPlayer)
+                            {
+                                if (!manager.EnemySlot.GetSlot(target).IsEmpty)
+                                    manager.EnemySlot.GetSlot(target).CharacterData.CharacterAnim.HitSlash();
+                            }
+                            else
+                            {
+                                if (!manager.PlayerSlot.GetSlot(target).IsEmpty)
+                                    manager.PlayerSlot.GetSlot(target).CharacterData.CharacterAnim.HitSlash();
+                            }
+                        }
+                        else
+                        {
+                            if (manager.OnTurnCharacter.IsPlayer)
+                            {
+                                if (!manager.EnemySlot.GetSlot(target).IsEmpty)
+                                    manager.EnemySlot.GetSlot(target).CharacterData.CharacterAnim.Hurt();
+                            }
+                            else
+                            {
+                                if (!manager.PlayerSlot.GetSlot(target).IsEmpty)
+                                    manager.PlayerSlot.GetSlot(target).CharacterData.CharacterAnim.Hurt();
+                            }
+                        } 
                     }
                 }
             }
@@ -131,6 +174,6 @@ public class Execution : BattleState
     void ActionGetEnd()
     {
         manager.ActionManager.ActionExecute();
-        manager.GetDelay(1.5f);
+        GameManager.Instance.CoroutineManager.OnChangeState(1.5f, typeof(StateUpdate));
     }
 }

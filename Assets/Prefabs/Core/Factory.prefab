@@ -1,5 +1,51 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &130421573015220803
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5798052800161696117}
+  - component: {fileID: 2153088499301149632}
+  m_Layer: 0
+  m_Name: SlashEffectPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5798052800161696117
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 130421573015220803}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8322355930642613136}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2153088499301149632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 130421573015220803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74b2b7289ec382546932ffbeae1c5047, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 100839196343548179, guid: 2ffc61125c8413f4da063740fd5bf7e2, type: 3}
+  poolSize: 8
 --- !u!1 &2906094464371641885
 GameObject:
   m_ObjectHideFlags: 0
@@ -66,6 +112,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7336141569857517013}
+  - component: {fileID: 6936667443030744459}
   m_Layer: 0
   m_Name: MagicHitEffectPool
   m_TagString: Untagged
@@ -88,6 +135,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8322355930642613136}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6936667443030744459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3035911280030801969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34715d60a327b3447bca1b9484e24af5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 6145619172504833306, guid: 1b0efd05c7fd96742a5840aa46785284, type: 3}
+  poolSize: 8
 --- !u!1 &3450455125218240186
 GameObject:
   m_ObjectHideFlags: 0
@@ -97,6 +158,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7353413825689472521}
+  - component: {fileID: 8262984341191362893}
+  - component: {fileID: 1402425732416348837}
   m_Layer: 0
   m_Name: ArrowHitEffectPool
   m_TagString: Untagged
@@ -119,6 +182,34 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8322355930642613136}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8262984341191362893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3450455125218240186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 635b25ef025595b4b97099162f4d4970, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 7058446885139467761, guid: 6697fe85d0aaf0140abbfb2d23dcee5d, type: 3}
+  poolSize: 8
+--- !u!114 &1402425732416348837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3450455125218240186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 635b25ef025595b4b97099162f4d4970, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 7058446885139467761, guid: 6697fe85d0aaf0140abbfb2d23dcee5d, type: 3}
+  poolSize: 8
 --- !u!1 &5142140531294691830
 GameObject:
   m_ObjectHideFlags: 0
@@ -154,6 +245,7 @@ Transform:
   - {fileID: 4094614543303900120}
   - {fileID: 1533725411742561844}
   - {fileID: 7353413825689472521}
+  - {fileID: 5798052800161696117}
   - {fileID: 7336141569857517013}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -305,5 +397,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aed5982fde4411b46a39f64f8f7f71c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 0}
+  prefab: {fileID: 8545943369457764362, guid: 394d54ea33c932e4395348b6068c524e, type: 3}
   poolSize: 8

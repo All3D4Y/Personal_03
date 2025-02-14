@@ -9,12 +9,16 @@ public class Factory : Singleton<Factory>
     DamageNumberPool damageNumberPool;
     ArrowPool arrowPool;
     ArrowHitEffectPool arrowHitEffectPool;
+    SlashEffectPool slashEffectPool;
+    MagicHitEffectPool magicHitEffectPool;
 
     public CharacterFactory CharacterFactory => characterFactory;
     public CharacterUIPool CharacterUIPool => characterUIPool;
     public DamageNumberPool DamageNumberPool => damageNumberPool;
     public ArrowPool ArrowPool => arrowPool;
     public ArrowHitEffectPool ArrowHitEffectPool => arrowHitEffectPool;
+    public SlashEffectPool SlashEffectPool => slashEffectPool;
+    public MagicHitEffectPool MagicHitEffectPool => magicHitEffectPool;
     protected override void OnPreInitialize()
     {
         base.OnPreInitialize();
@@ -23,6 +27,8 @@ public class Factory : Singleton<Factory>
         damageNumberPool = transform.GetChild(2).GetComponent<DamageNumberPool>();
         arrowPool = transform.GetChild(3).GetComponent<ArrowPool>();
         arrowHitEffectPool = transform.GetChild(4).GetComponent<ArrowHitEffectPool>();
+        slashEffectPool = transform.GetChild(5).GetComponent<SlashEffectPool>();
+        magicHitEffectPool = transform.GetChild(6).GetComponent<MagicHitEffectPool>();
     }
 
     protected override void OnInitialize()
@@ -35,6 +41,12 @@ public class Factory : Singleton<Factory>
 
         if (arrowHitEffectPool != null)
             arrowHitEffectPool.Initialize();
+
+        if (slashEffectPool != null)
+            slashEffectPool.Initialize();
+
+        if (magicHitEffectPool != null)
+            magicHitEffectPool.Initialize();
     }
 
     public void GetDamageUI(Vector2 position, float damageAmount, bool isCritical)
@@ -84,6 +96,24 @@ public class Factory : Singleton<Factory>
     {
         ArrowHitEffect result = arrowHitEffectPool.GetObject();
         result.transform.localScale = isRight? 0.6f * Vector3.one : new Vector3(-0.6f, 0.6f, 0.6f);
+        result.transform.position = position + new Vector2(0, 0.3f);
+
+        return result;
+    }
+
+    public SlashEffect GetSlashHitEffect(Vector2 position, bool isRight)
+    {
+        SlashEffect result = slashEffectPool.GetObject();
+        result.transform.localScale = isRight ? 0.3f * Vector3.one : new Vector3(-0.3f, 0.3f, 0.3f);
+        result.transform.position = position + new Vector2(0, 0.3f);
+
+        return result;
+    }
+
+    public MagicHitEffect GetMagicHitEffect(Vector2 position, bool isRight)
+    {
+        MagicHitEffect result = magicHitEffectPool.GetObject();
+        result.transform.localScale = isRight ? Vector3.one : -Vector3.one;
         result.transform.position = position + new Vector2(0, 0.3f);
 
         return result;

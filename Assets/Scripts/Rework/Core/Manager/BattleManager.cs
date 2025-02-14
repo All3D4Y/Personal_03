@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class BattleManager : MonoBehaviour
@@ -8,6 +9,7 @@ public class BattleManager : MonoBehaviour
     BattleState currentState;               // 현재 상태
     Dictionary<Type, BattleState> states;   // 상태 목록
 
+    public Dictionary<Type, BattleState> States => states;
     public TurnOrder TurnOrder { get; set; }
     public SlotManager PlayerSlot { get; set; }
     public SlotManager EnemySlot { get; set; }
@@ -52,6 +54,21 @@ public class BattleManager : MonoBehaviour
             currentState.Exit();
 
         currentState = states[typeof(T)];
+        currentState.Enter();
+    }
+
+    public void ChangeState(Type stateType)
+    {
+        if (!typeof(BattleState).IsAssignableFrom(stateType))
+        {
+            Debug.LogError($"Invalid state type: {stateType}");
+            return;
+        }
+
+        if (currentState != null)
+            currentState.Exit();
+
+        currentState = states[stateType];
         currentState.Enter();
     }
 
@@ -102,22 +119,5 @@ public class BattleManager : MonoBehaviour
         // 턴 표시 이펙트 찾아두기
         OnTurnEffect = FindAnyObjectByType<OnTurnEffect>();
         OnTurnEffect.OnTransparent();
-    }
-
-    public void GetDelay(float delay)
-    {
-        StopAllCoroutines();
-        StartCoroutine(Delay(delay));
-    }
-
-    IEnumerator Delay(float delay)
-    {
-        float temp = 0;
-        while (temp <= delay)
-        {
-            temp += Time.deltaTime;
-            yield return null;
-        }
-        ChangeState<StateUpdate>();
     }
 }
