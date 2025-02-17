@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -18,6 +18,7 @@ public class SwitchUI : MonoBehaviour
     void Awake()
     {
         button = GetComponent<Button>();
+        button.onClick.AddListener(SwitchCharacter);
 
         playerName = transform.GetChild(2).GetComponent<TextMeshProUGUI>();
         hpSlider = transform.GetChild(3).GetComponent<Slider>();
@@ -42,5 +43,23 @@ public class SwitchUI : MonoBehaviour
     public void Clear()
     {
         character = null;
+    }
+
+    public void SwitchCharacter()
+    {
+        Character character = this.character;
+        BattleManager manager = GameManager.Instance.BattleManager;
+        // 1. 슬롯 업데이트, 위치 업데이트
+        manager.PlayerSlot.SwapCharacter(character.Index, manager.OnTurnCharacter.Index);
+        Clear();
+        AssignCharacter(manager.OnTurnCharacter);
+        Initialize();
+        // 2. 턴오더 리스트 업데이트
+        manager.TurnOrder.RemoveFromList(manager.OnTurnCharacter);
+        manager.TurnOrder.AddToList(character);
+        manager.SetTurnCharacter(character);
+        // 3. UI 초기화
+        GameManager.Instance.BattleUIManager.Clear();
+        GameManager.Instance.BattleUIManager.Initialize();
     }
 }

@@ -68,4 +68,14 @@ public class TurnOrder
                 character.CurrentSpeed += character.CurrentSpeedIncrement;
         }
     }
+
+    public void AddToList(Character character)
+    {
+        characters.Add(character);
+    }
+
+    public void RemoveFromList(Character character)
+    {
+        characters.Remove(character);
+    }
 }

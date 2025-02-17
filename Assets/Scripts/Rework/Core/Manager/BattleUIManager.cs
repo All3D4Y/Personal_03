@@ -57,11 +57,12 @@ public class BattleUIManager : GroupUIBase
         // Switch쪽은 여기서 등록하기
         SlotManager playerSlot = GameManager.Instance.BattleManager.PlayerSlot;
         
-        if (playerSlot != null && playerSlot.SlotCount > 4)         // 플레이어 슬롯이 있고, 슬롯에 5명 이상이 있을 때
+        if (playerSlot != null && !playerSlot.GetSlot(4).IsEmpty)         // 플레이어 슬롯이 있고, 슬롯에 5명 이상이 있을 때
         {
-            for (int i = 0; i < playerSlot.SlotCount - 4; i++)
+            for (int i = 0; i < 4; i++)
             {
-                switchGroupUI.SwitchUIs[i].AssignCharacter(playerSlot.GetSlot(i + 4).CharacterData);
+                if (!playerSlot.GetSlot(i + 4).IsEmpty)
+                    switchGroupUI.SwitchUIs[i].AssignCharacter(playerSlot.GetSlot(i + 4).CharacterData);
             }
         }
         
