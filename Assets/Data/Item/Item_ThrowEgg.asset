@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17ea51e18436b0a43ae459cd60f1c00c, type: 3}
+  m_Name: Item_ThrowEgg
+  m_EditorClassIdentifier: 
+  icon: {fileID: 21300000, guid: ce993d5f7ca6ea8459974fd88e71861d, type: 3}
+  iS_Name: ThrowEgg
+  iS_Description: "\uC54C \uB358\uC9C0\uAE30"
+  count: 4
+  range: 0
+  mpCost: 0
+  damage: 5

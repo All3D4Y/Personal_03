@@ -58,8 +58,13 @@ public class Character : MonoBehaviour
         get => currentHP;
         set
         {
-            currentHP = value;
+            if (value <= maxHp)
+                currentHP = value;
+            else
+                currentHP = maxHp;
+
             onHPChanged?.Invoke(currentHP / maxHp);
+
             if (currentHP < 0 && IsAlive)
             {
                 Die();
@@ -76,8 +81,13 @@ public class Character : MonoBehaviour
         get => currentMP;
         set
         {
-            currentMP = value;
+            if ( value <= maxMp)
+                currentMP = value;
+            else
+                currentMP = maxMp;
+
             onMPChanged?.Invoke(currentMP / maxMp);
+
             if (IsAlive)
             {
                 if (currentMP < 0)

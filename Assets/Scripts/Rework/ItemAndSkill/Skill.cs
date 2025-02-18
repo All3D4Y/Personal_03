@@ -25,15 +25,29 @@ public abstract class Skill : ScriptableObject
         int[] targets = new int[count];
         if (this is IAttack)
         {
-            targets = SetTargetIndex(turn.Index);
-            foreach (int target in targets)
+            if (range > 0)
             {
-                if (target >= 0)
+                targets = SetTargetIndex(turn.Index);
+                foreach (int target in targets)
                 {
-                    if (turn.IsPlayer)
+                    if (target >= 0)
+                    {
+                        if (turn.IsPlayer)
+                            Affect(turn, battleManager.EnemySlot.GetSlot(target).CharacterData);
+                        else
+                            Affect(turn, battleManager.PlayerSlot.GetSlot(target).CharacterData);
+                    }
+                } 
+            }
+            else
+            {
+                if (count == 4)
+                {
+                    targets = new int[] { 0, 1, 2, 3 };
+                    foreach (int target in targets)
+                    {
                         Affect(turn, battleManager.EnemySlot.GetSlot(target).CharacterData);
-                    else
-                        Affect(turn, battleManager.PlayerSlot.GetSlot(target).CharacterData); 
+                    }
                 }
             }
         }
@@ -47,10 +61,8 @@ public abstract class Skill : ScriptableObject
                 {
                     if (turn.IsPlayer)
                         battleManager.PlayerSlot.GetSlot(target).CharacterData.BuffManager.AddBuff(buff);
-                        //Affect(turn, battleManager.PlayerSlot.GetSlot(target).CharacterData);
                     else
                         battleManager.EnemySlot.GetSlot(target).CharacterData.BuffManager.AddBuff(buff);
-                    //Affect(turn, battleManager.EnemySlot.GetSlot(target).CharacterData);
                 } 
             }
             else
@@ -60,11 +72,21 @@ public abstract class Skill : ScriptableObject
                 {
                     if (turn.IsPlayer)
                         battleManager.EnemySlot.GetSlot(target).CharacterData.BuffManager.AddBuff(buff);
-                    //Affect(turn, battleManager.EnemySlot.GetSlot(target).CharacterData);
                     else
                         battleManager.PlayerSlot.GetSlot(target).CharacterData.BuffManager.AddBuff(buff);
-                    //Affect(turn, battleManager.PlayerSlot.GetSlot(target).CharacterData);
                 }
+            }
+        }
+        else if (this is IHeal)
+        {
+            Item_Heal heal = this as Item_Heal;
+            targets = BuffTargetIndex(turn.Index);
+            foreach (int target in targets)
+            {
+                if (turn.IsPlayer)
+                    Affect(turn, battleManager.PlayerSlot.GetSlot(target).CharacterData);
+                else
+                    Affect(turn, battleManager.EnemySlot.GetSlot(target).CharacterData);
             }
         }
     }
