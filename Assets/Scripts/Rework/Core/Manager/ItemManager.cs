@@ -1,8 +1,8 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemManager : MonoBehaviour
+public class ItemManager : Singleton<ItemManager>
 {
     public Item egg;
 
@@ -40,11 +40,16 @@ public class ItemManager : MonoBehaviour
     {
         if (item != egg)
         {
-            items[item]--;
-            if (items[item] == 0)
+            if (items[item] > 0)
             {
-                items.Remove(item);
-            } 
+                items[item]--;
+                if (items[item] == 0)
+                {
+                    items.Remove(item);
+                }
+            }
+            else
+                Debug.LogWarning($"{item}의 보유량이 부족해 아이템 사용에 실패했습니다!");
         }
     }
 }

@@ -18,5 +18,6 @@ MonoBehaviour:
   count: 1
   range: 1
   mpCost: 0
+  itemID: 1
   healType: 0
   healAmount: 30
