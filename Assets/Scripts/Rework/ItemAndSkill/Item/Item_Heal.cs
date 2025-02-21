@@ -13,9 +13,15 @@ public class Item_Heal : Item, IHeal
 
     public override void Affect(Character user, Character target)
     {
-        if (healType == HealType.HP)
-            target.HP += healAmount;
-        else
-            target.MP += healAmount;
+        if (target != null)
+        {
+            Factory.Instance.GetHealEffect(target.transform.position);
+            ItemManager.Instance.UseItem(this);
+
+            if (healType == HealType.HP)
+                target.HP += healAmount;
+            else
+                target.MP += healAmount;
+        }
     }
 }

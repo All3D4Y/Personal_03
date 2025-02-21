@@ -2,11 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MagicHitEffect : RecycleObject
+public class MagicHitEffect : Effects
 {
-    protected override void OnEnable()
-    {
-        base.OnEnable();
-        DisableTimer(2.0f);
-    }
 }

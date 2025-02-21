@@ -5,6 +5,8 @@ using UnityEngine;
 public class ItemManager : Singleton<ItemManager>
 {
     public Item egg;
+    public Item heal;
+    public Item mind;
 
     Dictionary<Item, int> items;
 
@@ -18,6 +20,8 @@ public class ItemManager : Singleton<ItemManager>
     void Start()
     {
         AddNewItem(egg, 999);
+        AddNewItem(heal, 10);
+        AddNewItem(mind, 10);
     }
 
     public void AddNewItem(Item item, int count = 1)

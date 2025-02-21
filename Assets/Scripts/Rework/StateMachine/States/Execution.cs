@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class Execution : BattleState
 {
@@ -48,6 +47,14 @@ public class Execution : BattleState
                 }
             }
             else if (skill is Skill_Buff)
+            {
+                manager.OnTurnCharacter.CharacterAnim.BuffDebuff();
+            }
+            else if (skill is Item_Attack)
+            {
+                manager.OnTurnCharacter.CharacterAnim.Attack(0);
+            }
+            else if (skill is Item_Heal)
             {
                 manager.OnTurnCharacter.CharacterAnim.BuffDebuff();
             }
@@ -158,6 +165,47 @@ public class Execution : BattleState
                         else                                                                            // 적이 사용하면
                             manager.PlayerSlot.GetSlot(target).CharacterData.CharacterAnim.Hurt();      // 플레이어 슬롯에서 디버프 애니메이션 재생
                     }
+                }
+            }
+            else if (skill is Item_Attack)
+            {
+                Item_Attack attack = skill as Item_Attack;
+                int[] target;
+                if (attack.Range == 0)
+                    target = new int[4] { 0, 1, 2, 3 };
+                else
+                    target = attack.SetTargetIndex(manager.OnTurnCharacter.Index);
+
+                int selectedTargetIndex = -99;
+
+                for (int i = 0; i < target.Length; i++)
+                {
+                    if (!manager.EnemySlot.GetSlot(i).IsEmpty)
+                    {
+                        selectedTargetIndex = target[i];
+                        break;
+                    }
+                }
+
+                manager.EnemySlot.GetSlot(selectedTargetIndex).CharacterData.CharacterAnim.getActionAnimEnd -= ActionGetEnd;
+                manager.EnemySlot.GetSlot(selectedTargetIndex).CharacterData.CharacterAnim.getActionAnimEnd += ActionGetEnd;
+                
+                foreach (int targetIndex in target)
+                {
+                    if (targetIndex >= 0 && !manager.EnemySlot.GetSlot(targetIndex).IsEmpty)
+                        manager.EnemySlot.GetSlot(targetIndex).CharacterData.CharacterAnim.Hurt();
+                }
+            }
+            else if (skill is Item_Heal)
+            {
+                int[] targets = skill.BuffTargetIndex(manager.OnTurnCharacter.Index);
+
+                manager.PlayerSlot.GetSlot(targets[targets.Length - 1]).CharacterData.CharacterAnim.getActionAnimEnd -= ActionGetEnd;
+                manager.PlayerSlot.GetSlot(targets[targets.Length - 1]).CharacterData.CharacterAnim.getActionAnimEnd += ActionGetEnd;
+
+                foreach (int targetIndex in targets)
+                {
+                    manager.PlayerSlot.GetSlot(targetIndex).CharacterData.CharacterAnim.GetBuff();
                 }
             }
         }

@@ -53,8 +53,6 @@ public class SkillGroupUI : GroupUIBase
         foreach (SkillUI skillUI in skillUIs)
         {
             skillUI.IsValidTarget();
-            //if (skillUI.GuideLine != null)
-            //    skillUI.GuideLine.TransformUpdate(1);
         }
     }
 }

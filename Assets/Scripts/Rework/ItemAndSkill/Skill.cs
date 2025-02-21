@@ -10,7 +10,7 @@ public abstract class Skill : ScriptableObject
     public string iS_Description;
     [SerializeField] protected int count = 1;
     [SerializeField] protected int range = 1;
-    [SerializeField] protected int mpCost;
+    [SerializeField] protected int mpCost = 0;
 
     public int Count => count;
     public int Range => range;
@@ -127,7 +127,7 @@ public abstract class Skill : ScriptableObject
 
         BattleManager battleManager = GameManager.Instance.BattleManager;
 
-        if (this is IAttack)
+        if (this is Skill_Attack)
         {
             temp = SetTargetIndex(userIndex);
             foreach (int i in temp)
@@ -136,7 +136,7 @@ public abstract class Skill : ScriptableObject
                     result |= true;
             }
         }
-        else if (this is IBuff)
+        else if (this is Skill_Buff)
         {
             Skill_Buff buff = this as Skill_Buff;
             if (!buff.IsDebuff)
@@ -158,6 +158,16 @@ public abstract class Skill : ScriptableObject
                 }
             }
         }
+        else if (this is Item_Attack)
+        {
+            if (range == 0)
+            {
+                for (int i = 0; i < 4; i++)
+                {
+                    result |= !battleManager.EnemySlot.GetSlot(i).IsEmpty;
+                }
+            }
+        }
 
         return result;
     }
@@ -169,7 +179,7 @@ public abstract class Skill : ScriptableObject
 
         BattleManager battleManager = GameManager.Instance.BattleManager;
 
-        if (this is IAttack)
+        if (this is Skill_Attack)
         {
             temp = SetTargetIndex(battleManager.OnTurnCharacter.Index);
             foreach (int i in temp)
@@ -178,7 +188,7 @@ public abstract class Skill : ScriptableObject
                     result |= true;
             }
         }
-        else if (this is IBuff)
+        else if (this is Skill_Buff)
         {
             Skill_Buff buff = this as Skill_Buff;
             if (!buff.IsDebuff)
@@ -198,6 +208,25 @@ public abstract class Skill : ScriptableObject
                     if (i >= 0 && !battleManager.EnemySlot.GetSlot(i).IsEmpty)
                         result |= true;
                 }
+            }
+        }
+        else if (this is Item_Attack)
+        {
+            if (range == 0)
+            {
+                for (int i = 0; i < 4; i++)
+                {
+                    result |= !battleManager.EnemySlot.GetSlot(i).IsEmpty;
+                }
+            }
+        }
+        else if (this is Item_Heal)
+        {
+            temp = BuffTargetIndex(battleManager.OnTurnCharacter.Index);
+            foreach(int i in temp)
+            {
+                if (i >= 0 && !battleManager.PlayerSlot.GetSlot(i).IsEmpty)
+                    result |= true;
             }
         }
 

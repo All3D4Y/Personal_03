@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ItemUI : MonoBehaviour
 {
     Button button;
+    Image board;
     Image itemIcon;
     TextMeshProUGUI itemTargetCount;
     TextMeshProUGUI itemName;
@@ -16,17 +18,23 @@ public class ItemUI : MonoBehaviour
     Item item = null;
     int count = 0;
 
+    Color invalidColor = new Color(1, 1, 1, 0.2f);
+
     public bool IsEmpty => item == null;
     public int Count
     {
         get => count;
         set
         {
-            count = value;
-            if (count == 0)
+            if (count != 0)
             {
-                Clear();
-                gameObject.SetActive(false);
+                if (value == 0)
+                {
+                    Clear();
+                    gameObject.SetActive(false);
+                }
+                else
+                    count = value;
             }
         }
     }
@@ -35,6 +43,8 @@ public class ItemUI : MonoBehaviour
     {
         button = GetComponent<Button>();
         button.onClick.AddListener(UIExecution);
+
+        board = GetComponent<Image>();
 
         Transform child;
 
@@ -52,8 +62,6 @@ public class ItemUI : MonoBehaviour
 
         child = transform.GetChild(5);
         itemCount = child.GetComponent<TextMeshProUGUI>();
-
-        gameObject.SetActive(false);
     }
 
     public void Initialize()
@@ -69,7 +77,10 @@ public class ItemUI : MonoBehaviour
             itemDescription.text = item.iS_Description;
             itemCount.text = count.ToString();
 
-            gameObject.SetActive(true);
+            IsValidTarget();
+
+            if (!gameObject.activeSelf)
+                gameObject.SetActive(true);
         }
         else
             gameObject.SetActive(false);
@@ -87,12 +98,32 @@ public class ItemUI : MonoBehaviour
         count = 0;
     }
 
+    public void IsValidTarget()
+    {
+        if (!IsEmpty)
+        {
+            if (item.IsValid())
+            {
+                board.color = Color.white;
+                button.interactable = true;
+            }
+            else
+            {
+                board.color = invalidColor;
+                button.interactable = false;
+            }
+        }
+    }
+
     public void UIExecution()
     {
         if (!IsEmpty)
         {
-            Count--;
-            itemCount.text = count.ToString();
+            if (item.ItemID != 0)
+            {
+                Count--;
+                itemCount.text = count.ToString();
+            }
             GameManager.Instance.BattleManager.ActionManager.SetAction(item as Skill);
             GameManager.Instance.BattleManager.ChangeState<Execution>();
         }

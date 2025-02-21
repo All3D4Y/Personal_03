@@ -11,6 +11,7 @@ public class Factory : Singleton<Factory>
     ArrowHitEffectPool arrowHitEffectPool;
     SlashEffectPool slashEffectPool;
     MagicHitEffectPool magicHitEffectPool;
+    HealEffectPool healEffectPool;
 
     public CharacterFactory CharacterFactory => characterFactory;
     public CharacterUIPool CharacterUIPool => characterUIPool;
@@ -19,6 +20,7 @@ public class Factory : Singleton<Factory>
     public ArrowHitEffectPool ArrowHitEffectPool => arrowHitEffectPool;
     public SlashEffectPool SlashEffectPool => slashEffectPool;
     public MagicHitEffectPool MagicHitEffectPool => magicHitEffectPool;
+    public HealEffectPool HealEffectPool => healEffectPool;
     protected override void OnPreInitialize()
     {
         base.OnPreInitialize();
@@ -29,6 +31,7 @@ public class Factory : Singleton<Factory>
         arrowHitEffectPool = transform.GetChild(4).GetComponent<ArrowHitEffectPool>();
         slashEffectPool = transform.GetChild(5).GetComponent<SlashEffectPool>();
         magicHitEffectPool = transform.GetChild(6).GetComponent<MagicHitEffectPool>();
+        healEffectPool = transform.GetChild(7).GetComponent<HealEffectPool>();
     }
 
     protected override void OnInitialize()
@@ -47,6 +50,9 @@ public class Factory : Singleton<Factory>
 
         if (magicHitEffectPool != null)
             magicHitEffectPool.Initialize();
+
+        if (healEffectPool != null)
+            healEffectPool.Initialize();
     }
 
     public void GetDamageUI(Vector2 position, float damageAmount, bool isCritical)
@@ -115,6 +121,14 @@ public class Factory : Singleton<Factory>
         MagicHitEffect result = magicHitEffectPool.GetObject();
         result.transform.localScale = isRight ? Vector3.one : -Vector3.one;
         result.transform.position = position + new Vector2(0, 0.3f);
+
+        return result;
+    }
+
+    public HealEffect GetHealEffect(Vector2 position)
+    {
+        HealEffect result = healEffectPool.GetObject();
+        result.transform.position = position;
 
         return result;
     }

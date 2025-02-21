@@ -6,6 +6,8 @@ public class GroupUIBase : MonoBehaviour
 {
     protected CanvasGroup canvasGroup;
 
+    public CanvasGroup CanvasGroup => canvasGroup;
+
     protected virtual void Awake()
     {
         canvasGroup = GetComponent<CanvasGroup>();

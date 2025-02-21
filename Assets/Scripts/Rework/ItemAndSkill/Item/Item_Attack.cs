@@ -19,7 +19,11 @@ public class Item_Attack : Item, IAttack
 
     public override void Affect(Character user, Character target)
     {
-        target.HP -= damage;
+        if (target != null)
+        {
+            Factory.Instance.GetDamageUI(target.transform.position, damage, false);
+            target.HP -= damage; 
+        }
     }
 
     public float DoDamage(Character user, out bool isCritical)

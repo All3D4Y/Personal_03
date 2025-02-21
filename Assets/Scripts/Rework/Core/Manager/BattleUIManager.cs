@@ -78,13 +78,14 @@ public class BattleUIManager : GroupUIBase
         if (turn != null)
         {
             skillGroupUI.AssignSkills(turn);    // 캐릭터의 스킬들을 등록하고
-            skillGroupUI.Initialize();          // 초기화 실행
+            skillGroupUI.Initialize();          // 스킬UI 초기화 실행
+            itemGroupUI.Initialize();           // 아이템UI 초기화
         }
         else
             Debug.LogWarning("차례인 캐릭터가 없습니다!");
 
         onMoveInput += GameManager.Instance.BattleManager.PlayerSlot.OnMoveSlot;
-        
+
         // 액션 선택 단계 진입 시 첫 활성화는 Skill
         OnSkill();
         // 마지막으로 보여지게 하기
@@ -115,6 +116,7 @@ public class BattleUIManager : GroupUIBase
     {
         switchGroupUI.OnTransparent();
         skillGroupUI.OnTransparent();
+        itemGroupUI.OnVisible();
     }
 
     void OnRightClick()
@@ -141,7 +143,10 @@ public class BattleUIManager : GroupUIBase
 
     void IsValidTarget()
     {
-        skillGroupUI.IsValidTarget();
+        if (skillGroupUI.CanvasGroup.alpha > 0.99f)
+            skillGroupUI.IsValidTarget();
+        else
+            itemGroupUI.IsValidTarget();
     }
 
     IEnumerator ClickCoolDown()

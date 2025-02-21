@@ -29,6 +29,22 @@ public class TurnOrder
         characters = list;
     }
 
+    public void ListUpdate()
+    {
+        BattleManager manager = GameManager.Instance.BattleManager;
+        List<Character> list = new List<Character>();
+
+        for (int i = 0; i < 4; i++)
+        {
+            if (!manager.PlayerSlot.GetSlot(i).IsEmpty)
+                list.Add(manager.PlayerSlot.GetSlot(i).CharacterData);
+            if (!manager.EnemySlot.GetSlot(i).IsEmpty)
+                list.Add(manager.EnemySlot.GetSlot(i).CharacterData);
+        }
+
+        characters = list;
+    }
+
     public Character GetNextCharacter()
     {
         // 속도 증가
