@@ -45,6 +45,7 @@ public class Character : MonoBehaviour
     public float MaxHp => maxHp;
     public float MaxMp => maxMp;
 
+    public int Level { get; set; }
     public CharacterStatusUI CUI { get; set; }
     public BuffManager BuffManager { get; set; }
 
@@ -117,10 +118,10 @@ public class Character : MonoBehaviour
     public void Initialize()
     {
         Index = 999;
-        HP = maxHp;
-        MP = maxMp;
-        ATK = attackPower;
-        DEF = defensivePower;
+        HP = maxHp * (1 + 0.3f *  Level);
+        MP = maxMp * (1 + 0.3f * Level);
+        ATK = attackPower * (1 + 0.3f * Level);
+        DEF = defensivePower * (1 + 0.3f * Level);
         CurrentSpeed = BaseSpeed;
         CurrentSpeedIncrement = speedIncrement;
         IsAlive = true;

@@ -11,6 +11,9 @@ public class TurnOrder
 
     public Action onTurnCount;
 
+    public bool AllEnemiesDefeated => characters.All(c => c.IsPlayer);      // 리스트에 남은 캐릭터가 전부 플레이어다 => 승리
+    public bool AllPlayersDefeated => characters.All(c => !c.IsPlayer);     // 리스트에 남은 캐릭터가 전부 적이다 => 패배
+
     public void Initialize(List<Character> players, List<Character> enemies)
     {
         // 캐릭터 리스트 초기화
@@ -68,11 +71,7 @@ public class TurnOrder
 
     public bool IsBattleOver()
     {
-        // 적 또는 아군이 모두 쓰러졌는지 확인
-        bool allPlayersDefeated = characters.All(c => c.IsPlayer);      // 리스트에 남은 캐릭터가 전부 플레이어다 => 승리
-        bool allEnemiesDefeated = characters.All(c => !c.IsPlayer);     // 리스트에 남은 캐릭터가 전부 적이다 => 패배
-
-        return allPlayersDefeated || allEnemiesDefeated;                // true가 리턴되면 배틀 종료
+        return AllEnemiesDefeated || AllPlayersDefeated;                // true가 리턴되면 배틀 종료
     }
 
     public void IncreaseSpeed()

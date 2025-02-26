@@ -18,12 +18,14 @@ public class BattleUIManager : GroupUIBase
     SkillGroupUI skillGroupUI;
     ItemGroupUI itemGroupUI;
     CharacterStatusGroupUI characterStatusGroupUI;
+    BattleEndUI battleEndUI;
 
     public Action<int> onMoveInput;
 
     public SwitchGroupUI SwitchUIs => switchGroupUI;
     public SkillGroupUI SkillUIs => skillGroupUI;
     public CharacterStatusGroupUI CharacterUIs => characterStatusGroupUI;
+    public BattleEndUI BattleEndUI => battleEndUI;
 
 
 
@@ -49,6 +51,8 @@ public class BattleUIManager : GroupUIBase
         itemBTN.onClick.AddListener(OnItem);
         rightBTN.onClick.AddListener(OnRightClick);
         leftBTN.onClick.AddListener(OnLeftClick);
+
+        battleEndUI = transform.parent.GetChild(2).GetComponent<BattleEndUI>();
     }
 
     public void PreInitialize()
@@ -117,6 +121,12 @@ public class BattleUIManager : GroupUIBase
         switchGroupUI.OnTransparent();
         skillGroupUI.OnTransparent();
         itemGroupUI.OnVisible();
+    }
+
+    public void OnBattleEnd()
+    {
+        OnTransparent();
+        battleEndUI.OnVisible();
     }
 
     void OnRightClick()

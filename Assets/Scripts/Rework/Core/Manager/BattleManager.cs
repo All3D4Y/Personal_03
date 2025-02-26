@@ -95,6 +95,7 @@ public class BattleManager : MonoBehaviour
             Character temp = cF.GenerateCharacter(characterCodes[i], cF.transform);
             if (temp != null)
             {
+                temp.Level = PlayerDataManager.Instance.playerLevel;
                 PlayerSlot.AssignCharacterToSlot(temp, i);                                  // 슬롯에 캐릭터 등록
                 temp.transform.Translate(PlayerSlot.GetSlot(i).SlotTransform.position);     // 위치 설정
                 PlayerParty.Add(temp);                                                      // 플레이어 파티(리스트)에 등록
@@ -109,6 +110,7 @@ public class BattleManager : MonoBehaviour
             Character temp = cF.GenerateCharacter(characterCodes[i], cF.transform);
             if (temp != null)
             {
+                temp.Level = StageDataManager.Instance.CurrentStage.enemyLevel;
                 EnemySlot.AssignCharacterToSlot(temp, i);                                   // 슬롯에 캐릭터 등록
                 temp.transform.Translate(EnemySlot.GetSlot(i).SlotTransform.position);      // 위치 설정
                 EnemyParty.Add(temp);                                                       // 적 파티(리스트)에 등록

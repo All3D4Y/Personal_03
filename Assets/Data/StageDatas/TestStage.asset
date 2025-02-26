@@ -15,3 +15,10 @@ MonoBehaviour:
   index: 0
   enemyCodes: 3200000032000000330000003300000032000000330000000000000000000000
   enemyLevel: 1
+  exp: 100
+  spoils:
+  - item: {fileID: 11400000, guid: b434a9bfddd315646a91e9e2d0a65b97, type: 2}
+    count: 1
+  - item: {fileID: 11400000, guid: 6f34eeeef5f3ead42b83c26294008a86, type: 2}
+    count: 2
+  bg: {fileID: 21300000, guid: 6ef04825913cc284dbdf383688823035, type: 3}
