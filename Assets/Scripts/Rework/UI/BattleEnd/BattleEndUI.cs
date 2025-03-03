@@ -34,7 +34,7 @@ public class BattleEndUI : GroupUIBase
             if (i < 3)
                 spoils[i] = child.GetChild(0).GetChild(i).GetComponent<SpoilsUI>();
             else
-                spoils[i] = child.GetChild(1).GetChild(i).GetComponent<SpoilsUI>();
+                spoils[i] = child.GetChild(1).GetChild(i - 3).GetComponent<SpoilsUI>();
         }
 
         child = transform.GetChild(1).GetChild(2);
@@ -63,6 +63,8 @@ public class BattleEndUI : GroupUIBase
         // 승리 시
         if (isWin)
         {
+            winOrLose.text = "Win!";
+
             // 전리품 표시
             for (int i = 0; i < 6; i++)
             {
@@ -89,6 +91,8 @@ public class BattleEndUI : GroupUIBase
         // 패배 시
         else
         {
+            winOrLose.text = "Lose!";
+
             for (int i = 0; i < spoils.Length; i++)
             {
                 spoils[i].gameObject.SetActive(false);

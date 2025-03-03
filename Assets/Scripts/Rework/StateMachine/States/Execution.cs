@@ -77,6 +77,16 @@ public class Execution : BattleState
                         manager.EnemySlot.GetSlot(targets[targets.Length - 1]).CharacterData.CharacterAnim.getActionAnimEnd -= ActionGetEnd;
                         manager.EnemySlot.GetSlot(targets[targets.Length - 1]).CharacterData.CharacterAnim.getActionAnimEnd += ActionGetEnd; 
                     }
+                    else if (!manager.EnemySlot.GetSlot(targets[targets.Length - 2]).IsEmpty)
+                    {
+                        manager.EnemySlot.GetSlot(targets[targets.Length - 2]).CharacterData.CharacterAnim.getActionAnimEnd -= ActionGetEnd;
+                        manager.EnemySlot.GetSlot(targets[targets.Length - 2]).CharacterData.CharacterAnim.getActionAnimEnd += ActionGetEnd;
+                    }
+                    else if (!manager.EnemySlot.GetSlot(targets[targets.Length - 3]).IsEmpty)
+                    {
+                        manager.EnemySlot.GetSlot(targets[targets.Length - 3]).CharacterData.CharacterAnim.getActionAnimEnd -= ActionGetEnd;
+                        manager.EnemySlot.GetSlot(targets[targets.Length - 3]).CharacterData.CharacterAnim.getActionAnimEnd += ActionGetEnd;
+                    }
                 }
                 else
                 {
@@ -84,6 +94,16 @@ public class Execution : BattleState
                     {
                         manager.PlayerSlot.GetSlot(targets[targets.Length - 1]).CharacterData.CharacterAnim.getActionAnimEnd -= ActionGetEnd;
                         manager.PlayerSlot.GetSlot(targets[targets.Length - 1]).CharacterData.CharacterAnim.getActionAnimEnd += ActionGetEnd; 
+                    }
+                    else if (!manager.PlayerSlot.GetSlot(targets[targets.Length - 2]).IsEmpty)
+                    {
+                        manager.PlayerSlot.GetSlot(targets[targets.Length - 2]).CharacterData.CharacterAnim.getActionAnimEnd -= ActionGetEnd;
+                        manager.PlayerSlot.GetSlot(targets[targets.Length - 2]).CharacterData.CharacterAnim.getActionAnimEnd += ActionGetEnd;
+                    }
+                    else if (!manager.PlayerSlot.GetSlot(targets[targets.Length - 3]).IsEmpty)
+                    {
+                        manager.PlayerSlot.GetSlot(targets[targets.Length - 3]).CharacterData.CharacterAnim.getActionAnimEnd -= ActionGetEnd;
+                        manager.PlayerSlot.GetSlot(targets[targets.Length - 3]).CharacterData.CharacterAnim.getActionAnimEnd += ActionGetEnd;
                     }
                 }
 
