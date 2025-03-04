@@ -31,7 +31,6 @@ public class CharacterFactory : MonoBehaviour
         }
     }
 
-
     public Character GenerateCharacter(int code, Transform parent = null)
     {
         // 코드로 프리팹 찾기
@@ -49,5 +48,13 @@ public class CharacterFactory : MonoBehaviour
         character.Initialize();
 
         return character;
+    }
+
+    public void DestroyAllCharacter()
+    {
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            Destroy(transform.GetChild(i).gameObject);
+        }
     }
 }

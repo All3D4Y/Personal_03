@@ -12,8 +12,11 @@ public class Preparation : BattleState
         Debug.Log("전투 준비 중...");
 
         // Core Scripts Initialize
-        StageDataManager.Instance.CurrentStage = StageDataManager.Instance.stageDatas[0];
-        Debug.LogWarning("Test용 코드로 스테이지 데이터 할당 중, 수정 필요!");
+        //StageDataManager.Instance.CurrentStage = StageDataManager.Instance.stageDatas[0];
+        //Debug.LogWarning("Test용 코드로 스테이지 데이터 할당 중, 수정 필요!");
+
+        // 배경 로드
+        GameManager.Instance.BackGroundManager.SetBackGround(StageDataManager.Instance.CurrentStage.bg);
 
         // 캐릭터 배치
         manager.InitializeBattle();

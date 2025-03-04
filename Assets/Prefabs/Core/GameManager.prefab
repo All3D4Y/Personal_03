@@ -74,6 +74,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b15d9afa3aa553f499bec4bdcd5c7fad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerLevel: 1
   players: 0a0000000b0000000c0000000d0000000a0000000b0000000000000000000000
 --- !u!114 &1335143727695238998
 MonoBehaviour:
@@ -101,3 +102,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   egg: {fileID: 11400000, guid: 24e9eafb6319ce6428dfe0d0a972e440, type: 2}
+  heal: {fileID: 11400000, guid: b434a9bfddd315646a91e9e2d0a65b97, type: 2}
+  mind: {fileID: 11400000, guid: 6f34eeeef5f3ead42b83c26294008a86, type: 2}

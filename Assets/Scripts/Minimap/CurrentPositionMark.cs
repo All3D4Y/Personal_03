@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,6 +14,8 @@ public class CurrentPositionMark : MonoBehaviour
     float elapsedTime = 0;
 
     bool canClick;
+
+    public Action onMarkMoveEnd;
 
     void Awake()
     {
@@ -38,12 +41,13 @@ public class CurrentPositionMark : MonoBehaviour
 
     IEnumerator OnMoveMarkCoroutine(MapPoint mapPoint)
     {
-        while (Vector3.SqrMagnitude(mapPoint.transform.position - transform.position) > 0.01f)
+        while (Vector3.SqrMagnitude(mapPoint.transform.position - transform.position) > 0.25f)
         {
             transform.position += moveSpeed * Time.deltaTime * (mapPoint.transform.position - transform.position).normalized;
             yield return null;
         }
         transform.position = mapPoint.transform.position;
+        onMarkMoveEnd?.Invoke();
         canClick = true;
     }
 }

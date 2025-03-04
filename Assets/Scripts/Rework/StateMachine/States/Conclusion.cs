@@ -8,7 +8,9 @@ public class Conclusion : BattleState
     public override void Enter()
     {
         Debug.Log("전투 종료...");
-        // 보상 처리, 전투 결과 화면 표시
+        // 캐릭터 없애기
+        Factory.Instance.CharacterFactory.DestroyAllCharacter();
+
         // 전투 결과 UI 초기화
         if (manager.TurnOrder.AllEnemiesDefeated)
         {

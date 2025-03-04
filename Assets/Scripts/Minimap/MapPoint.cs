@@ -2,7 +2,20 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+
+public struct CurrentPosition
+{
+    public int index;
+    public Route route;
+
+    public CurrentPosition(int index, Route route)
+    {
+        this.index = index;
+        this.route = route;
+    }
+}
 
 public enum Route
 {
@@ -22,6 +35,7 @@ public class MapPoint : MonoBehaviour
 
     Image pointImage;
     Image goalMark;
+    Image battleMark;
     Button button;
 
     bool isMoved = false;
@@ -35,6 +49,7 @@ public class MapPoint : MonoBehaviour
     {
         pointImage = GetComponent<Image>();
         goalMark = transform.GetChild(0).GetComponent<Image>();
+        battleMark = transform.GetChild(1).GetComponent<Image>();
         button = GetComponent<Button>();
 
         button.onClick.AddListener(OnMovePoint);
@@ -42,14 +57,15 @@ public class MapPoint : MonoBehaviour
         ValidPoint(false);
     }
 
-    void Reset()
+    void Start()
     {
         if (isGoal)
             goalMark.enabled = true;
         else
             goalMark.enabled = false;
-        if (isStart)
-            IsCurrent = true;
+
+        if (stageData == null)
+            battleMark.enabled = false;
     }
 
     public void OnMovePoint()
@@ -63,6 +79,10 @@ public class MapPoint : MonoBehaviour
         else
         {
             // 전투씬 로드
+            GameManager.Instance.CurrentPosition = new CurrentPosition(index, route);
+            StageDataManager.Instance.CurrentStage = stageData;
+            SceneManager.LoadScene("TestBattle");
+            Debug.Log($"{stageData.name} 전투 시작...");
         }
         isMoved = true;
     }
