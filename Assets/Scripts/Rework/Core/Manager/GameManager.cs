@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -26,5 +27,18 @@ public class GameManager : Singleton<GameManager>
         battleUIManager = FindAnyObjectByType<BattleUIManager>();
         coroutineManager = GetComponent<CoroutineManager>();
         backGroundManager = FindAnyObjectByType<BackGroundManager>();
+    }
+
+    public void LoadScene(int sceneIndex)
+    {
+        LoadSceneManager.Instance.LoadScene(sceneIndex);
+    }
+
+    public void ExitGame()
+    {
+        Application.Quit();
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif
     }
 }

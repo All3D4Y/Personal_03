@@ -41,7 +41,7 @@ public class CurrentPositionMark : MonoBehaviour
 
     IEnumerator OnMoveMarkCoroutine(MapPoint mapPoint)
     {
-        while (Vector3.SqrMagnitude(mapPoint.transform.position - transform.position) > 0.25f)
+        while (Vector3.SqrMagnitude(mapPoint.transform.position - transform.position) > 0.5f)
         {
             transform.position += moveSpeed * Time.deltaTime * (mapPoint.transform.position - transform.position).normalized;
             yield return null;

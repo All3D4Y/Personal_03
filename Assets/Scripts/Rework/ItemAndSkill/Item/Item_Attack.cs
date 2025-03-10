@@ -7,9 +7,9 @@ public class Item_Attack : Item, IAttack
 {
     [SerializeField] float damage = 10;
 
-    float ratio;
-    float criticalRate;
-    float criticalBonus;
+    float ratio = 0;
+    float criticalRate = 0;
+    float criticalBonus = 0;
 
     public float Ratio => ratio;
 

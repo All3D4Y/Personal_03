@@ -44,6 +44,7 @@ public class Minimap : MonoBehaviour
             mark.transform.position = points.Find(p => p.IsCurrent).transform.position;
 
         ValidPoint();
+        DrawLines();
     }
 
     public void Initialize()
@@ -146,6 +147,26 @@ public class Minimap : MonoBehaviour
             foreach (MapPoint p in points.Except(list))
             {
                 p.ValidPoint(false);
+            }
+        }
+    }
+
+    public void DrawLines()
+    {
+        foreach (MapPoint point in points)
+        {
+            if (!point.isStart)
+            {
+                List<MapPoint> temp = points.FindAll(p => p.index == point.index - 1);
+                if (temp.Count == 1)
+                    point.DrawLine((Vector2)temp[0].transform.position);
+                else
+                {
+                    if (point.route != Route.None)
+                        point.DrawLine((Vector2)temp.Find(p => p.route == point.route).transform.position);
+                    else
+                        point.DrawMultiLine(temp);
+                }
             }
         }
     }

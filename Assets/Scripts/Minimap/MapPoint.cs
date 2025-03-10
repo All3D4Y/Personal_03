@@ -32,11 +32,15 @@ public class MapPoint : MonoBehaviour
     public bool isGoal;
     public int index;
     public Route route = Route.None;
+    [Header("Line")]
+    public Vector2 preset;
+    public float lineWidth;
 
     Image pointImage;
     Image goalMark;
     Image battleMark;
     Button button;
+    LineRenderer lineRenderer;
 
     bool isMoved = false;
     Color invalidColor = new Color(0.5f, 0.5f, 0.5f);
@@ -47,6 +51,7 @@ public class MapPoint : MonoBehaviour
 
     void Awake()
     {
+        lineRenderer = GetComponent<LineRenderer>();
         pointImage = GetComponent<Image>();
         goalMark = transform.GetChild(0).GetComponent<Image>();
         battleMark = transform.GetChild(1).GetComponent<Image>();
@@ -81,8 +86,7 @@ public class MapPoint : MonoBehaviour
             // 전투씬 로드
             GameManager.Instance.CurrentPosition = new CurrentPosition(index, route);
             StageDataManager.Instance.CurrentStage = stageData;
-            SceneManager.LoadScene("TestBattle");
-            Debug.Log($"{stageData.name} 전투 시작...");
+            LoadSceneManager.Instance.LoadScene(1);
         }
         isMoved = true;
     }
@@ -98,6 +102,35 @@ public class MapPoint : MonoBehaviour
         {
             pointImage.color = Color.white;
             button.enabled = true;
+        }
+    }
+
+    public void DrawLine(Vector2 pointPosition)
+    {
+        lineRenderer.startWidth = lineWidth;
+        lineRenderer.endWidth = lineWidth;
+        lineRenderer.positionCount = 2;
+
+        lineRenderer.SetPosition(0, (Vector2)transform.position + preset);
+        lineRenderer.SetPosition(1, pointPosition + preset);
+    }
+    
+    public void DrawMultiLine(List<MapPoint> points)
+    {
+        lineRenderer.startWidth = lineWidth;
+        lineRenderer.endWidth = lineWidth;
+        lineRenderer.positionCount = points.Count * 2 - 1;
+
+        for (int i = 0; i < points.Count * 2 - 1; i++)
+        {
+            if (i % 2 == 1)
+            {
+                lineRenderer.SetPosition(i, (Vector2)transform.position + preset);
+            }
+            else
+            {
+                lineRenderer.SetPosition(i, (Vector2)points[i / 2].transform.position + preset);
+            }
         }
     }
 }
