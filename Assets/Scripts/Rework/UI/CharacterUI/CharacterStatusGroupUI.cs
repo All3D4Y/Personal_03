@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CharacterStatusGroupUI : GroupUIBase
 {
-    void Start()
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         OnVisible();
     }

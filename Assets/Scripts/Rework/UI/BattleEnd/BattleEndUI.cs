@@ -116,7 +116,7 @@ public class BattleEndUI : GroupUIBase
     public void Continue()
     {
         // 미니맵 씬으로
-        SceneManager.LoadScene("TestMiniMap");
+        LoadSceneManager.Instance.LoadScene(1);
     }
 
     IEnumerator SliderSmoothing(float targetValue)

@@ -11,6 +11,7 @@ public class CharacterUIPool : MonoBehaviour
 
     public void Initialize()
     {
+        parentTransform = FindAnyObjectByType<CharacterStatusGroupUI>().transform;
         BattleManager battleManager = GameManager.Instance.BattleManager;
         List<Character> temp = battleManager.PlayerParty.Concat(battleManager.EnemyParty).ToList();
         foreach (Character c in temp)

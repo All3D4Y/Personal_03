@@ -86,7 +86,7 @@ public class MapPoint : MonoBehaviour
             // 전투씬 로드
             GameManager.Instance.CurrentPosition = new CurrentPosition(index, route);
             StageDataManager.Instance.CurrentStage = stageData;
-            LoadSceneManager.Instance.LoadScene(1);
+            LoadSceneManager.Instance.LoadScene(2);
         }
         isMoved = true;
     }

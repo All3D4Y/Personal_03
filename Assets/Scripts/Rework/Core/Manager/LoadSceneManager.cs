@@ -17,7 +17,7 @@ public class LoadSceneManager : Singleton<LoadSceneManager>
     protected override void OnPreInitialize()
     {
         base.OnPreInitialize();
-        waitTime = new WaitForSeconds(1.0f);
+        waitTime = new WaitForSeconds(0.5f);
     }
 
     protected override void OnInitialize()
@@ -41,7 +41,7 @@ public class LoadSceneManager : Singleton<LoadSceneManager>
 
     IEnumerator FadeIn(int sceneIndex)
     {
-        if (sceneIndex == 1)
+        if (sceneIndex == 2)
             loadText.enabled = true;
         else
             loadText.enabled = false;

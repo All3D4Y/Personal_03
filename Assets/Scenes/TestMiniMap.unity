@@ -237,6 +237,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 47790235}
+  - component: {fileID: 47790236}
   m_Layer: 5
   m_Name: BackToMain
   m_TagString: Untagged
@@ -264,6 +265,18 @@ RectTransform:
   m_AnchoredPosition: {x: -20, y: -20}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 1, y: 1}
+--- !u!114 &47790236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 47790234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8695f3e465e1214c8ce75e6e45c0ad5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &108721822
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -697,17 +710,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aa35921d0daf40946bfe32d341b15739, type: 3}
---- !u!114 &308316908 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7086804764651173289, guid: aa35921d0daf40946bfe32d341b15739, type: 3}
-  m_PrefabInstance: {fileID: 308316907}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec8771b9e6d106a438f7d5b3014d41a7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &600425439
 GameObject:
   m_ObjectHideFlags: 0
@@ -789,19 +791,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 600425442}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 308316908}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: LoadScene
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 2
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &600425442
 MonoBehaviour:
   m_ObjectHideFlags: 0

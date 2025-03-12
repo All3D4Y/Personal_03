@@ -102,6 +102,12 @@ public class BattleUIManager : GroupUIBase
         skillGroupUI.Clear();
     }
 
+    public void TransparentAllUI()
+    {
+        characterStatusGroupUI.OnTransparent();
+        OnTransparent();
+    }
+
     void OnSwitch()
     {
         switchGroupUI.OnVisible();
