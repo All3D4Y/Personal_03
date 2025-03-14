@@ -5,13 +5,14 @@ using UnityEngine;
 
 public class Minimap : MonoBehaviour
 {
-    List<MapPoint> points;
-    CurrentPositionMark mark;
+    List<MapPoint> points;      // 지점들
+    CurrentPositionMark mark;   // 현재 위치 표시 마크
 
     void Awake()
     {
         // points 초기화하기
         points = new List<MapPoint>();
+
         Transform child = transform.GetChild(0);
         for (int i = 0; i < child.childCount; i++)
         {
@@ -31,13 +32,13 @@ public class Minimap : MonoBehaviour
             p.onClickPoint += OnMoveCurrentMark;
         }
 
-        if (GameManager.Instance.CurrentPosition == null)
+        if (GameManager.Instance.CurrentPosition == null)   // GameManager에 현재 위치가 null 이다 -> 게임을 처음 시작했다
+        {                                                 
+            points.Find(p => p.isStart).IsCurrent = true;   // 시작 위치를 현재 위치로
+        }                                                 
+        else                                                // null이 아니다 -> 진행 한 적이 있다
         {
-            points.Find(p => p.isStart).IsCurrent = true;
-        }
-        else
-        {
-            Initialize();
+            Initialize();                                   // 초기화 실행
         }
 
         if (points.Find(p => p.IsCurrent) != null)
@@ -47,6 +48,9 @@ public class Minimap : MonoBehaviour
         DrawLines();
     }
 
+    /// <summary>
+    /// 초기화
+    /// </summary>
     public void Initialize()
     {
         if (GameManager.Instance.CurrentPosition != null)
@@ -63,6 +67,10 @@ public class Minimap : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 현재 위치 표시 UI를 이동시키는 함수
+    /// </summary>
+    /// <param name="point">이동할 지점</param>
     public void OnMoveCurrentMark(MapPoint point)
     {
         points.Find(p => p.IsCurrent).IsCurrent = false;
@@ -70,6 +78,9 @@ public class Minimap : MonoBehaviour
         point.IsCurrent = true;
     }
 
+    /// <summary>
+    /// 현재 위치에서 이동 가능한 지점을 하이라이트 표시
+    /// </summary>
     public void ValidPoint()
     {
         MapPoint current = points.Find(p => p.IsCurrent);
@@ -151,6 +162,9 @@ public class Minimap : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 길을 표시하기 위해 지점들 사이에 선을 그리는 함수
+    /// </summary>
     public void DrawLines()
     {
         foreach (MapPoint point in points)
