@@ -127,9 +127,11 @@ public class SlotManager
 #endif
         }
         else
+        {
 #if UNITY_EDITOR
             Debug.LogWarning($"{fromSlotIndex}번 째 슬롯에는 이동할 캐릭터가 없습니다!"); 
 #endif
+        }
     }
 
     /// <summary>

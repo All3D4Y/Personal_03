@@ -68,9 +68,11 @@ public class ItemManager : Singleton<ItemManager>
                 }
             }
             else
+            {
 #if UNITY_EDITOR
                 Debug.LogWarning($"{item}의 보유량이 부족해 아이템 사용에 실패했습니다!"); 
 #endif
+            }
         }
     }
 }
